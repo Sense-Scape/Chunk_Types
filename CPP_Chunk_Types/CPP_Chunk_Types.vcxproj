@@ -142,11 +142,13 @@
     <ClCompile Include="BaseChunk.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TimeChunk.cpp" />
+    <ClCompile Include="UDPChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="ChunkTypes.h" />
     <ClInclude Include="TimeChunk.h" />
+    <ClInclude Include="UDPChunk.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
