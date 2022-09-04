@@ -1,3 +1,0 @@
-.vs/*
-x64/*
-CPP_Chunk_Types/x64/*
