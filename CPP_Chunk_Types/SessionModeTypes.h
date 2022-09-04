@@ -17,4 +17,22 @@ enum class SessionModeTypes
 	SM_SeqStateSize_1	//Session mode containing Sequence Number, Tx State, Size of data field.
 };
 
+/*
+* Session Mode 1
+*
+* Ordered data layout where the number is the byte position in the and the type
+* is the type being read.
+* 
+* unsigned m_uSequenceNumber;
+* char m_cTransmissionState;
+* unsigned m_uTransmissionSize;
+*
+*/
+struct SessionMode_1
+{
+	SessionModeTypes m_SessionModeType = SessionModeTypes::SM_SeqStateSize_1;
+	unsigned m_uSequenceNumber = 0;
+	char m_cTransmissionState = 4;
+	unsigned m_uTransmissionSize = 5;
+};
 #endif
