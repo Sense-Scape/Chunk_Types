@@ -14,8 +14,8 @@ class UDPChunk : public BaseChunk
 {
 
 public:
-    std::vector<char> m_cvDataChunk;    ///< Vector of UDP data
-    unsigned m_uChunkLength;            ///< Length of UDP data
+    std::vector<char> m_cvDataChunk;     ///< Vector of UDP data
+    unsigned m_uChunkLength;                ///< Length of UDP data
 
     /**
      * @brief Construct a new Time Chunk object
@@ -30,7 +30,7 @@ public:
      *
      * @return ChunkType
      */
-    ChunkType getChunkType() override { return ChunkType::UDPChunk; };
+    virtual ChunkType getChunkType() override { return ChunkType::UDPChunk; };
 };
 
 #endif
