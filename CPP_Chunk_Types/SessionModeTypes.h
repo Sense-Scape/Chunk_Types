@@ -20,7 +20,7 @@
 enum class SessionModeTypes
 {
 	SM_BaseMode,
-	SM_SeqStateSize_1	//Session mode containing Sequence Number, Tx State, Size of data field.
+	WAVSession		///< Session mode containing Sequence Number, Tx State, Size of data field. Used for teh WAV TX Sesion
 };
 
 
@@ -47,13 +47,15 @@ public:
 * unsigned m_uTransmissionSize;
 *
 */
-class SessionMode_1 : public SessionModeBase
+class WAVSessionMode : public SessionModeBase
 {
 public:
-	std::pair<unsigned,unsigned> m_puSequenceNumber = std::make_pair(0,0);
-	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);;
-	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5,0);;
+	std::pair<unsigned,unsigned> m_puSequenceNumber = std::make_pair(0,0);		///< Map of sequence number (byte position and value)
+	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);			///< Map of transmission state (byte position and value)
+	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5,0);   ///< Map of transmission data size (byte position and value)
+	unsigned m_uPreviousSequenceNumber = 0;										///< Unsigned previosuly received sequence number
+	unsigned m_uDataStartPosition = 9;											///< Starting position of data bytes
 
-	SessionMode_1() : SessionModeBase(SessionModeTypes::SM_SeqStateSize_1) {};
+	WAVSessionMode() : SessionModeBase(SessionModeTypes::WAVSession) {};
 };
 #endif

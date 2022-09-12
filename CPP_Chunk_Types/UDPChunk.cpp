@@ -2,7 +2,7 @@
 
 UDPChunk::UDPChunk(unsigned m_uChunkLength) : BaseChunk(),
 												m_uChunkLength(m_uChunkLength),
-												m_cvDataChunk()
+												m_vcDataChunk()
 {
-	m_cvDataChunk.reserve(m_uChunkLength);
+	m_vcDataChunk.resize(m_uChunkLength);
 }

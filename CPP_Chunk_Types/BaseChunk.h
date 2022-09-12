@@ -1,6 +1,11 @@
 #ifndef BASECHUNK
 #define BASECHUNK
 
+/*Standard Includes*/
+#include <stdint.h>
+#include <vector>
+
+/*Custom Includes*/
 #include "ChunkTypes.h"
 
 /**

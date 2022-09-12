@@ -15,7 +15,8 @@ enum class ChunkType
 {
     ChunkBase,
     UDPChunk,
-    TimeChunkWAV
+    TimeChunk,
+    WAVChunk
 };
 
 #endif

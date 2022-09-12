@@ -143,6 +143,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TimeChunk.cpp" />
     <ClCompile Include="UDPChunk.cpp" />
+    <ClCompile Include="WAVChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseChunk.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="TimeChunk.h" />
     <ClInclude Include="SessionModeTypes.h" />
     <ClInclude Include="UDPChunk.h" />
+    <ClInclude Include="WAVChunk.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

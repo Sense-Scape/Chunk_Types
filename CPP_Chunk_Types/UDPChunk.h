@@ -14,7 +14,7 @@ class UDPChunk : public BaseChunk
 {
 
 public:
-    std::vector<char> m_cvDataChunk;     ///< Vector of UDP data
+    std::vector<char> m_vcDataChunk;        ///< Vector of UDP data
     unsigned m_uChunkLength;                ///< Length of UDP data
 
     /**

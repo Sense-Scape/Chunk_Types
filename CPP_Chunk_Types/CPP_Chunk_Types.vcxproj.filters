@@ -27,6 +27,9 @@
     <ClCompile Include="UDPChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WAVChunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseChunk.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SessionModeTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WAVChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
