@@ -1,6 +1,8 @@
 #include "WAVChunk.h"
 
-WAVChunk::WAVChunk()
+WAVChunk::WAVChunk() : BaseChunk(),
+					m_sWAVHeader(),
+					m_vdData()
 {
 
 }
