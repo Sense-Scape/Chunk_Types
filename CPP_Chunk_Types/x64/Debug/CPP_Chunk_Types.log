@@ -1,8 +1,8 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (SC_Chunk_Types.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   BaseChunk.cpp
-  Main.cpp
   TimeChunk.cpp
   UDPChunk.cpp
   WAVChunk.cpp
   Generating Code...
+Main.obj : warning LNK4006: main already defined in Source.obj; second definition ignored
   CPP_Chunk_Types.vcxproj -> C:\Users\Grant\Documents\SoundScape\Cpp_Web_Server\x64\Debug\CPP_Chunk_Types.lib

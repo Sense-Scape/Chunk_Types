@@ -141,6 +141,8 @@
   <ItemGroup>
     <ClCompile Include="BaseChunk.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Source1.cpp" />
     <ClCompile Include="TimeChunk.cpp" />
     <ClCompile Include="UDPChunk.cpp" />
     <ClCompile Include="WAVChunk.cpp" />

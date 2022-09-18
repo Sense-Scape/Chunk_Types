@@ -30,7 +30,7 @@ public:
      *
      * @return ChunkType
      */
-    virtual ChunkType getChunkType() override { return ChunkType::UDPChunk; };
+    virtual ChunkType GetChunkType() override { return ChunkType::UDPChunk; };
 };
 
 #endif

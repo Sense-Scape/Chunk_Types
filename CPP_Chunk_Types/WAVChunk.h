@@ -37,10 +37,27 @@ public:
     WAVHeader m_sWAVHeader;
     std::vector<double> m_vdData;
 
+    /*
+    * @brief Constructor
+    */
     WAVChunk();
 
-    ChunkType getChunkType() override { return ChunkType::WAVChunk; };
+    /*
+    * @brief Returns the derived chunk type
+    * @param[out] ChunkType of type WAVChunk
+    */
+    ChunkType GetChunkType() override { return ChunkType::WAVChunk; };
 
+    /*
+    * @brief unpacks WAV data into indivudal vectors of channel data
+    * @param[in] pvvdUnpackedWAVData shared pointer to vector of vectors of doubles
+    */
+    void UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData);
+
+    /*
+    * @brief Converts an array of 44 chars in to WAVHeader structure
+    * @param[out] returns a WAVHeader structure
+    */
     static WAVHeader BytesToWAVHeader(std::vector<char>& vcWAVHeader);
 };
 

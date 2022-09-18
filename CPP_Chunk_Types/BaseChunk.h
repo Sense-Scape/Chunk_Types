@@ -2,6 +2,7 @@
 #define BASECHUNK
 
 /*Standard Includes*/
+#include <memory>
 #include <stdint.h>
 #include <vector>
 
@@ -37,7 +38,7 @@ public:
      *
      * @return ChunkType ChunkType of chunk
      */
-    virtual ChunkType getChunkType() { return ChunkType::ChunkBase; };
+    virtual ChunkType GetChunkType() { return ChunkType::ChunkBase; };
 };
 
 #endif

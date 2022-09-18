@@ -52,3 +52,21 @@ WAVHeader WAVChunk::BytesToWAVHeader(std::vector<char>& vcWAVHeader)
 
    return sWAVHeader;
 }
+
+void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData)
+{
+	// Resizing and reserving unpacked vector to increase speed
+	pvvdUnpackedWAVData->resize(m_sWAVHeader.NumOfChan);
+	for (unsigned uChannelIndex = 0; uChannelIndex < m_sWAVHeader.NumOfChan; uChannelIndex++)
+		(*pvvdUnpackedWAVData)[uChannelIndex].reserve(m_sWAVHeader.Subchunk2Size/ m_sWAVHeader.NumOfChan);
+
+	unsigned uChannelIndex = 0;
+
+	// Unpacking data into individual channels
+	for (unsigned uDataIndex = 0; uDataIndex < m_vdData.size(); uDataIndex++)
+	{
+		(*pvvdUnpackedWAVData)[uChannelIndex].emplace_back(m_vdData[uDataIndex]);
+		if (uChannelIndex >= m_sWAVHeader.NumOfChan - 1)
+			uChannelIndex = 0;
+	}
+}

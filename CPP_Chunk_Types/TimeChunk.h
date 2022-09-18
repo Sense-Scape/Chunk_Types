@@ -48,7 +48,7 @@ public:
      *
      * @return ChunkType
      */
-    ChunkType getChunkType() override { return ChunkType::UDPChunk; };
+    ChunkType GetChunkType() override { return ChunkType::UDPChunk; };
 };
 
 #endif
