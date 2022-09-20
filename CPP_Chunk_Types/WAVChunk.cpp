@@ -7,6 +7,12 @@ WAVChunk::WAVChunk() : BaseChunk(),
 
 }
 
+WAVChunk::WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk)
+{
+	m_sWAVHeader = pWAVChunk->m_sWAVHeader;
+	m_vdData = pWAVChunk->m_vdData;
+}
+
 WAVHeader WAVChunk::BytesToWAVHeader(std::vector<char>& vcWAVHeader)
 {
 	WAVHeader sWAVHeader;
@@ -53,6 +59,38 @@ WAVHeader WAVChunk::BytesToWAVHeader(std::vector<char>& vcWAVHeader)
    return sWAVHeader;
 }
 
+std::shared_ptr<std::vector<char>> WAVChunk::WAVHeaderToBytes()
+{
+	auto pvcByteData = std::make_shared<std::vector<char>>();
+	pvcByteData->resize(44);
+
+	std::memcpy(&(*pvcByteData)[0], &m_sWAVHeader.RIFF, sizeof(m_sWAVHeader.RIFF));                    // 0-3
+	std::memcpy(&(*pvcByteData)[4], &m_sWAVHeader.ChunkSize, sizeof(m_sWAVHeader.ChunkSize));          // 4-7
+	std::memcpy(&(*pvcByteData)[8], &m_sWAVHeader.WAVE, sizeof(m_sWAVHeader.WAVE));                    // 8-11
+	std::memcpy(&(*pvcByteData)[12], &m_sWAVHeader.fmt, sizeof(m_sWAVHeader.fmt));                     // 12-15
+	std::memcpy(&(*pvcByteData)[16], &m_sWAVHeader.Subchunk1Size, sizeof(m_sWAVHeader.Subchunk1Size)); // 16-19
+	std::memcpy(&(*pvcByteData)[20], &m_sWAVHeader.AudioFormat, sizeof(m_sWAVHeader.AudioFormat));     // 20-21
+	std::memcpy(&(*pvcByteData)[22], &m_sWAVHeader.NumOfChan, sizeof(m_sWAVHeader.NumOfChan));         // 22-23
+	std::memcpy(&(*pvcByteData)[24], &m_sWAVHeader.SamplesPerSec, sizeof(m_sWAVHeader.SamplesPerSec)); // 24-27
+	std::memcpy(&(*pvcByteData)[28], &m_sWAVHeader.bytesPerSec, sizeof(m_sWAVHeader.bytesPerSec));     // 28-31
+	std::memcpy(&(*pvcByteData)[32], &m_sWAVHeader.blockAlign, sizeof(m_sWAVHeader.blockAlign));       // 32-33
+	std::memcpy(&(*pvcByteData)[34], &m_sWAVHeader.bitsPerSample, sizeof(m_sWAVHeader.bitsPerSample)); // 34-35
+	std::memcpy(&(*pvcByteData)[36], &m_sWAVHeader.Subchunk2ID, sizeof(m_sWAVHeader.Subchunk2ID));     // 36-40
+	std::memcpy(&(*pvcByteData)[40], &m_sWAVHeader.Subchunk2Size, sizeof(m_sWAVHeader.Subchunk2Size)); // 41-44
+
+	return pvcByteData;
+}
+
+void WAVChunk::FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes)
+{
+	// Converting the following sets of bytes to big endian
+	std::reverse((*pvcWAVHeaderBytes)[0], (*pvcWAVHeaderBytes)[3]);		// RIFF
+	std::reverse((*pvcWAVHeaderBytes)[4], (*pvcWAVHeaderBytes)[7]);		// fmt
+	std::reverse((*pvcWAVHeaderBytes)[19], (*pvcWAVHeaderBytes)[19]);	// subChunk1
+	std::reverse((*pvcWAVHeaderBytes)[36], (*pvcWAVHeaderBytes)[40]);	// subChunk2
+}
+
+
 void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData)
 {
 	// Resizing and reserving unpacked vector to increase speed
@@ -66,7 +104,7 @@ void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> p
 	for (unsigned uDataIndex = 0; uDataIndex < m_vdData.size(); uDataIndex++)
 	{
 		(*pvvdUnpackedWAVData)[uChannelIndex].emplace_back(m_vdData[uDataIndex]);
-		if (uChannelIndex >= m_sWAVHeader.NumOfChan - 1)
+		if (uChannelIndex > m_sWAVHeader.NumOfChan )
 			uChannelIndex = 0;
 	}
 }

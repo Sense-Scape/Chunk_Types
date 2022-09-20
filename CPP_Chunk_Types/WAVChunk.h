@@ -2,6 +2,7 @@
 #define WAVCHUNK
 
 /*Standard Includes*/
+#include <algorithm>
 
 /*Custom Includes*/
 #include "BaseChunk.h"
@@ -41,6 +42,7 @@ public:
     * @brief Constructor
     */
     WAVChunk();
+    WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk);
 
     /*
     * @brief Returns the derived chunk type
@@ -59,6 +61,18 @@ public:
     * @param[out] returns a WAVHeader structure
     */
     static WAVHeader BytesToWAVHeader(std::vector<char>& vcWAVHeader);
+
+    /*
+    * @brief Converts a WAV header into a array of 44 chars 
+    * @param[out] shared pointer to vector of byes
+    */
+    std::shared_ptr<std::vector<char>> WAVHeaderToBytes();
+
+    /*
+    * @brief Converts all little endian byte representation into partially big endian as per WAV header structure
+    * @param[in] pointer to wav header bytes
+    */
+    static void FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes);
 };
 
 

@@ -23,6 +23,7 @@ public:
      *
      */
     BaseChunk();
+    BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk);
 
     /**
      * @brief Construct a new Base Chunk object

@@ -23,6 +23,7 @@ public:
      * @param timeChunk
      */
     UDPChunk(unsigned uChunkLength);
+    UDPChunk(std::shared_ptr<UDPChunk> pUDPChunk);
     ~UDPChunk() {};
 
     /**

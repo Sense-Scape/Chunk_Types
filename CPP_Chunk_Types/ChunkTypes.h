@@ -6,7 +6,6 @@
 
 /*Custom Includes*/
 
-
 /*
 * List of enumerated chunk types.
 * 
@@ -23,28 +22,6 @@ enum class ChunkType
     UDPChunk,
     TimeChunk,
     WAVChunk
-};
-
-class ChunkTypeStrings
-{
-public:
-
-    ChunkTypeStrings() {};
-    ~ChunkTypeStrings() {};
-
-    static std::string toString(ChunkType eChunkType)
-    {
-        switch (eChunkType)
-        {
-            case ChunkType::ChunkBase: return "ChunkBase";
-            case ChunkType::UDPChunk:  return "UDPChunk";
-            case ChunkType::TimeChunk: return "TimeChunk";
-            case ChunkType::WAVChunk:  return "WAVChunk";
-
-            default: return "Unknown Chunk";
-        }
-            
-    }
 };
 
 #endif

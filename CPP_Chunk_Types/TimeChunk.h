@@ -41,6 +41,7 @@ public:
      * @param timeChunk
      */
     TimeChunk(const TimeChunk& timeChunk);
+    TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk);
     ~TimeChunk() {};
 
     /**
