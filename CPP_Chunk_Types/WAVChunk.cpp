@@ -84,10 +84,10 @@ std::shared_ptr<std::vector<char>> WAVChunk::WAVHeaderToBytes()
 void WAVChunk::FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes)
 {
 	// Converting the following sets of bytes to big endian
-	std::reverse((*pvcWAVHeaderBytes)[0], (*pvcWAVHeaderBytes)[3]);		// RIFF
-	std::reverse((*pvcWAVHeaderBytes)[4], (*pvcWAVHeaderBytes)[7]);		// fmt
-	std::reverse((*pvcWAVHeaderBytes)[19], (*pvcWAVHeaderBytes)[19]);	// subChunk1
-	std::reverse((*pvcWAVHeaderBytes)[36], (*pvcWAVHeaderBytes)[40]);	// subChunk2
+	std::reverse(&(*pvcWAVHeaderBytes)[0], &(*pvcWAVHeaderBytes)[3]);		// RIFF
+	std::reverse(&(*pvcWAVHeaderBytes)[4], &(*pvcWAVHeaderBytes)[7]);		// fmt
+	std::reverse(&(*pvcWAVHeaderBytes)[19], &(*pvcWAVHeaderBytes)[19]);	// subChunk1
+	std::reverse(&(*pvcWAVHeaderBytes)[36], &(*pvcWAVHeaderBytes)[40]);	// subChunk2
 }
 
 
