@@ -36,7 +36,7 @@ private:
 
 public:
     WAVHeader m_sWAVHeader;
-    std::vector<double> m_vdData;
+    std::vector<float> m_vfData;
 
     /*
     * @brief Constructor
@@ -67,12 +67,6 @@ public:
     * @param[out] shared pointer to vector of byes
     */
     std::shared_ptr<std::vector<char>> WAVHeaderToBytes();
-
-    /*
-    * @brief Converts all little endian byte representation into partially big endian as per WAV header structure
-    * @param[in] pointer to wav header bytes
-    */
-    static void FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes);
 };
 
 

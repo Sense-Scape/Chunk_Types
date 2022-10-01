@@ -54,7 +54,7 @@ public:
 	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);			///< Map of transmission state (byte position and value)
 	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5,0);   ///< Map of transmission data size (byte position and value)
 	unsigned m_uPreviousSequenceNumber = 0;										///< Unsigned previosuly received sequence number
-	unsigned m_uDataStartPosition = 9;											///< Starting position of data bytes
+	unsigned m_uDataStartPosition = 12;											///< Starting position of data bytes
 
 	WAVSessionMode() : SessionModeBase(SessionModeTypes::WAVSession) {};
 };
