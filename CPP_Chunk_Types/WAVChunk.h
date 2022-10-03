@@ -37,11 +37,12 @@ private:
 public:
     WAVHeader m_sWAVHeader;
     std::vector<float> m_vfData;
+    std::string m_sMACAddress;
 
     /*
     * @brief Constructor
     */
-    WAVChunk();
+    WAVChunk(std::string sMACAddress);
     WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk);
 
     /*
@@ -67,6 +68,12 @@ public:
     * @param[out] shared pointer to vector of byes
     */
     std::shared_ptr<std::vector<char>> WAVHeaderToBytes();
+
+    /*
+    * @brief Converts all little endian byte representation into partially big endian as per WAV header structure
+    * @param[in] pointer to wav header bytes
+    */
+    static void FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes);
 };
 
 

@@ -1,9 +1,10 @@
 #include "WAVChunk.h"
 #include <iostream>
 
-WAVChunk::WAVChunk() : BaseChunk(),
-					m_sWAVHeader(),
-					m_vfData()
+WAVChunk::WAVChunk(std::string sMACAddress) : BaseChunk(),
+												m_sWAVHeader(),
+												m_vfData(),
+												m_sMACAddress(sMACAddress)
 {
 
 }
@@ -12,6 +13,7 @@ WAVChunk::WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk)
 {
 	m_sWAVHeader = pWAVChunk->m_sWAVHeader;
 	m_vfData = pWAVChunk->m_vfData;
+	m_sMACAddress = pWAVChunk->m_sMACAddress;
 }
 
 WAVHeader WAVChunk::BytesToWAVHeader(std::vector<char>& vcWAVHeader)
@@ -71,6 +73,16 @@ std::shared_ptr<std::vector<char>> WAVChunk::WAVHeaderToBytes()
 
 	return pvcByteData;
 }
+
+void WAVChunk::FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes)
+{
+	// Converting the following sets of bytes to big endian
+	std::reverse(pvcWAVHeaderBytes->begin()+0, pvcWAVHeaderBytes->begin()+4);		// RIFF
+	std::reverse(pvcWAVHeaderBytes->begin()+8, pvcWAVHeaderBytes->begin()+12);		// fmt
+	std::reverse(pvcWAVHeaderBytes->begin()+12, pvcWAVHeaderBytes->begin()+16);	// subChunk1
+	std::reverse(pvcWAVHeaderBytes->begin()+36, pvcWAVHeaderBytes->begin()+41);	// subChunk2
+}
+
 
 void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData)
 {
