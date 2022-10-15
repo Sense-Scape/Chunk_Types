@@ -10,7 +10,7 @@
 #include "ChunkTypes.h"
 
 /**
- * @brief BaseChunk used to store the basic data storage component metadata
+ * @brief BaseChunk used to store the basic data storage component meta-data
  */
 class BaseChunk
 {

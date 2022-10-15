@@ -101,3 +101,20 @@ void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> p
 			uChannelIndex = 0;
 	}
 }
+
+std::string WAVChunk::GetHeaderString()
+{
+	std::string sHeaderData = "";
+	
+	sHeaderData += "ChunkSize: " + std::to_string(m_sWAVHeader.ChunkSize) + "\n";
+	sHeaderData += "Subchunk1Size: " + std::to_string(m_sWAVHeader.Subchunk1Size) + "\n";
+	sHeaderData += "AudioFormat: " + std::to_string(m_sWAVHeader.AudioFormat) + "\n";
+	sHeaderData += "NumOfChan: " + std::to_string(m_sWAVHeader.NumOfChan) + "\n";
+	sHeaderData += "SamplesPerSec: " + std::to_string(m_sWAVHeader.SamplesPerSec) + "\n";
+	sHeaderData += "bytesPerSec: " + std::to_string(m_sWAVHeader.bytesPerSec) + "\n";
+	sHeaderData += "blockAlign: " + std::to_string(m_sWAVHeader.blockAlign) + "\n";
+	sHeaderData += "bitsPerSample: " + std::to_string(m_sWAVHeader.bitsPerSample) + "\n";
+	sHeaderData += "Subchunk2Size: " + std::to_string(m_sWAVHeader.Subchunk2Size) + "\n";
+
+	return sHeaderData;
+}

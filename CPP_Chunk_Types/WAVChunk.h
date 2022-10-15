@@ -74,6 +74,11 @@ public:
     * @param[in] pointer to wav header bytes
     */
     static void FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHeaderBytes);
+
+    /*
+    * @brief Prints out header data
+    */
+    std::string GetHeaderString();
 };
 
 
