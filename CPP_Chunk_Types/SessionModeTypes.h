@@ -74,7 +74,7 @@ public:
 		m_puTransmissionSize.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puTransmissionSize.first]));
 		m_pcTransmissionState.second = *(reinterpret_cast<char*>(&pUDPChunk->m_vcDataChunk[m_pcTransmissionState.first]));
 
-		// If the MAC address has been set, dont parse again
+		// If the MAC address has been set, don't parse again
 		if (m_pusMacUID.second == "")
 		{
 			// Parse and convert each byte to base 10 string to uniquely identify process
