@@ -5,6 +5,7 @@
 #include <memory>
 #include <stdint.h>
 #include <vector>
+#include <cstring> // for memcpy
 
 /*Custom Includes*/
 #include "ChunkTypes.h"
