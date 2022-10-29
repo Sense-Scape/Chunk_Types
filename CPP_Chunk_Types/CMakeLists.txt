@@ -35,5 +35,4 @@ target_sources(Cpp_Chunk_Types
 				UDPChunk.h
 				UDPChunk.cpp
 				WAVChunk.h
-				WAVChunkcpp
 				)

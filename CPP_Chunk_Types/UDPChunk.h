@@ -14,8 +14,8 @@ class UDPChunk : public BaseChunk
 {
 
 public:
-    std::vector<char> m_vcDataChunk;        ///< Vector of UDP data
     unsigned m_uChunkLength;                ///< Length of UDP data
+    std::vector<char> m_vcDataChunk;        ///< Vector of UDP data
 
     /**
      * @brief Construct a new Time Chunk object
