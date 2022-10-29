@@ -21,8 +21,8 @@ public:
     double m_dSampleRate;                                          ///< Sample rate used to obtain data in chunk
     double m_dTimeStamp;                                           ///< Timestamp of when chunk was taken
     unsigned m_uBits;                                              ///< Bits of ADC used to produce chunk
+	unsigned m_uNumBytes;                                          ///< Number of bytes in single sample
     unsigned m_uNumChannels;                                       ///< Number of audio channels in chunk
-    unsigned m_uNumBytes;                                          ///< Number of bytes in single sample
     std::vector<std::vector<std::vector<double>>> m_vvvdTimeChunk; ///< Vector of ADCChannelSamples corresponding to active ADCs
 
     /**
