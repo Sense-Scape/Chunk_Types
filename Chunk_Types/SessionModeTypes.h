@@ -67,7 +67,7 @@ public:
 	*/
 	void CovertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) override
 	{
-		auto pUDPChunk = std::dynamic_pointer_cast<UDPChunk>(pBaseChunk);
+		auto pUDPChunk = std::static_pointer_cast<UDPChunk>(pBaseChunk);
 
 		// Parse and update processing states
 		m_puSequenceNumber.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puSequenceNumber.first]));

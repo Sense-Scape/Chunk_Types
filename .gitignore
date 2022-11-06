@@ -6,5 +6,6 @@ Debug/
 Release/
 x64/
 
-# 
+# Other
 build/
+build_ESP32/
