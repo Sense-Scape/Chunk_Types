@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{5583b73c-eb54-4cb6-86e1-439a4b9a9315}</ProjectGuid>
-    <RootNamespace>SCChunkTypes</RootNamespace>
+    <RootNamespace>Chunk_Types</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,15 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -148,19 +152,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseChunk.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="TimeChunk.cpp" />
     <ClCompile Include="UDPChunk.cpp" />
     <ClCompile Include="WAVChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseChunk.h" />
-    <ClInclude Include="ChunkTypes.h" />
-    <ClInclude Include="ChunkTypesUtility.h" />
-    <ClInclude Include="TimeChunk.h" />
-    <ClInclude Include="SessionModeTypes.h" />
-    <ClInclude Include="UDPChunk.h" />
-    <ClInclude Include="WAVChunk.h" />
+    <ClInclude Include="include/BaseChunk.h" />
+    <ClInclude Include="include/ChunkTypes.h" />
+    <ClInclude Include="include/ChunkTypesUtility.h" />
+    <ClInclude Include="include/TimeChunk.h" />
+    <ClInclude Include="include/SessionModeTypes.h" />
+    <ClInclude Include="include/UDPChunk.h" />
+    <ClInclude Include="include/WAVChunk.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
