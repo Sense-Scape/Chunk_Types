@@ -23,7 +23,7 @@ public:
      * @brief Default constructor for a new Base Chunk object
      *
      */
-    BaseChunk();
+    BaseChunk() {};
     BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk);
 
     /**

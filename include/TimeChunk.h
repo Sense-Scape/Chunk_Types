@@ -7,7 +7,7 @@
 #include <complex>
 
 /*Custom Includes*/
-#include "./BaseChunk.h"
+#include "BaseChunk.h"
 
 /**
  * @brief Complex Time Data Chunk used to store all samples data from the

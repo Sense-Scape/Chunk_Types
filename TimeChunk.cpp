@@ -1,4 +1,4 @@
-#include "./TimeChunk.h"
+#include "TimeChunk.h"
 
 TimeChunk::TimeChunk(double dChunkSize, double dSampleRate, double dTimeStamp, unsigned uBits, unsigned uNumBytes) : BaseChunk(),
 m_dChunkSize(dChunkSize),
