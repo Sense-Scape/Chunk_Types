@@ -1,10 +1,10 @@
-#ifndef UDPCHUNK
-#define	UDPCHUNK
+#ifndef UDP_CHUNK
+#define	UDP_CHUNK
 
-/*Standard Includes*/
+/* Standard Includes */
 #include <vector>
 
-/*Custom Includes*/
+/* Custom Includes */
 #include "BaseChunk.h"
 
 /**
@@ -19,8 +19,7 @@ public:
 
     /**
      * @brief Construct a new Time Chunk object
-     *
-     * @param timeChunk
+     * @param timeChunk pointer to time chunk
      */
     UDPChunk(unsigned uChunkLength);
     UDPChunk(std::shared_ptr<UDPChunk> pUDPChunk);
@@ -28,7 +27,6 @@ public:
 
     /**
      * @brief Get the Chunk Type object
-     *
      * @return ChunkType
      */
     virtual ChunkType GetChunkType() override { return ChunkType::UDPChunk; };

@@ -1,10 +1,10 @@
-#ifndef CHUNKTYPES
-#define CHUNKTYPES
+#ifndef CHUNK_TYPES
+#define CHUNK_TYPES
 
-/*Standard Includes*/
+/* Standard Includes */
 #include <string>
 
-/*Custom Includes*/
+/* Custom Includes */
 
 /*
 * List of enumerated chunk types.

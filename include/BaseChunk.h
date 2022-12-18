@@ -1,13 +1,13 @@
-#ifndef BASECHUNK
-#define BASECHUNK
+#ifndef BASE_CHUNK
+#define BASE_CHUNK
 
-/*Standard Includes*/
+/* Standard Includes */
 #include <memory>
 #include <stdint.h>
 #include <vector>
 #include <cstring> // for memcpy
 
-/*Custom Includes*/
+/* Custom Includes */
 #include "ChunkTypes.h"
 
 /**
@@ -21,15 +21,13 @@ private:
 public:
     /**
      * @brief Default constructor for a new Base Chunk object
-     *
      */
     BaseChunk() {};
     BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk);
 
     /**
      * @brief Construct a new Base Chunk object
-     *
-     * @param baseChunk Reference to another BaseChunk
+     * @param[in] baseChunk Reference to another BaseChunk
      */
     BaseChunk(const BaseChunk& baseChunk);
 
@@ -37,7 +35,6 @@ public:
 
     /**
      * @brief Get the Type object
-     *
      * @return ChunkType ChunkType of chunk
      */
     virtual ChunkType GetChunkType() { return ChunkType::ChunkBase; };
