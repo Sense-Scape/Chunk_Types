@@ -18,12 +18,12 @@ TimeChunk::TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk)
     m_uBits = pTimeChunk->m_uBits;
     m_uNumBytes = pTimeChunk->m_uNumBytes;
     m_uNumChannels = pTimeChunk->m_uNumChannels;
-    m_vvvdTimeChunk = pTimeChunk->m_vvvdTimeChunk;
+    m_vvvfTimeChunk = pTimeChunk->m_vvvfTimeChunk;
 }
 
 TimeChunk::TimeChunk(const TimeChunk& timeChunk) : BaseChunk()
 {
-    m_vvvdTimeChunk = timeChunk.m_vvvdTimeChunk;
+    m_vvvfTimeChunk = timeChunk.m_vvvfTimeChunk;
     m_uBits = timeChunk.m_uBits;
     m_uNumChannels = timeChunk.m_uNumChannels;
 }
