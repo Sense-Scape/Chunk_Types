@@ -10,6 +10,7 @@
 /* Custom Includes */
 #include "ChunkTypes.h"
 
+
 /**
  * @brief BaseChunk used to store the basic data storage component meta-data
  */
@@ -38,6 +39,13 @@ public:
      * @return ChunkType ChunkType of chunk
      */
     virtual ChunkType GetChunkType() { return ChunkType::ChunkBase; };
+
+    /**
+     * @brief Serialisation function
+     */
+    template <class Archive>
+    void serialize( Archive & ar )
+    { ar( cereal::base_class<Parent>( this ) ); }
 };
 
 #endif
