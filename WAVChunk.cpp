@@ -111,9 +111,9 @@ std::string WAVChunk::GetHeaderString()
 	sHeaderData += "AudioFormat: " + std::to_string(m_sWAVHeader.AudioFormat) + "\n";
 	sHeaderData += "NumOfChan: " + std::to_string(m_sWAVHeader.NumOfChan) + "\n";
 	sHeaderData += "SamplesPerSec: " + std::to_string(m_sWAVHeader.SamplesPerSec) + "\n";
-	sHeaderData += "bytesPerSec: " + std::to_string(m_sWAVHeader.bytesPerSec) + "\n";
-	sHeaderData += "blockAlign: " + std::to_string(m_sWAVHeader.blockAlign) + "\n";
-	sHeaderData += "bitsPerSample: " + std::to_string(m_sWAVHeader.bitsPerSample) + "\n";
+	sHeaderData += "BytesPerSec: " + std::to_string(m_sWAVHeader.bytesPerSec) + "\n";
+	sHeaderData += "BlockAlign: " + std::to_string(m_sWAVHeader.blockAlign) + "\n";
+	sHeaderData += "BitsPerSample: " + std::to_string(m_sWAVHeader.bitsPerSample) + "\n";
 	sHeaderData += "Subchunk2Size: " + std::to_string(m_sWAVHeader.Subchunk2Size) + "\n";
 
 	return sHeaderData;

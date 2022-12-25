@@ -32,6 +32,19 @@ public:
         }
     }
 
+    static uint32_t toU32(ChunkType eChunkType)
+    {
+        switch (eChunkType)
+        {
+        case ChunkType::ChunkBase: return 1;
+        case ChunkType::UDPChunk:  return 2;
+        case ChunkType::TimeChunk: return 3;
+        case ChunkType::WAVChunk:  return 4;
+
+        default: return 0; // error
+        }
+    }
+
     static std::shared_ptr<BaseChunk> DuplicateDerivedChunk(std::shared_ptr<BaseChunk> pBaseChunk)
     {
         switch (pBaseChunk->GetChunkType())
