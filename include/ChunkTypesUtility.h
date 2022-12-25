@@ -1,17 +1,20 @@
 #ifndef CHUNK_TYPES_UTILITY
 #define CHUNK_TYPES_UTILITY
 
-/*Standard Includes*/
+/* Standard Includes */
 #include <iostream>
 #include <memory>
 #include <string>
 
-/*Custom Includes*/
+/* Custom Includes */
 #include "BaseChunk.h"
 #include "UDPChunk.h"   
 #include "TimeChunk.h"
 #include "WAVChunk.h"  
 
+/**
+ * @brief Class that facillitates conversion between emunerated chunk type and string
+ */
 class ChunkTypesUtility
 {
 public:

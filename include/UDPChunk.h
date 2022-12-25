@@ -1,10 +1,10 @@
 #ifndef UDP_CHUNK
 #define	UDP_CHUNK
 
-/*Standard Includes*/
+/* Standard Includes */
 #include <vector>
 
-/*Custom Includes*/
+/* Custom Includes */
 #include "BaseChunk.h"
 
 /**
