@@ -48,7 +48,7 @@ public:
      * @brief Get the Chunk Type object
      * @return[in] ChunkType of chunk
      */
-    ChunkType GetChunkType() override { return ChunkType::UDPChunk; };
+    ChunkType GetChunkType() override { return ChunkType::TimeChunk; };
 
     /**
      * @brief Get the size of object in bytes

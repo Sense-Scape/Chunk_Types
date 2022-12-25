@@ -11,15 +11,11 @@
 /* Custom Includes */
 #include "ChunkTypes.h"
 
-
 /**
  * @brief BaseChunk used to store the basic data storage component meta-data
  */
 class BaseChunk
 {
-
-private:
-
 public:
     /**
      * @brief Default constructor for a new Base Chunk object
