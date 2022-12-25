@@ -23,7 +23,7 @@ public:
     unsigned m_uBits;                                               ///< Bits of ADC used to produce chunk
 	unsigned m_uNumBytes;                                           ///< Number of bytes in single sample
     unsigned m_uNumChannels;                                        ///< Number of audio channels in chunk
-    std::vector<std::vector<std::vector<float>>> m_vvvfTimeChunk;   ///< Vector of ADCChannelSamples corresponding to active ADCs
+    std::vector<std::vector<float>> m_vvfTimeChunks;                ///< Vector of vectors corresponding to channel samples
 
     /**
      * @brief Construct a new Base Chunk object
@@ -31,8 +31,10 @@ public:
      * @param[in] dSampleRate The sample rate used to generate all data within the chunk
      * @param[in] dTimeStamp The time the chunk was created
      * @param[in] uBits Bits of ADC used to produce chunk
+     * @param[in] uNumBytes Number of bytes in single sample
+     * @param[in] uNumChannels Number of audio channels in chunk
      */
-    TimeChunk(double dChunkSize, double dSampleRate, double dTimeStamp, unsigned uBits, unsigned uNumBytes);
+    TimeChunk(double dChunkSize, double dSampleRate, double dTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
 
     /**
      * @brief Construct a new Time Chunk object
@@ -47,6 +49,24 @@ public:
      * @return[in] ChunkType of chunk
      */
     ChunkType GetChunkType() override { return ChunkType::UDPChunk; };
+
+    /**
+     * @brief Get the size of object in bytes
+     * @return Size of object in bytes
+     */
+    unsigned GetSize() override;
+
+    /**
+     * @brief Fill a byte array the represents this object
+     * @param[in] pByteArray Shared pointer to byte vector containing byte data
+     */
+    std::shared_ptr<std::vector<char>> Serialise() override;
+
+    /**
+     * @brief Converts byte array to object members
+     * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
+     */
+    void Deserialise(std::shared_ptr<std::vector<char>> pBytes) override;
 };
 
 #endif
