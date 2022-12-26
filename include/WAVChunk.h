@@ -35,14 +35,15 @@ class WAVChunk :
 private:
 
 public:
-    WAVHeader m_sWAVHeader;
-    std::vector<float> m_vfData;
-    std::string m_sMACAddress;
+    WAVHeader m_sWAVHeader;         ///< WAV header
+    std::vector<float> m_vfData;    ///< Time data corresponding to packed audio
+    std::string m_sMACAddress;      ///< MAC address of audio source
 
     /**
     * @brief Constructor
+    * @param[in] sMACAddress MAC address to uniquely identify source of audio
     */
-    WAVChunk(std::string sMACAddress);
+    WAVChunk(std::string sMACAddress = "");
     WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk);
 
     /**
