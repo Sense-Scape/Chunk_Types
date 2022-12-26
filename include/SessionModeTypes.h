@@ -20,7 +20,7 @@
 enum class SessionModeTypes
 {
 	SM_BaseMode,
-	WAVSession		///< Session mode containing Sequence Number, Tx State, Size of data field. Used for teh WAV TX Sesion
+	TimeChunkSession		///< Session mode containing Sequence Number, Tx State, Size of data field. Used for teh WAV TX Sesion
 };
 
 
@@ -49,17 +49,18 @@ public:
 * unsigned m_uTransmissionSize;
 *
 */
-class WAVSessionMode : public SessionModeBase
+class TimeChunkSessionMode : public SessionModeBase
 {
 public:
 	std::pair<unsigned,unsigned> m_puSequenceNumber = std::make_pair(0,0);							///< Map of sequence number (byte position and value)
 	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
 	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5,0);						///< Map of transmission data size (byte position and value)
-	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(9, "");							///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of transmission data size (unused ish)
+	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(13, "");							///< Map of transmission data size (byte position and value)
 	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
-	unsigned m_uDataStartPosition = 16;																///< Starting position of data bytes
+	unsigned m_uDataStartPosition = 20;																///< Starting position of data bytes
 
-	WAVSessionMode() : SessionModeBase(SessionModeTypes::WAVSession) {};
+	TimeChunkSessionMode() : SessionModeBase(SessionModeTypes::TimeChunkSession) {};
 
 	/**
 	* @brief converts array of bytes into session states
