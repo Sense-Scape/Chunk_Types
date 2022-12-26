@@ -13,6 +13,7 @@ m_uNumChannels(uNumChannels)
 
 TimeChunk::TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk)
 {
+    // untested
     m_dChunkSize = pTimeChunk->m_dChunkSize;
     m_dSampleRate = pTimeChunk->m_dSampleRate;
     m_dTimeStamp = pTimeChunk->m_dTimeStamp;
@@ -24,6 +25,7 @@ TimeChunk::TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk)
 
 TimeChunk::TimeChunk(const TimeChunk& timeChunk) : BaseChunk()
 {
+    // untested
     m_dChunkSize = timeChunk.m_dChunkSize;
     m_dSampleRate = timeChunk.m_dSampleRate;
     m_dTimeStamp = timeChunk.m_dTimeStamp;
