@@ -56,8 +56,10 @@ public:
 	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
 	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5,0);						///< Map of transmission data size (byte position and value)
 	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of transmission data size (unused ish)
-	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(13, "");							///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, unsigned> m_puSessionNumber = std::make_pair(13, 0);
+	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(17, "");							///< Map of transmission data size (byte position and value)
 	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
+	unsigned m_uPreviousSessionNumber = 0;
 	unsigned m_uDataStartPosition = 20;																///< Starting position of data bytes
 
 	TimeChunkSessionMode() : SessionModeBase(SessionModeTypes::TimeChunkSession) {};
@@ -74,6 +76,7 @@ public:
 		m_puSequenceNumber.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puSequenceNumber.first]));
 		m_puTransmissionSize.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puTransmissionSize.first]));
 		m_pcTransmissionState.second = *(reinterpret_cast<char*>(&pUDPChunk->m_vcDataChunk[m_pcTransmissionState.first]));
+		m_puSessionNumber.second = *(reinterpret_cast<char*>(&pUDPChunk->m_vcDataChunk[m_puSessionNumber.first]));
 
 		// If the MAC address has been set, don't parse again
 		if (m_pusMacUID.second == "")
