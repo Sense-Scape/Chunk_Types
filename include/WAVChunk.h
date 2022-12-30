@@ -36,7 +36,7 @@ private:
 
 public:
     WAVHeader m_sWAVHeader;         ///< WAV header
-    std::vector<float> m_vfData;    ///< Time data corresponding to packed audio
+    std::vector<uint16_t> m_vfData;    ///< Time data corresponding to packed audio
     std::string m_sMACAddress;      ///< MAC address of audio source
 
     /**
