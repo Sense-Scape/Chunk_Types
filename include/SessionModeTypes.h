@@ -35,7 +35,7 @@ public:
 	SessionModeBase(SessionModeTypes ceSessionType) { m_SessionModeType = ceSessionType; };
 	virtual ~SessionModeBase() {};
 
-	virtual void CovertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) {};
+	virtual void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) {};
 };
 
 /*
@@ -60,7 +60,7 @@ public:
 	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(17, "");							///< Map of transmission data size (byte position and value)
 	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
 	unsigned m_uPreviousSessionNumber = 0;
-	unsigned m_uDataStartPosition = 20;																///< Starting position of data bytes
+	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
 
 	TimeChunkSessionMode() : SessionModeBase(SessionModeTypes::TimeChunkSession) {};
 
@@ -68,7 +68,7 @@ public:
 	* @brief converts array of bytes into session states
 	* @param[in] pBaseChunk base chunk of containing UDP char bytes
 	*/
-	void CovertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) override
+	void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) override
 	{
 		auto pUDPChunk = std::static_pointer_cast<UDPChunk>(pBaseChunk);
 
