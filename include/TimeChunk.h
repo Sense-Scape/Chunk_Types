@@ -23,7 +23,7 @@ public:
     unsigned m_uBits;                                               ///< Bits of ADC used to produce chunk
 	unsigned m_uNumBytes;                                           ///< Number of bytes in single sample
     unsigned m_uNumChannels;                                        ///< Number of audio channels in chunk
-    std::vector<std::vector<float>> m_vvfTimeChunks;                ///< Vector of vectors corresponding to channel samples
+    std::vector<std::vector<uint16_t>> m_vvfTimeChunks;                ///< Vector of vectors corresponding to channel samples
 
     /**
      * @brief Construct a new Base Chunk object
