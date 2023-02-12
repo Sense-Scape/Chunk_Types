@@ -35,7 +35,7 @@ public:
         }
     }
 
-    static uint32_t toU32(ChunkType eChunkType)
+    static uint32_t ToU32(ChunkType eChunkType)
     {
         switch (eChunkType)
         {
@@ -45,6 +45,19 @@ public:
         case ChunkType::WAVChunk:  return 4;
 
         default: return 0; // error
+        }
+    }
+
+    static ChunkType FromU32(uint32_t u32ChunkType)
+    {
+        switch (u32ChunkType)
+        {
+        case 1: return ChunkType::ChunkBase;
+        case 2:  return ChunkType::UDPChunk;
+        case 3: return ChunkType::TimeChunk;
+        case 4:  return ChunkType::WAVChunk;
+
+        default: return ChunkType::ChunkBase; // error
         }
     }
 
