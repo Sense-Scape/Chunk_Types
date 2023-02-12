@@ -21,7 +21,8 @@ enum class ChunkType
     ChunkBase,
     UDPChunk,
     TimeChunk,
-    WAVChunk
+    WAVChunk,
+    WatchdogChunk
 };
 
 #endif
