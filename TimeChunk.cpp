@@ -20,7 +20,7 @@ TimeChunk::TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk)
     m_uBits = pTimeChunk->m_uBits;
     m_uNumBytes = pTimeChunk->m_uNumBytes;
     m_uNumChannels = pTimeChunk->m_uNumChannels;
-    m_vvfTimeChunks = pTimeChunk->m_vvfTimeChunks;
+    m_vvi16TimeChunks = pTimeChunk->m_vvi16TimeChunks;
 }
 
 TimeChunk::TimeChunk(const TimeChunk& timeChunk) : BaseChunk()
@@ -32,7 +32,7 @@ TimeChunk::TimeChunk(const TimeChunk& timeChunk) : BaseChunk()
     m_uBits = timeChunk.m_uBits;
     m_uNumBytes = timeChunk.m_uNumBytes;
     m_uNumChannels = timeChunk.m_uNumChannels;
-    m_vvfTimeChunks = timeChunk.m_vvfTimeChunks;
+    m_vvi16TimeChunks = timeChunk.m_vvi16TimeChunks;
 }
 
 unsigned TimeChunk::GetSize() 
@@ -46,8 +46,8 @@ unsigned TimeChunk::GetSize()
     uByteSize += sizeof(m_uNumBytes);
     uByteSize += sizeof(m_uNumChannels);
 
-    // Iterate over all elements of m_vvfTimeChunks and infer type using auto
-    for (const auto& vfTimeChunk : m_vvfTimeChunks) 
+    // Iterate over all elements of m_vvi16TimeChunks and infer type using auto
+    for (const auto& vfTimeChunk : m_vvi16TimeChunks) 
         uByteSize += sizeof(vfTimeChunk[0]) * vfTimeChunk.size();
 
     return uByteSize;
@@ -79,7 +79,7 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
     pcBytes += sizeof(m_uNumChannels);
 
     // Converting vector to bytes
-    for (const auto& vfTimeChunk : m_vvfTimeChunks) 
+    for (const auto& vfTimeChunk : m_vvi16TimeChunks) 
     {
         unsigned uChunkSizeBytes = sizeof(vfTimeChunk[0]) * vfTimeChunk.size();
         memcpy(pcBytes, &vfTimeChunk[0], uChunkSizeBytes);
@@ -114,17 +114,17 @@ void TimeChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 
     // Reserving space for vector
     auto uTimeChunksSize = m_uNumChannels*m_dChunkSize*m_uNumBytes;
-    m_vvfTimeChunks.resize(m_uNumChannels);
+    m_vvi16TimeChunks.resize(m_uNumChannels);
 
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; ++uChannelIndex) 
-        m_vvfTimeChunks[uChannelIndex].resize(m_dChunkSize);
+        m_vvi16TimeChunks[uChannelIndex].resize(m_dChunkSize);
 
     // Filling data vector
-    unsigned uSampleSize = sizeof(m_vvfTimeChunks[0][0]);
+    unsigned uSampleSize = sizeof(m_vvi16TimeChunks[0][0]);
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; ++uChannelIndex) {
         for (unsigned uSampleIndex = 0; uSampleIndex < m_dChunkSize; uSampleIndex++)
         {
-            memcpy(&m_vvfTimeChunks[uChannelIndex][uSampleIndex], pcBytes, uSampleSize);
+            memcpy(&m_vvi16TimeChunks[uChannelIndex][uSampleIndex], pcBytes, uSampleSize);
             pcBytes += uSampleSize;
         }
     }
