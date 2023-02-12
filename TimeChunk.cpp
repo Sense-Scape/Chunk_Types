@@ -79,10 +79,10 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
     pcBytes += sizeof(m_uNumChannels);
 
     // Converting vector to bytes
-    for (const auto& vfTimeChunk : m_vvi16TimeChunks) 
+    for (const auto& vi16TimeChunk : m_vvi16TimeChunks) 
     {
-        unsigned uChunkSizeBytes = sizeof(vfTimeChunk[0]) * vfTimeChunk.size();
-        memcpy(pcBytes, &vfTimeChunk[0], uChunkSizeBytes);
+        unsigned uChunkSizeBytes = sizeof(vi16TimeChunk[0]) * vi16TimeChunk.size();
+        memcpy(pcBytes, &vi16TimeChunk[0], uChunkSizeBytes);
         pcBytes += uChunkSizeBytes;
     }
     
