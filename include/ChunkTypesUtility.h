@@ -11,6 +11,7 @@
 #include "UDPChunk.h"   
 #include "TimeChunk.h"
 #include "WAVChunk.h"  
+#include "WatchdogChunk.h"
 
 /**
  * @brief Class that facillitates conversion between emunerated chunk type and string
@@ -30,6 +31,7 @@ public:
             case ChunkType::UDPChunk:  return "UDPChunk";
             case ChunkType::TimeChunk: return "TimeChunk";
             case ChunkType::WAVChunk:  return "WAVChunk";
+            case ChunkType::WatchdogChunk: return "WatchdogChunk";
 
             default: return "Unknown Chunk";
         }
@@ -43,6 +45,7 @@ public:
         case ChunkType::UDPChunk:  return 2;
         case ChunkType::TimeChunk: return 3;
         case ChunkType::WAVChunk:  return 4;
+        case ChunkType::WatchdogChunk: return 5;
 
         default: return 0; // error
         }
@@ -69,6 +72,7 @@ public:
             case ChunkType::UDPChunk:  return std::make_shared<UDPChunk>(std::static_pointer_cast<UDPChunk>(pBaseChunk));
             case ChunkType::TimeChunk: return std::make_shared<TimeChunk>(std::static_pointer_cast<TimeChunk>(pBaseChunk));
             case ChunkType::WAVChunk:  return std::make_shared<WAVChunk>(std::static_pointer_cast<WAVChunk>(pBaseChunk));
+            case ChunkType::WatchdogChunk:  return std::make_shared<WatchdogChunk>(std::static_pointer_cast<WatchdogChunk>(pBaseChunk));
 
             default:
             {

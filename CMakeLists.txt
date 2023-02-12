@@ -6,5 +6,6 @@ idf_component_register(SRCS "BaseChunk.cpp"
 						"TimeChunk.cpp" 
 						"UDPChunk.cpp"
 						"WAVChunk.cpp"
+						"WatchdogChunk.cpp"
 						INCLUDE_DIRS "./include"
 						)
