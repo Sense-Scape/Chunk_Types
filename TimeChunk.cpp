@@ -1,10 +1,10 @@
 #include "TimeChunk.h"
 
-TimeChunk::TimeChunk(double dChunkSize, double dSampleRate, long long llTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels) :
+TimeChunk::TimeChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels) :
 BaseChunk(),
 m_dChunkSize(dChunkSize),
 m_dSampleRate(dSampleRate),
-m_i64TimeStamp(llTimeStamp),
+m_i64TimeStamp(i64TimeStamp),
 m_uBits(uBits),
 m_uNumBytes(uNumBytes),
 m_uNumChannels(uNumChannels)

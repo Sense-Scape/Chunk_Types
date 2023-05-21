@@ -34,7 +34,7 @@ public:
      * @param[in] uNumBytes Number of bytes in single sample
      * @param[in] uNumChannels Number of audio channels in chunk
      */
-    TimeChunk(double dChunkSize, double dSampleRate, long long llTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
+    TimeChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
 
     /**
      * @brief Construct a new Time Chunk object
