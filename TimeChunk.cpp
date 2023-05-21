@@ -1,14 +1,15 @@
 #include "TimeChunk.h"
 
-TimeChunk::TimeChunk(double dChunkSize, double dSampleRate, double dTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels) :
+TimeChunk::TimeChunk(double dChunkSize, double dSampleRate, long long llTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels) :
 BaseChunk(),
 m_dChunkSize(dChunkSize),
 m_dSampleRate(dSampleRate),
-m_dTimeStamp(dTimeStamp),
+m_i64TimeStamp(llTimeStamp),
 m_uBits(uBits),
 m_uNumBytes(uNumBytes),
 m_uNumChannels(uNumChannels)
 {
+
 }
 
 TimeChunk::TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk)
@@ -16,7 +17,7 @@ TimeChunk::TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk)
     // untested
     m_dChunkSize = pTimeChunk->m_dChunkSize;
     m_dSampleRate = pTimeChunk->m_dSampleRate;
-    m_dTimeStamp = pTimeChunk->m_dTimeStamp;
+    m_i64TimeStamp = pTimeChunk->m_i64TimeStamp;
     m_uBits = pTimeChunk->m_uBits;
     m_uNumBytes = pTimeChunk->m_uNumBytes;
     m_uNumChannels = pTimeChunk->m_uNumChannels;
@@ -28,7 +29,7 @@ TimeChunk::TimeChunk(const TimeChunk& timeChunk) : BaseChunk()
     // untested
     m_dChunkSize = timeChunk.m_dChunkSize;
     m_dSampleRate = timeChunk.m_dSampleRate;
-    m_dTimeStamp = timeChunk.m_dTimeStamp;
+    m_i64TimeStamp = timeChunk.m_i64TimeStamp;
     m_uBits = timeChunk.m_uBits;
     m_uNumBytes = timeChunk.m_uNumBytes;
     m_uNumChannels = timeChunk.m_uNumChannels;
@@ -41,7 +42,7 @@ unsigned TimeChunk::GetSize()
 
     uByteSize += sizeof(m_dChunkSize);
     uByteSize += sizeof(m_dSampleRate);
-    uByteSize += sizeof(m_dTimeStamp);
+    uByteSize += sizeof(m_i64TimeStamp);
     uByteSize += sizeof(m_uBits);
     uByteSize += sizeof(m_uNumBytes);
     uByteSize += sizeof(m_uNumChannels);
@@ -66,8 +67,8 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
     memcpy(pcBytes, &m_dSampleRate, sizeof(m_dSampleRate));
     pcBytes += sizeof(m_dSampleRate);
 
-    memcpy(pcBytes, &m_dTimeStamp, sizeof(m_dTimeStamp));
-    pcBytes += sizeof(m_dTimeStamp);
+    memcpy(pcBytes, &m_i64TimeStamp, sizeof(m_i64TimeStamp));
+    pcBytes += sizeof(m_i64TimeStamp);
 
     memcpy(pcBytes, &m_uBits, sizeof(m_uBits));
     pcBytes += sizeof(m_uBits);
@@ -100,8 +101,8 @@ void TimeChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
     memcpy( &m_dSampleRate, pcBytes, sizeof(m_dSampleRate));
     pcBytes += sizeof(m_dSampleRate);
 
-    memcpy(&m_dTimeStamp, pcBytes, sizeof(m_dTimeStamp));
-    pcBytes += sizeof(m_dTimeStamp);
+    memcpy(&m_i64TimeStamp, pcBytes, sizeof(m_i64TimeStamp));
+    pcBytes += sizeof(m_i64TimeStamp);
 
     memcpy(&m_uBits, pcBytes, sizeof(m_uBits));
     pcBytes += sizeof(m_uBits);
