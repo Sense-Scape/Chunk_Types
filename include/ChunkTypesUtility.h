@@ -59,6 +59,7 @@ public:
         case 2:  return ChunkType::UDPChunk;
         case 3: return ChunkType::TimeChunk;
         case 4:  return ChunkType::WAVChunk;
+        case 5:  return ChunkType::WatchdogChunk;
 
         default: return ChunkType::ChunkBase; // error
         }
