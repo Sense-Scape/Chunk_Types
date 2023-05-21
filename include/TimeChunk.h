@@ -19,7 +19,7 @@ private:
 public:
     double m_dChunkSize;                                            ///< Number of samples contained in a single chunk
     double m_dSampleRate;                                           ///< Sample rate used to obtain data in chunk
-    double m_dTimeStamp;                                            ///< Timestamp of when chunk was taken
+    int64_t m_i64TimeStamp;                                            ///< Timestamp of when chunk was taken
     unsigned m_uBits;                                               ///< Bits of ADC used to produce chunk
 	unsigned m_uNumBytes;                                           ///< Number of bytes in single sample
     unsigned m_uNumChannels;                                        ///< Number of audio channels in chunk
@@ -29,12 +29,12 @@ public:
      * @brief Construct a new Base Chunk object
      * @param[in] dChunkSize The number of samples contained in each ADC channel chunk
      * @param[in] dSampleRate The sample rate used to generate all data within the chunk
-     * @param[in] dTimeStamp The time the chunk was created
+     * @param[in] llTimeStamp The time the chunk was created
      * @param[in] uBits Bits of ADC used to produce chunk
      * @param[in] uNumBytes Number of bytes in single sample
      * @param[in] uNumChannels Number of audio channels in chunk
      */
-    TimeChunk(double dChunkSize, double dSampleRate, double dTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
+    TimeChunk(double dChunkSize, double dSampleRate, long long llTimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
 
     /**
      * @brief Construct a new Time Chunk object
