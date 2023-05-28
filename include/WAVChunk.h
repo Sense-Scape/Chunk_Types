@@ -35,15 +35,16 @@ class WAVChunk :
 private:
 
 public:
-    WAVHeader m_sWAVHeader;         ///< WAV header
-    std::vector<uint16_t> m_vfData;    ///< Time data corresponding to packed audio
-    std::string m_sMACAddress;      ///< MAC address of audio source
+    WAVHeader m_sWAVHeader;             ///< WAV header
+    std::vector<int16_t> m_vi16Data;    ///< Time data corresponding to packed audio
+    std::string m_sMACAddress;          ///< MAC address of audio source
+    uint64_t m_i64TimeStamp;            ///< Starting timestamp of the wav chunk
 
     /**
     * @brief Constructor
     * @param[in] sMACAddress MAC address to uniquely identify source of audio
     */
-    WAVChunk(std::string sMACAddress = "");
+    WAVChunk(std::string sMACAddress = "", uint64_t i64TimeStamp = 0);
     WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk);
 
     /**
@@ -53,7 +54,7 @@ public:
     ChunkType GetChunkType() override { return ChunkType::WAVChunk; };
 
     /**
-    * @brief unpacks WAV data into indivudal vectors of channel data
+    * @brief MOST PROBABLY A BROKEN FUNCTION - unpacks WAV data into indivudal vectors of channel data
     * @param[in] pvvdUnpackedWAVData shared pointer to vector of vectors of doubles
     */
     void UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData);
