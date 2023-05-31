@@ -4,15 +4,18 @@
 #include "doctest.h"
 #include "BaseChunk.h"
 
-TEST_CASE("Testing construction of BaseChunk") {
-    
-    // Lets just start by creating a vanilla BaseChunk
-    BaseChunk BasechunkTestClass;
+TEST_CASE("BaseChunk Test") {
 
-    // Then lets ensure that the size of the data contained is 0 bytes
-    CHECK(BasechunkTestClass.GetSize() == 0);
-    // And then that its type is basechunk
-    CHECK(BasechunkTestClass.GetChunkType() == ChunkType::ChunkBase);
+    // Lets just start by creating a vanilla BaseChunk
+    BaseChunk BaseChunkTestClass;
+
+    SUBCASE("Checking base chunk functionality") {
+        // And then that its type is basechunk
+        CHECK(BaseChunkTestClass.GetChunkType() == ChunkType::ChunkBase);
+        // Then lets ensure that the size of the data contained is 0 bytes
+        CHECK(BaseChunkTestClass.GetSize() == 0);
+    }
+
 }
 
 #endif

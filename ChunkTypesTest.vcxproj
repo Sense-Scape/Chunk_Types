@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\BaseChunkTests.h" />
+    <ClInclude Include="tests\TimeChunkTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ChunkTypes.vcxproj">

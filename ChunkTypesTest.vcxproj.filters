@@ -23,5 +23,8 @@
     <ClInclude Include="tests\BaseChunkTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\TimeChunkTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
