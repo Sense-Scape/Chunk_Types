@@ -1,0 +1,3 @@
+[submodule "components/doctest"]
+	path = components/doctest
+	url = https://github.com/Sense-Scape/doctest.git
