@@ -26,5 +26,8 @@
     <ClInclude Include="tests\TimeChunkTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\WAVChunkTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

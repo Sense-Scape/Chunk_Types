@@ -48,19 +48,14 @@ TEST_CASE("BaseChunk Test") {
     TimeChunk CopyOfTimeChunkTestClass = TimeChunkTestClass;
 
 
-    SUBCASE("Checking copy constructors") {
-        bool bCopyCorrect =
-            (
-                (CopyOfTimeChunkTestClass.m_dChunkSize == TimeChunkTestClass.m_dChunkSize) &&
-                (CopyOfTimeChunkTestClass.m_dSampleRate == TimeChunkTestClass.m_dSampleRate) &&
-                (CopyOfTimeChunkTestClass.m_i64TimeStamp == TimeChunkTestClass.m_i64TimeStamp) &&
-                (CopyOfTimeChunkTestClass.m_uBits == TimeChunkTestClass.m_uBits) &&
-                (CopyOfTimeChunkTestClass.m_uNumBytes == TimeChunkTestClass.m_uNumBytes) &&
-                (CopyOfTimeChunkTestClass.m_uNumChannels == TimeChunkTestClass.m_uNumChannels) &&
-                (CopyOfTimeChunkTestClass.m_vvi16TimeChunks == TimeChunkTestClass.m_vvi16TimeChunks)
-            );
-        // With the copy complete, lets check if all the elements were correctly copied
-        CHECK(bCopyCorrect == true);
+    SUBCASE("Checking copy constructors") 
+    {
+        CHECK(TimeChunkTestClass.IsEqual(TimeChunkTestClass));
+
+        // Now do a simple check if we change something in base class the 
+        // classes are no longer equal
+        CopyOfTimeChunkTestClass.SetSourceIdentifier({ 1, 1 });
+        CHECK(TimeChunkTestClass.IsEqual(CopyOfTimeChunkTestClass) == false);
     }
     
 
@@ -71,19 +66,9 @@ TEST_CASE("BaseChunk Test") {
     DeserialisedTimeChunkTestClass.Deserialise(pBytes);
 
 
-    SUBCASE("Checking desrialisation functionality") {
-        bool bDeserialiseCorrect =
-            (
-                (CopyOfTimeChunkTestClass.m_dChunkSize == TimeChunkTestClass.m_dChunkSize) &&
-                (CopyOfTimeChunkTestClass.m_dSampleRate == TimeChunkTestClass.m_dSampleRate) &&
-                (CopyOfTimeChunkTestClass.m_i64TimeStamp == TimeChunkTestClass.m_i64TimeStamp) &&
-                (CopyOfTimeChunkTestClass.m_uBits == TimeChunkTestClass.m_uBits) &&
-                (CopyOfTimeChunkTestClass.m_uNumBytes == TimeChunkTestClass.m_uNumBytes) &&
-                (CopyOfTimeChunkTestClass.m_uNumChannels == TimeChunkTestClass.m_uNumChannels) &&
-                (CopyOfTimeChunkTestClass.m_vvi16TimeChunks == TimeChunkTestClass.m_vvi16TimeChunks)
-                );
+    SUBCASE("Checking de/serialisation functionality") {
         // With the copy complete, lets check if all the elements were correctly copied
-        CHECK(bDeserialiseCorrect == true);
+        CHECK(DeserialisedTimeChunkTestClass.IsEqual(TimeChunkTestClass));
     }
 }
 

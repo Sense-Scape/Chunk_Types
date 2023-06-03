@@ -30,8 +30,7 @@ TEST_CASE("BaseChunk Test") {
         CHECK(BaseChunkTestClass.GetSourceIdentifier() == vu8Indentidier);
     }
 
-
-    //TODO check reference copy
+    // Checking copy constructors
     BaseChunk ReferenceCopyBaseChunkTestClass(BaseChunkTestClass);
     std::shared_ptr<BaseChunk> pBaseChunkTestClass = std::make_shared<BaseChunk>(BaseChunkTestClass);
     auto pPointerCopyBaseChunkTestClass(pBaseChunkTestClass);
@@ -42,7 +41,7 @@ TEST_CASE("BaseChunk Test") {
         CHECK(BaseChunkTestClass.IsEqual(*pPointerCopyBaseChunkTestClass));
     }
 
-
+    // Checking de.serialisation
     BaseChunk DeserialisedBaseChunkTestClass;
     std::shared_ptr<std::vector<char>> pBytes = BaseChunkTestClass.Serialise();
     DeserialisedBaseChunkTestClass.Deserialise(pBytes);
