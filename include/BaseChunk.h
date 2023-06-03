@@ -69,6 +69,10 @@ public:
      */
     std::vector<uint8_t> GetSourceIdentifier();
 
+    /**
+     * @brief Returns if the two classes are equal
+     * @return Reference to the class with which we want to compare
+     */
     bool IsEqual(BaseChunk& baseChunk);
 
 private:

@@ -96,7 +96,7 @@ std::vector<uint8_t> BaseChunk::GetSourceIdentifier()
 bool BaseChunk::IsEqual(BaseChunk& baseChunk)
 {	
 	bool bIsEqual = (
-		(m_u16SourceIndentifierSize = baseChunk.m_u16SourceIndentifierSize) &&
+		(m_u16SourceIndentifierSize == baseChunk.m_u16SourceIndentifierSize) &&
 		(m_vu8SourceIdentifier == baseChunk.m_vu8SourceIdentifier)
 		);
 
