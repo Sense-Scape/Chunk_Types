@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="tests\BaseChunkTests.h" />
     <ClInclude Include="tests\TimeChunkTests.h" />
+    <ClInclude Include="tests\WAVChunkTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ChunkTypes.vcxproj">

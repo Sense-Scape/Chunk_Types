@@ -42,7 +42,6 @@ public:
      */
     TimeChunk(const TimeChunk& timeChunk);
     TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk);
-    //~TimeChunk() {};
 
     /**
      * @brief Get the Chunk Type object
@@ -67,6 +66,12 @@ public:
      * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
      */
     void Deserialise(std::shared_ptr<std::vector<char>> pBytes) override;
+
+     /**
+     * @brief Returns if the two classes are equal
+     * @return Reference to the class with which we want to compare
+     */
+    bool IsEqual(TimeChunk& timeChunk);
 };
 
 #endif

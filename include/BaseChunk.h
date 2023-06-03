@@ -19,9 +19,11 @@ class BaseChunk
 public:
     /**
      * @brief Default constructor for a new Base Chunk object
+     * @param[in] vu8SourceIdentifier vector that stores the source identifier
      */
-    BaseChunk() {};
+    BaseChunk(std::vector<uint8_t> vu8SourceIdentifier);
     BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk);
+    BaseChunk();
 
     /**
      * @brief Construct a new Base Chunk object
@@ -41,19 +43,41 @@ public:
      * @brief Get the size of object in bytes
      * @return Size of object in bytes
      */
-    virtual unsigned GetSize() {return 0;}; //TODO: Make this required "=0"
+    virtual unsigned GetSize();
 
     /**
      * @brief Fill a byte array the represents this object
      * @return pvBytes Shared pointer to byte array that shall be filled
      */
-    virtual std::shared_ptr<std::vector<char>> Serialise() {auto p = std::make_shared<std::vector<char>>(); return p;}; //TODO: Make this required "=0"
+    virtual std::shared_ptr<std::vector<char>> Serialise();
 
     /**
      * @brief Converts byte array to object members
      * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
      */
-    virtual void Deserialise(std::shared_ptr<std::vector<char>> pBytes) {};
+    virtual void Deserialise(std::shared_ptr<std::vector<char>> pvBytes);
+
+    /**
+     * @brief Sets the source identifer of class
+     * @param[in] vu8SourceIdentifier vector of uint8_t of the new source identifer
+     */
+    void SetSourceIdentifier(std::vector<uint8_t> vu8SourceIdentifier);
+
+    /**
+     * @brief Returns the source identifer of class
+     * @return Vector of uint8_t of the source identifer
+     */
+    std::vector<uint8_t> GetSourceIdentifier();
+
+    /**
+     * @brief Returns if the two classes are equal
+     * @return Reference to the class with which we want to compare
+     */
+    bool IsEqual(BaseChunk& baseChunk);
+
+private:
+    uint16_t m_u16SourceIndentifierSize;        ///< Size of unique identifier
+    std::vector<uint8_t> m_vu8SourceIdentifier; ///< Source identifier of the chunk
 };
 
 #endif
