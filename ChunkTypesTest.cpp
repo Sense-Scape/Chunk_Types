@@ -18,3 +18,4 @@
 */
 #include "BaseChunkTests.h"
 #include "TimeChunkTests.h"
+#include "WAVChunkTests.h"
