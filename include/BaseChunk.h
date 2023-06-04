@@ -43,19 +43,19 @@ public:
      * @brief Get the size of object in bytes
      * @return Size of object in bytes
      */
-    virtual unsigned GetSize();
+    unsigned GetSize();
 
     /**
      * @brief Fill a byte array the represents this object
      * @return pvBytes Shared pointer to byte array that shall be filled
      */
-    virtual std::shared_ptr<std::vector<char>> Serialise();
+    std::shared_ptr<std::vector<char>> Serialise();
 
     /**
      * @brief Converts byte array to object members
      * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
      */
-    virtual void Deserialise(std::shared_ptr<std::vector<char>> pvBytes);
+    void Deserialise(std::shared_ptr<std::vector<char>> pvBytes);
 
     /**
      * @brief Sets the source identifer of class

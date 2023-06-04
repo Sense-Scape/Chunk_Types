@@ -42,6 +42,11 @@ unsigned TimeChunk::GetSize()
 {
     unsigned uByteSize = 0;
 
+    // First check baseclass
+    BaseChunk SelfBaseChunk = static_cast<BaseChunk&>(*this);
+    uByteSize += SelfBaseChunk.GetSize();
+
+    // Then this class
     uByteSize += sizeof(m_dChunkSize);
     uByteSize += sizeof(m_dSampleRate);
     uByteSize += sizeof(m_i64TimeStamp);
@@ -61,6 +66,13 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
     auto pvBytes = std::make_shared<std::vector<char>>();
     pvBytes->resize(GetSize());
     char* pcBytes = pvBytes->data();
+
+    // Copy base data
+    auto pcvBaseBytes = BaseChunk::Serialise();
+    unsigned uBaseClassSize = BaseChunk::GetSize();
+    memcpy(pcBytes , &pcvBaseBytes->front(), uBaseClassSize);
+    pcBytes += uBaseClassSize;
+
 
     // Converting members to bytes
     memcpy(pcBytes, &m_dChunkSize, sizeof(m_dChunkSize));
@@ -94,7 +106,11 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
 
 void TimeChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 {
+    // Fill in base data
+    BaseChunk::Deserialise(pvBytes);
+
     char* pcBytes = pvBytes->data();
+    pcBytes += BaseChunk::GetSize();
 
     // Converting members to bytes
     memcpy(&m_dChunkSize, pcBytes, sizeof(m_dChunkSize));
@@ -135,7 +151,12 @@ void TimeChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 
 bool TimeChunk::IsEqual(TimeChunk& timeChunk)
 {
-    // First we can compare TimeChunk paramerters
+    // We can compare base class
+    auto SelfBaseChunk = static_cast<BaseChunk&>(*this);
+    auto comparatorBaseChunk = static_cast<BaseChunk&>(timeChunk);
+    bool bBaseEqual = SelfBaseChunk.IsEqual(comparatorBaseChunk);
+    
+    // We can then compare TimeChunk paramerters
     bool bIsEqual = (
         (m_dChunkSize == timeChunk.m_dChunkSize) &&
         (m_dSampleRate == timeChunk.m_dSampleRate) &&
@@ -145,10 +166,6 @@ bool TimeChunk::IsEqual(TimeChunk& timeChunk)
         (m_uNumChannels == timeChunk.m_uNumChannels) &&
         (m_vvi16TimeChunks == timeChunk.m_vvi16TimeChunks)
         );
-
-    // Then we can compare base class
-    auto SelfBaseChunk = static_cast<BaseChunk&>(*this);
-    bool bBaseEqual = SelfBaseChunk.IsEqual(static_cast<BaseChunk&>(timeChunk));
 
     // Now we check base and derived classes are equal
     bIsEqual = (bBaseEqual && bIsEqual);
