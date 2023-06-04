@@ -2,8 +2,8 @@
 
 ## Summary
 
-This is a repository that aims to implement an expandable set of generic data models that may be used in a variety of c++ applications. 
-The intention that these may be functional across multiple platforms including Windows, Linux and Embedded Systems 
+This is a repository that aims to implement an expandable set of generic data models that may be used in a variety of ```c++``` applications. 
+The intention is that these may be functional across multiple platforms including Windows, Linux and Embedded Systems 
 (specifically the [ESP32](https://www.espressif.com/en/products/socs/esp32)). With this in mind,
 the repository aims to be as light as possible in terms of using other libraries that may not be cross compatible.
 
@@ -36,4 +36,4 @@ The Doctest library has been branched into this organisation. **Note** that this
 
 ### Linux
 
-There is currently no support for linux but there is an intention to add it whe required.
+There is currently no support for linux but there is an intention to add it when required.
