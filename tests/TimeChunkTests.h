@@ -4,7 +4,7 @@
 #include "doctest.h"
 #include "TimeChunk.h"
 
-TEST_CASE("BaseChunk Test") {
+TEST_CASE("TimeChunk Test") {
 
     // Constructor Parameters
     double dChunkSize = 256;
@@ -19,7 +19,15 @@ TEST_CASE("BaseChunk Test") {
 
     // Lets just start by creating a vanilla BaseChunk
     TimeChunk TimeChunkTestClass(dChunkSize, dSampleRate, i64TimeStamp, uBits, uNumBytes, uNumChannels);
+    // Lets also create a vanilla BaseChunk
+    BaseChunk BaseChunkTestClass;
 
+    // We can also give the same identifier for both classes
+    std::vector<uint8_t> vu8SourceIdentifier = { 255,255 };
+    TimeChunkTestClass.SetSourceIdentifier(vu8SourceIdentifier);
+    BaseChunkTestClass.SetSourceIdentifier(vu8SourceIdentifier);
+    uClassSize_bytes += BaseChunkTestClass.GetSize();
+    
 
     SUBCASE("Checking base chunk functionality") {
         // And then that its type is basechunk
@@ -67,6 +75,8 @@ TEST_CASE("BaseChunk Test") {
 
 
     SUBCASE("Checking de/serialisation functionality") {
+        // Check the base class first
+        CHECK(static_cast<BaseChunk&>(DeserialisedTimeChunkTestClass).IsEqual(static_cast<BaseChunk&>(TimeChunkTestClass)));
         // With the copy complete, lets check if all the elements were correctly copied
         CHECK(DeserialisedTimeChunkTestClass.IsEqual(TimeChunkTestClass));
     }

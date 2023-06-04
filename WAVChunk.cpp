@@ -1,11 +1,11 @@
 #include "WAVChunk.h"
 #include <iostream>
 
-WAVChunk::WAVChunk(std::string sMACAddress, uint64_t i64TimeStamp) : BaseChunk(),
-												m_sWAVHeader(),
-												m_vi16Data(),
-												m_sMACAddress(sMACAddress),
-												m_i64TimeStamp(i64TimeStamp)
+WAVChunk::WAVChunk(uint64_t i64TimeStamp) : 
+	BaseChunk(),
+	m_sWAVHeader(),
+	m_i64TimeStamp(i64TimeStamp),
+	m_vi16Data()
 {
 
 }
@@ -14,7 +14,6 @@ WAVChunk::WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk)
 {
 	m_sWAVHeader = pWAVChunk->m_sWAVHeader;
 	m_vi16Data = pWAVChunk->m_vi16Data;
-	m_sMACAddress = pWAVChunk->m_sMACAddress;
 	m_i64TimeStamp = pWAVChunk->m_i64TimeStamp;
 }
 
@@ -71,7 +70,6 @@ std::shared_ptr<std::vector<char>> WAVChunk::WAVHeaderToBytes()
 
 	char* pcWavHeaderBytes = reinterpret_cast<char*>(&m_sWAVHeader);
 	std::memcpy(&pvcByteData->at(0), &m_sWAVHeader, sizeof(m_sWAVHeader));
-	std::cout << std::to_string(sizeof(m_sWAVHeader)) << std::endl;
 
 	return pvcByteData;
 }
@@ -99,8 +97,9 @@ void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> p
 	for (unsigned uDataIndex = 0; uDataIndex < m_vi16Data.size(); uDataIndex++)
 	{
 		(*pvvdUnpackedWAVData)[uChannelIndex].emplace_back(m_vi16Data[uDataIndex]);
-		if (uChannelIndex > m_sWAVHeader.NumOfChan )
-			uChannelIndex = 0;
+		// check if  the next channel count is greater than available channels
+		// then either increment or reset channel index
+		uChannelIndex = (uChannelIndex + 1 >= m_sWAVHeader.NumOfChan) ? 0 : (uChannelIndex + 1);
 	}
 }
 

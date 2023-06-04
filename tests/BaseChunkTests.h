@@ -48,6 +48,9 @@ TEST_CASE("BaseChunk Test") {
 
 
     SUBCASE("Checking De/Serialisation functionality") {
+        // Verify identifier was copied correctly
+        CHECK(BaseChunkTestClass.GetSourceIdentifier() == vu8Indentidier);
+        // Then check if equal
         CHECK(BaseChunkTestClass.IsEqual(DeserialisedBaseChunkTestClass));
     }
 
