@@ -72,15 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
+    <OutDir>$(SolutionDir)$(Configuration)_tests\</OutDir>
+    <IntDir>$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
+    <OutDir>$(SolutionDir)$(Configuration)_tests\</OutDir>
+    <IntDir>$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)_tests\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)_tests\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
