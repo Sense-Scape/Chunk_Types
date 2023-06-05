@@ -1,5 +1,5 @@
-#ifndef COMPLEX_TIME_CHUNK
-#define COMPLEX_TIME_CHUNK
+#ifndef TIME_CHUNK
+#define TIME_CHUNK
 
 /*Standard Includes*/
 #include <memory>
@@ -10,7 +10,7 @@
 #include "BaseChunk.h"
 
 /**
- * @brief Complex Time Data Chunk used to store all samples data from the
+ * @brief Time Data Chunk used to store all samples data from the
  *          The active ADCs and their respective channels
  */
 class TimeChunk : public BaseChunk

@@ -1,5 +1,4 @@
 #include "WAVChunk.h"
-#include <iostream>
 
 WAVChunk::WAVChunk(uint64_t i64TimeStamp) : 
 	BaseChunk(),

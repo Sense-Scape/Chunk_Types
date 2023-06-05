@@ -1,5 +1,5 @@
-#ifndef WATCHDOG_CHUNK
-#define	WATCHDOG_CHUNK
+#ifndef WATCH_DOG_CHUNK
+#define	WATCH_DOG_CHUNK
 
 /* Custom Includes */
 #include "BaseChunk.h"

@@ -1,5 +1,5 @@
-#ifndef WAVCHUNK
-#define WAVCHUNK
+#ifndef WAV_CHUNK
+#define WAV_CHUNK
 
 /*Standard Includes*/
 #include <algorithm>
@@ -8,7 +8,7 @@
 #include "BaseChunk.h"
 
 /**
- * @brief WAV headrt structure hat is 32 bytes large
+ * @brief WAV header structure that is 32 bytes large
  */
 typedef struct WAVHeader
 {
@@ -36,7 +36,9 @@ typedef struct WAVHeader
 
 } WAVHeader;
 
-
+/**
+ * @brief Class that encapsulated time domain data with a WAV header
+ */
 class WAVChunk :
     public BaseChunk
 {
