@@ -40,6 +40,12 @@ TimeChunk::TimeChunk(const TimeChunk& timeChunk) :
 
 unsigned TimeChunk::GetSize() 
 {
+    return GetInternalSize();
+}
+
+
+unsigned TimeChunk::GetInternalSize()
+{
     unsigned uByteSize = 0;
 
     // First check baseclass
@@ -55,7 +61,7 @@ unsigned TimeChunk::GetSize()
     uByteSize += sizeof(m_uNumChannels);
 
     // Iterate over all elements of m_vvi16TimeChunks and infer type using auto
-    for (const auto& vfTimeChunk : m_vvi16TimeChunks) 
+    for (const auto& vfTimeChunk : m_vvi16TimeChunks)
         uByteSize += sizeof(vfTimeChunk[0]) * vfTimeChunk.size();
 
     return uByteSize;

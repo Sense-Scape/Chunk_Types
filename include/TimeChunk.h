@@ -15,7 +15,6 @@
  */
 class TimeChunk : public BaseChunk
 {
-private:
 public:
     double m_dChunkSize;                                            ///< Number of samples contained in a single chunk
     double m_dSampleRate;                                           ///< Sample rate used to obtain data in chunk
@@ -53,7 +52,7 @@ public:
      * @brief Get the size of object in bytes
      * @return Size of object in bytes
      */
-    unsigned GetSize();
+    unsigned GetSize() override;
 
     /**
      * @brief Fill a byte array the represents this object
@@ -72,6 +71,14 @@ public:
      * @return Reference to the class with which we want to compare
      */
     bool IsEqual(TimeChunk& timeChunk);
+
+private:
+
+    /**
+     * @brief Get the size of object in bytes
+     * @return Size of object in bytes
+     */
+    unsigned GetInternalSize();
 };
 
 #endif

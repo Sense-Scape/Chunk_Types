@@ -28,6 +28,11 @@ BaseChunk::BaseChunk(const BaseChunk& baseChunk)
 
 unsigned BaseChunk::GetSize()
 {
+	return GetInternalSize();
+}
+
+unsigned BaseChunk::GetInternalSize()
+{
 	unsigned uByteSize = 0;
 
 	uByteSize += sizeof(m_u16SourceIndentifierSize);

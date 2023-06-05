@@ -40,10 +40,10 @@ public:
     virtual ChunkType GetChunkType() { return ChunkType::ChunkBase; };
 
     /**
-     * @brief Get the size of object in bytes
-     * @return Size of object in bytes
-     */
-    unsigned GetSize();
+    * @brief Get the size of object in bytes
+    * @return Size of object in bytes
+    */
+    virtual unsigned GetSize();
 
     /**
      * @brief Fill a byte array the represents this object
@@ -78,6 +78,12 @@ public:
 private:
     uint16_t m_u16SourceIndentifierSize;        ///< Size of unique identifier
     std::vector<uint8_t> m_vu8SourceIdentifier; ///< Source identifier of the chunk
+
+    /**
+     * @brief Get the size of object in bytes
+     * @return Size of object in bytes
+     */
+    unsigned GetInternalSize();
 };
 
 #endif
