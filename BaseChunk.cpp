@@ -1,8 +1,8 @@
 #include "BaseChunk.h"
 
 BaseChunk::BaseChunk(std::vector<uint8_t> vu8SourceIdentifier) :
-	m_vu8SourceIdentifier(vu8SourceIdentifier),
-	m_u16SourceIndentifierSize(vu8SourceIdentifier.size())
+	m_u16SourceIndentifierSize(vu8SourceIdentifier.size()),
+	m_vu8SourceIdentifier(vu8SourceIdentifier)
 {
 
 }
