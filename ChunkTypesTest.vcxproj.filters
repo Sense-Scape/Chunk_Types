@@ -15,19 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChunkTypesTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="include_tests\BaseChunkTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include_tests\TimeChunkTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include_tests\WAVChunkTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tests\BaseChunkTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\TimeChunkTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\WAVChunkTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="source_tests\BaseChunkTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

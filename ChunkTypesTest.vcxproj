@@ -59,34 +59,42 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="components\doctest\doctest.props" />
+    <Import Project="Chunk_Types_Tests.props" />
+    <Import Project="Chunk_Types.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="components\doctest\doctest.props" />
+    <Import Project="Chunk_Types.props" />
+    <Import Project="Chunk_Types_Tests.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="components\doctest\doctest.props" />
+    <Import Project="Chunk_Types.props" />
+    <Import Project="Chunk_Types_Tests.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="components\doctest\doctest.props" />
+    <Import Project="Chunk_Types.props" />
+    <Import Project="Chunk_Types_Tests.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
     <OutDir>$(SolutionDir)$(Configuration)_tests\</OutDir>
     <IntDir>$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
     <OutDir>$(SolutionDir)$(Configuration)_tests\</OutDir>
     <IntDir>$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)_tests\</OutDir>
     <IntDir>$(Platform)\$(Configuration)_tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\components\doctest\doctest;$(ProjectDir)\tests;$(ProjectDir)\include</IncludePath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)_tests\</OutDir>
     <IntDir>$(Platform)\$(Configuration)_tests\</IntDir>
   </PropertyGroup>
@@ -147,17 +155,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChunkTypesTest.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="tests\BaseChunkTests.h" />
-    <ClInclude Include="tests\TimeChunkTests.h" />
-    <ClInclude Include="tests\WAVChunkTests.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="ChunkTypes.vcxproj">
       <Project>{5583b73c-eb54-4cb6-86e1-439a4b9a9315}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include_tests\BaseChunkTests.h" />
+    <ClInclude Include="include_tests\TimeChunkTests.h" />
+    <ClInclude Include="include_tests\WAVChunkTests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source_tests\BaseChunkTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
