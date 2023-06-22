@@ -3,6 +3,7 @@
 
 # Build directories to ignore
 Debug/
+Debug_tests/
 Release/
 x64/
 
