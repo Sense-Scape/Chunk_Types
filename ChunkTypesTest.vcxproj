@@ -60,26 +60,26 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="components\doctest\doctest.props" />
-    <Import Project="Chunk_Types_Tests.props" />
-    <Import Project="Chunk_Types.props" />
+    <Import Project="ChunkTypesTests.props" />
+    <Import Project="ChunkTypes.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="components\doctest\doctest.props" />
-    <Import Project="Chunk_Types.props" />
-    <Import Project="Chunk_Types_Tests.props" />
+    <Import Project="ChunkTypes.props" />
+    <Import Project="ChunkTypesTests.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="components\doctest\doctest.props" />
-    <Import Project="Chunk_Types.props" />
-    <Import Project="Chunk_Types_Tests.props" />
+    <Import Project="ChunkTypes.props" />
+    <Import Project="ChunkTypesTests.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="components\doctest\doctest.props" />
-    <Import Project="Chunk_Types.props" />
-    <Import Project="Chunk_Types_Tests.props" />
+    <Import Project="ChunkTypes.props" />
+    <Import Project="ChunkTypesTests.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
