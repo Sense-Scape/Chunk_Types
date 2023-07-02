@@ -26,6 +26,11 @@ public:
 
     /**
      * @brief Construct a new Base Chunk object
+     */
+    TimeChunk();
+
+    /**
+     * @brief Construct a new Base Chunk object
      * @param[in] dChunkSize The number of samples contained in each ADC channel chunk
      * @param[in] dSampleRate The sample rate used to generate all data within the chunk
      * @param[in] llTimeStamp The time the chunk was created
@@ -79,6 +84,8 @@ private:
      * @return Size of object in bytes
      */
     unsigned GetInternalSize();
+
+    void InitialiseChannels();
 };
 
 #endif
