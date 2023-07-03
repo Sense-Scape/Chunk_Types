@@ -1,5 +1,14 @@
 #include "WAVChunk.h"
 
+WAVChunk::WAVChunk() :
+	BaseChunk(),
+	m_sWAVHeader(),
+	m_i64TimeStamp(),
+	m_vi16Data()
+{
+
+}
+
 WAVChunk::WAVChunk(uint64_t i64TimeStamp) : 
 	BaseChunk(),
 	m_sWAVHeader(),
@@ -14,6 +23,13 @@ WAVChunk::WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk)
 	m_sWAVHeader = pWAVChunk->m_sWAVHeader;
 	m_vi16Data = pWAVChunk->m_vi16Data;
 	m_i64TimeStamp = pWAVChunk->m_i64TimeStamp;
+}
+
+WAVChunk::WAVChunk(WAVChunk& wavChunk)
+{
+	m_sWAVHeader = wavChunk.m_sWAVHeader;
+	m_vi16Data = wavChunk.m_vi16Data;
+	m_i64TimeStamp = wavChunk.m_i64TimeStamp;
 }
 
 WAVHeader WAVChunk::BytesToWAVHeader(std::vector<char>& vcWAVHeader)
@@ -83,7 +99,7 @@ void WAVChunk::FormatWAVHeaderBytes(std::shared_ptr<std::vector<char>> pvcWAVHea
 }
 
 
-void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData)
+void WAVChunk::UnpackWAVData(std::shared_ptr<std::vector<std::vector<int16_t>>> pvvdUnpackedWAVData)
 {
 	// Resizing and reserving unpacked vector to increase speed
 	pvvdUnpackedWAVData->resize(m_sWAVHeader.NumOfChan);
@@ -117,4 +133,48 @@ std::string WAVChunk::GetHeaderString()
 	sHeaderData += "Subchunk2Size: " + std::to_string(m_sWAVHeader.Subchunk2Size) + "\n";
 
 	return sHeaderData;
+}
+
+unsigned WAVChunk::GetSize()
+{
+	return GetInternalSize();
+}
+
+unsigned WAVChunk::GetInternalSize()
+{
+	unsigned uByteSize = 0;
+
+	// First check baseclass
+	BaseChunk SelfBaseChunk = static_cast<BaseChunk&>(*this);
+	uByteSize += SelfBaseChunk.GetSize();
+
+	// Then this class
+	uByteSize += sizeof(m_sWAVHeader);
+	uByteSize += sizeof(m_i64TimeStamp);
+
+	// Iterate over all elements of m_vvi16TimeChunks and infer type using auto
+	for (auto itDatum = m_vi16Data.begin(); itDatum != m_vi16Data.end(); ++itDatum)
+		uByteSize += sizeof(*itDatum);
+
+	return uByteSize;
+}
+
+bool WAVChunk::IsEqual(WAVChunk &wavChunk)
+{
+	// We can compare base class
+	auto SelfBaseChunk = static_cast<BaseChunk&>(*this);
+	auto comparatorBaseChunk = static_cast<BaseChunk&>(wavChunk);
+	bool bBaseEqual = SelfBaseChunk.IsEqual(comparatorBaseChunk);
+
+	// We can then compare TimeChunk paramerters
+	bool bIsEqual = (
+		(m_i64TimeStamp == wavChunk.m_i64TimeStamp) &&
+		(m_sWAVHeader == wavChunk.m_sWAVHeader) &&
+		(m_vi16Data == wavChunk.m_vi16Data)
+		);
+
+	// Now we check base and derived classes are equal
+	bIsEqual = (bBaseEqual && bIsEqual);
+
+	return bIsEqual;
 }

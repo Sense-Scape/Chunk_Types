@@ -150,7 +150,6 @@ void TimeChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 
     memcpy(&m_uNumChannels, pcBytes, sizeof(m_uNumChannels));
     pcBytes += sizeof(m_uNumChannels);
-    std::cout << m_uNumChannels << std::endl;
 
     // Reserving space for vector
     InitialiseChannels();

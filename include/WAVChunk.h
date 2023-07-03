@@ -42,7 +42,6 @@ typedef struct WAVHeader
 class WAVChunk :
     public BaseChunk
 {
-private:
 
 public:
     WAVHeader m_sWAVHeader;             ///< WAV header
@@ -50,11 +49,25 @@ public:
     std::vector<int16_t> m_vi16Data;    ///< Time data corresponding to packed audio (One from each channel repeated)
 
     /**
+    * @brief Defualt constructor
+    */
+    WAVChunk();
+
+    /**
     * @brief Constructor
     * @param[in] sMACAddress MAC address to uniquely identify source of audio
     */
-    WAVChunk(uint64_t i64TimeStamp = 0);
+    WAVChunk(uint64_t i64TimeStamp);
+
+    /**
+    * @brief Copy constructor using pointer
+    */
     WAVChunk(std::shared_ptr<WAVChunk> pWAVChunk);
+
+    /**
+    * @brief Copy constructor using reference
+    */
+    WAVChunk(WAVChunk &wavChunk);
 
     /**
     * @brief Returns the derived chunk type
@@ -64,9 +77,9 @@ public:
 
     /**
     * @brief MOST PROBABLY A BROKEN FUNCTION - unpacks WAV data into indivudal vectors of channel data
-    * @param[in] pvvdUnpackedWAVData shared pointer to vector of vectors of doubles
+    * @param[in] pvvi16UnpackedWAVData shared pointer to vector of vectors of int16
     */
-    void UnpackWAVData(std::shared_ptr<std::vector<std::vector<double>>> pvvdUnpackedWAVData);
+    void UnpackWAVData(std::shared_ptr<std::vector<std::vector<int16_t>>> pvvi16UnpackedWAVData);
 
     /**
     * @brief Converts an array of 44 chars in to WAVHeader structure
@@ -90,6 +103,26 @@ public:
     * @brief Prints out header data
     */
     std::string GetHeaderString();
+
+    /**
+     * @brief Get the size of object in bytes
+     * @return Size of object in bytes
+     */
+    unsigned GetSize() override;
+
+    /**
+     * @brief Returns if the two classes are equal
+     * param[in] wavChunk reference to WAVChunk
+     * @return Reference to the class with which we want to compare
+     */
+    bool IsEqual(WAVChunk& wavChunk);
+
+private:
+    /**
+     * @brief Get the size of object in bytes
+     * @return Size of object in bytes
+     */
+    unsigned GetInternalSize();
 };
 
 

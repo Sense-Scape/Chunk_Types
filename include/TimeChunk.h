@@ -85,6 +85,9 @@ private:
      */
     unsigned GetInternalSize();
 
+    /**
+     * @brief Fills all channels with zeroed data
+     */
     void InitialiseChannels();
 };
 

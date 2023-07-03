@@ -42,8 +42,7 @@ TEST_CASE("TimeChunk Test") {
     TimeChunk CopyOfTimeChunkTestClass = TimeChunkTestClass;
 
 
-    SUBCASE("Checking copy constructors") 
-    {
+    SUBCASE("Checking copy constructors") {
         CHECK(TimeChunkTestClass.IsEqual(TimeChunkTestClass));
         // Now check if we change something in base class that the classes are no longer equal
         CopyOfTimeChunkTestClass.SetSourceIdentifier({ 1, 1 });
