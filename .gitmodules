@@ -1,3 +1,6 @@
 [submodule "components/doctest"]
 	path = components/doctest
 	url = https://github.com/Sense-Scape/doctest.git
+[submodule "components/Nlohmann_JSON"]
+	path = components/Nlohmann_JSON
+	url = https://github.com/Sense-Scape/Nlohmann_JSON.git

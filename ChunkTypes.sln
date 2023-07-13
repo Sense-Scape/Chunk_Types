@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChunkTypes", "ChunkTypes.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChunkTypesTest", "ChunkTypesTest.vcxproj", "{6ACE1051-62F1-4C1F-BFF9-2FA029C2DA2C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Nlohmann_JSON", "..\Windows_Sensor_Sim\Windows_Sensor_Sim\components\Nlohmann_JSON\Nlohmann_JSON.vcxproj", "{C1EB2978-8DC7-487E-905E-95CF4EA740C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,22 @@ Global
 		{6ACE1051-62F1-4C1F-BFF9-2FA029C2DA2C}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{6ACE1051-62F1-4C1F-BFF9-2FA029C2DA2C}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{6ACE1051-62F1-4C1F-BFF9-2FA029C2DA2C}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Debug|x64.ActiveCfg = Debug|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Debug|x64.Build.0 = Debug|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Debug|x86.Build.0 = Debug|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.MinSizeRel|x64.ActiveCfg = Debug|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.MinSizeRel|x64.Build.0 = Debug|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.MinSizeRel|x86.ActiveCfg = Debug|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.MinSizeRel|x86.Build.0 = Debug|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Release|x64.ActiveCfg = Release|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Release|x64.Build.0 = Release|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Release|x86.ActiveCfg = Release|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.Release|x86.Build.0 = Release|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{C1EB2978-8DC7-487E-905E-95CF4EA740C5}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

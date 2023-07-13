@@ -36,7 +36,10 @@
     <ClInclude Include="include/WAVChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\WatchdogChunk.h">
+    <ClInclude Include="include/JSONChunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/WatchdogChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\WAVChunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\JSONChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

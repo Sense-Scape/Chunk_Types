@@ -24,6 +24,9 @@
     <ClInclude Include="include_tests\WAVChunkTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\JSONChunkTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source_tests\BaseChunkTests.cpp">
