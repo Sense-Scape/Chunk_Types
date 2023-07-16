@@ -82,6 +82,11 @@ unsigned TimeChunk::GetInternalSize()
 }
 
 std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
+{  
+    return GetInternalSerialisation();
+}
+
+std::shared_ptr<std::vector<char>> TimeChunk::GetInternalSerialisation()
 {
     auto pvBytes = std::make_shared<std::vector<char>>();
     pvBytes->resize(GetSize());
@@ -90,7 +95,7 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
     // Copy base data
     auto pcvBaseBytes = BaseChunk::Serialise();
     unsigned uBaseClassSize = BaseChunk::GetSize();
-    memcpy(pcBytes , &pcvBaseBytes->front(), uBaseClassSize);
+    memcpy(pcBytes, &pcvBaseBytes->front(), uBaseClassSize);
     pcBytes += uBaseClassSize;
 
 
@@ -114,13 +119,13 @@ std::shared_ptr<std::vector<char>> TimeChunk::Serialise()
     pcBytes += sizeof(m_uNumChannels);
 
     // Converting vector to bytes
-    for (const auto& vi16TimeChunk : m_vvi16TimeChunks) 
+    for (const auto& vi16TimeChunk : m_vvi16TimeChunks)
     {
         unsigned uChunkSizeBytes = sizeof(vi16TimeChunk[0]) * vi16TimeChunk.size();
         memcpy(pcBytes, &vi16TimeChunk[0], uChunkSizeBytes);
         pcBytes += uChunkSizeBytes;
     }
-    
+
     return pvBytes;
 }
 

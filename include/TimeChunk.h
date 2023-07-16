@@ -77,6 +77,13 @@ public:
      */
     bool IsEqual(TimeChunk& timeChunk);
 
+protected:
+    /**
+     * @brief Fill a byte array the represents this object
+     * @param[in] pByteArray Shared pointer to byte vector containing byte data
+     */
+    std::shared_ptr<std::vector<char>> GetInternalSerialisation();
+
 private:
 
     /**
