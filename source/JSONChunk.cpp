@@ -14,12 +14,17 @@ JSONChunk::JSONChunk(std::shared_ptr<JSONChunk> pJSONChunk) : BaseChunk(pJSONChu
 
 std::shared_ptr<std::vector<char>> JSONChunk::Serialise()
 {
+    return GetInternalSerialisation();
+}
+
+std::shared_ptr<std::vector<char>> JSONChunk::GetInternalSerialisation()
+{
     auto pvBytes = std::make_shared<std::vector<char>>();
     pvBytes->resize(GetSize());
     char* pcBytes = pvBytes->data();
 
     // Copy base data
-    auto pcvBaseBytes = BaseChunk::Serialise();
+    auto pcvBaseBytes = BaseChunk::GetInternalSerialisation();
     unsigned uBaseClassSize = BaseChunk::GetSize();
     memcpy(pcBytes, &pcvBaseBytes->front(), uBaseClassSize);
     pcBytes += uBaseClassSize;

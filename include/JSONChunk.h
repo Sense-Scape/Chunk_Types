@@ -48,7 +48,7 @@ public:
      * @brief Fill a byte array the represents this object
      * @param[in] pByteArray Shared pointer to byte vector containing byte data
      */
-    std::shared_ptr<std::vector<char>> Serialise();
+    std::shared_ptr<std::vector<char>> Serialise() override;
 
     /**
      * @brief Converts byte array to object members
@@ -56,8 +56,16 @@ public:
      */
     void Deserialise(std::shared_ptr<std::vector<char>> pBytes);
 
+protected:
+    /**
+     * @brief Fill a byte array the represents this object
+     * @param[in] pByteArray Shared pointer to byte vector containing byte data
+     */
+    std::shared_ptr<std::vector<char>> GetInternalSerialisation();
+
 private:
     uint16_t m_JSONDocumentSize_bytes; ///< Size of json document only used during serialisation
+
     /**
      * @brief Get the size of object in bytes
      * @return Size of object in bytes
