@@ -49,7 +49,7 @@ public:
      * @brief Fill a byte array the represents this object
      * @return pvBytes Shared pointer to byte array that shall be filled
      */
-    std::shared_ptr<std::vector<char>> Serialise();
+    virtual std::shared_ptr<std::vector<char>> Serialise();
 
     /**
      * @brief Converts byte array to object members
@@ -75,6 +75,12 @@ public:
      */
     bool IsEqual(BaseChunk& baseChunk);
 
+protected:
+    /**
+     * @brief Fill a byte array the represents this object
+     * @return pvBytes Shared pointer to byte array that shall be filled
+     */
+    std::shared_ptr<std::vector<char>> GetInternalSerialisation();
 private:
     uint16_t m_u16SourceIndentifierSize;        ///< Size of unique identifier
     std::vector<uint8_t> m_vu8SourceIdentifier; ///< Source identifier of the chunk

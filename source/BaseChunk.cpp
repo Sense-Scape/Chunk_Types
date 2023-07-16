@@ -45,6 +45,11 @@ unsigned BaseChunk::GetInternalSize()
 
 std::shared_ptr<std::vector<char>> BaseChunk::Serialise()
 {
+	return GetInternalSerialisation();
+}
+
+std::shared_ptr<std::vector<char>> BaseChunk::GetInternalSerialisation()
+{
 	auto pvBytes = std::make_shared<std::vector<char>>();
 	pvBytes->resize(GetSize());
 	char* pcBytes = pvBytes->data();
@@ -99,7 +104,7 @@ std::vector<uint8_t> BaseChunk::GetSourceIdentifier()
 }
 
 bool BaseChunk::IsEqual(BaseChunk& baseChunk)
-{	
+{
 	bool bIsEqual = (
 		(m_u16SourceIndentifierSize == baseChunk.m_u16SourceIndentifierSize) &&
 		(m_vu8SourceIdentifier == baseChunk.m_vu8SourceIdentifier)
