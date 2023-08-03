@@ -184,6 +184,7 @@
     <ClInclude Include="include/WAVChunk.h" />
     <ClInclude Include="include/JSONChunk.h" />
     <ClInclude Include="include/WatchdogChunk.h" />
+    <ClInclude Include="include\ChunkToJSONConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BaseChunk.cpp" />
