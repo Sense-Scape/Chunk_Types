@@ -42,7 +42,7 @@ TEST_CASE("JSONChunk Test") {
         CHECK(JSONChunkTestClass.GetChunkType() == ChunkType::JSONChunk);
         // We can also check serialisation and deserialsaation
         CHECK(JSONChunkTestClass.IsEqual(JSONChunkTestClassCopy_0));
-    
+    }
 }
 
 #endif

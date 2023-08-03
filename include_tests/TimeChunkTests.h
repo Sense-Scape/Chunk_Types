@@ -7,20 +7,27 @@
 TEST_CASE("TimeChunk Test") {
 
     // Constructor Parameters
-    double dChunkSize = 256;
+    double dChunkSize = 512;
     double dSampleRate = 44100;
     uint64_t i64TimeStamp = 100000;
     unsigned uBits = 16;
     unsigned uNumBytes = 2;
     unsigned uNumChannels = 4;
-    
+
+    std::vector<int16_t> vu16ChannelOne;
+    vu16ChannelOne.assign(dChunkSize, 1);
+    std::vector<int16_t> vu16ChannelTwo;
+    vu16ChannelTwo.assign(dChunkSize, 2);
     // All the above sum to bytes below - size of class
     BaseChunk baseChunk;
     // Size of header info, size of channels and size of base class
-    unsigned uClassSize_bytes = 36 + 256 * uNumChannels * uNumBytes + baseChunk.GetSize();
+    unsigned uClassSize_bytes = 36 + dChunkSize * uNumChannels * uNumBytes + baseChunk.GetSize();
 
-    // Lets just start by creating a vanilla BaseChunk
+    // Lets just start by creating a Timechunk
     TimeChunk TimeChunkTestClass(dChunkSize, dSampleRate, i64TimeStamp, uBits, uNumBytes, uNumChannels);
+    TimeChunkTestClass.m_vvi16TimeChunks[0] = vu16ChannelOne;
+    TimeChunkTestClass.m_vvi16TimeChunks[1] = vu16ChannelTwo;
+    
     TimeChunk TimeChunkTestClassCopy_0;
     
     // We can also check the basic serialisation functionality
@@ -48,6 +55,7 @@ TEST_CASE("TimeChunk Test") {
         CopyOfTimeChunkTestClass.SetSourceIdentifier({ 1, 1 });
         CHECK(TimeChunkTestClass.IsEqual(CopyOfTimeChunkTestClass) == false);
     }
+
 }
 
 #endif
