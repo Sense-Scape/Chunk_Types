@@ -202,3 +202,26 @@ void TimeChunk::InitialiseChannels()
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; ++uChannelIndex)
         m_vvi16TimeChunks[uChannelIndex].resize(m_dChunkSize);
 }
+
+nlohmann::json TimeChunk::ToJSON()
+{
+    auto JSONDocument = nlohmann::json();
+    auto strChunkName = ChunkTypesUtility::toString(GetChunkType());
+
+    // Adding in Basechunk fields
+    JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(m_u16SourceIndentifierSize);
+    JSONDocument[strChunkName]["SourceIndentifier"] = m_vu8SourceIdentifier;
+
+    // Adding in Timechunk fields
+    JSONDocument[strChunkName]["ChunkSize"] = std::to_string(m_dChunkSize);
+    JSONDocument[strChunkName]["SampleRate"] = std::to_string(m_dSampleRate);
+    JSONDocument[strChunkName]["TimeStamp"] = std::to_string(m_i64TimeStamp);
+    JSONDocument[strChunkName]["uBits"] = std::to_string(m_uBits);
+    JSONDocument[strChunkName]["NumBytes"] = std::to_string(m_uNumBytes);
+    JSONDocument[strChunkName]["NumChannels"] = std::to_string(m_uNumChannels);
+ 
+    for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; uChannelIndex++)
+        JSONDocument[strChunkName]["Channels"][std::to_string(uChannelIndex)] = m_vvi16TimeChunks[uChannelIndex];
+
+    return JSONDocument;
+}
