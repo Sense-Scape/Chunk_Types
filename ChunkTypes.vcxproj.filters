@@ -45,7 +45,7 @@
     <ClInclude Include="include\ChunkToJSONConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ChunkDuplicator.h">
+    <ClInclude Include="include\ChunkDuplicatorUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

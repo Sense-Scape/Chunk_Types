@@ -1,5 +1,5 @@
-#ifndef CHUNK_DUPLICATOR
-#define CHUNK_DUPLICATOR
+#ifndef CHUNK_DUPLICATOR_UTILITY
+#define CHUNK_DUPLICATOR_UTILITY
 
 #include "BaseChunk.h"
 #include "UDPChunk.h"   
@@ -7,7 +7,7 @@
 #include "WAVChunk.h"  
 #include "WatchdogChunk.h"
 
-class ChunkTypesNamingUtility
+class ChunkDuplicatorUtility
 {
 public:
 
