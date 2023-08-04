@@ -56,6 +56,9 @@ TEST_CASE("TimeChunk Test") {
         CHECK(TimeChunkTestClass.IsEqual(CopyOfTimeChunkTestClass) == false);
     }
 
+
+    auto a = TimeChunkTestClass.ToJSON();
+    std::cout << a->dump() << std::endl;
 }
 
 #endif

@@ -82,7 +82,7 @@ public:
     /**
     * @brief Returns the JSON equivalent of this classes representation
     */
-    nlohmann::json ToJSON() override;
+    std::shared_ptr<nlohmann::json> ToJSON() override;
 
 protected:
     /**

@@ -3,7 +3,7 @@
 
 /* Library Includes */
 #include "json.hpp"             // Used for JSON documents
-#include "ChunkTypesUtility.h"  // Used When filling out json documents to display Chunk Type
+#include "ChunkTypesNamingUtility.h"  // Used When filling out json documents to display Chunk Type
 
 // Abstract class that enforces a ToJSON conversion for a chunk
 class ChunkToJSONConverter {
@@ -13,7 +13,7 @@ public:
     virtual ~ChunkToJSONConverter() {};
 
     // Returns the JSON equivalent of this classes representation
-    virtual nlohmann::json ToJSON() = 0;
+    virtual std::shared_ptr<nlohmann::json> ToJSON() = 0;
 };
 
 #endif
