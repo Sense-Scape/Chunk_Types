@@ -17,6 +17,7 @@ header. Tests are run using [DocTest](https://github.com/doctest/doctest) testin
 
 One should first pull this repository and update the submodules as it does required the DocTest header to build. 
 The Doctest library has been branched into this organisation. **Note** that this is intended to be used a library.
+[This is how to add additional Chunks](https://github.com/Sense-Scape/.github/blob/main/manuals/Adding%20Chunks.md)
 
 ### Windows
 
