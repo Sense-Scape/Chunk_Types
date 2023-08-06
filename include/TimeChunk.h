@@ -8,12 +8,14 @@
 
 /*Custom Includes*/
 #include "BaseChunk.h"
+#include "ChunkToJSONConverter.h"
 
 /**
  * @brief Time Data Chunk used to store all samples data from the
  *          The active ADCs and their respective channels
  */
-class TimeChunk : public BaseChunk
+class TimeChunk : public BaseChunk,
+                  public ChunkToJSONConverter
 {
 public:
     double m_dChunkSize;                                            ///< Number of samples contained in a single chunk
@@ -76,6 +78,11 @@ public:
      * @return Reference to the class with which we want to compare
      */
     bool IsEqual(TimeChunk& timeChunk);
+    
+    /**
+    * @brief Returns the JSON equivalent of this classes representation
+    */
+    std::shared_ptr<nlohmann::json> ToJSON() override;
 
 protected:
     /**

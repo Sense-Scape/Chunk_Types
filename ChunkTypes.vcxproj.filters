@@ -21,7 +21,7 @@
     <ClInclude Include="include/ChunkTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include/ChunkTypesUtility.h">
+    <ClInclude Include="include\ChunkTypesNamingUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include/TimeChunk.h">
@@ -40,6 +40,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include/WatchdogChunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ChunkToJSONConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ChunkDuplicatorUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
