@@ -205,8 +205,7 @@ void TimeChunk::InitialiseChannels()
 
 std::shared_ptr<nlohmann::json> TimeChunk::ToJSON()
 {
-    auto pJSONDocument = std::make_shared<nlohmann::json>();
-    auto JSONDocument = *pJSONDocument;
+    auto JSONDocument = nlohmann::json();
     auto strChunkName = ChunkTypesNamingUtility::toString(GetChunkType());
 
     // Adding in Basechunk fields
@@ -224,5 +223,5 @@ std::shared_ptr<nlohmann::json> TimeChunk::ToJSON()
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; uChannelIndex++)
         JSONDocument[strChunkName]["Channels"][std::to_string(uChannelIndex)] = m_vvi16TimeChunks[uChannelIndex];
 
-    return pJSONDocument;
+    return std::make_shared<nlohmann::json>(JSONDocument);
 }

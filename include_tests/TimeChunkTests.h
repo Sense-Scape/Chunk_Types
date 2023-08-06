@@ -12,7 +12,7 @@ TEST_CASE("TimeChunk Test") {
     uint64_t i64TimeStamp = 100000;
     unsigned uBits = 16;
     unsigned uNumBytes = 2;
-    unsigned uNumChannels = 4;
+    unsigned uNumChannels = 2;
 
     std::vector<int16_t> vu16ChannelOne;
     vu16ChannelOne.assign(dChunkSize, 1);
@@ -55,10 +55,24 @@ TEST_CASE("TimeChunk Test") {
         CopyOfTimeChunkTestClass.SetSourceIdentifier({ 1, 1 });
         CHECK(TimeChunkTestClass.IsEqual(CopyOfTimeChunkTestClass) == false);
     }
+    
 
+    auto JSONDocument = nlohmann::json();
+    auto strChunkName = ChunkTypesNamingUtility::toString(ChunkType::TimeChunk);
+    JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(0);
+    JSONDocument[strChunkName]["SourceIndentifier"] = std::vector<uint8_t>();
+    JSONDocument[strChunkName]["ChunkSize"] = std::to_string(dChunkSize);
+    JSONDocument[strChunkName]["SampleRate"] = std::to_string(dSampleRate);
+    JSONDocument[strChunkName]["TimeStamp"] = std::to_string(i64TimeStamp);
+    JSONDocument[strChunkName]["uBits"] = std::to_string(uBits);
+    JSONDocument[strChunkName]["NumBytes"] = std::to_string(uNumBytes);
+    JSONDocument[strChunkName]["NumChannels"] = std::to_string(uNumChannels);
+    JSONDocument[strChunkName]["Channels"][std::to_string(0)] = vu16ChannelOne;
+    JSONDocument[strChunkName]["Channels"][std::to_string(1)] = vu16ChannelTwo;
 
-    auto a = TimeChunkTestClass.ToJSON();
-    std::cout << a->dump() << std::endl;
+    SUBCASE("Checking ToJSON Converter") {
+        CHECK(*(TimeChunkTestClass.ToJSON()) == JSONDocument);
+    }
 }
 
 #endif
