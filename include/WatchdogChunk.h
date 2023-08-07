@@ -3,11 +3,13 @@
 
 /* Custom Includes */
 #include "BaseChunk.h"
+#include "ChunkToJSONConverter.h"
 
 /**
  * @brief UDP Data Chunk used to store UDP datagram data to pass between modules
  */
-class WatchdogChunk : public BaseChunk
+class WatchdogChunk :   public BaseChunk,
+                        public ChunkToJSONConverter
 {
 public:
     std::vector<uint8_t> m_vu8MACAddress;        ///< MAC Address
@@ -43,6 +45,20 @@ public:
      * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
      */
     void Deserialise(std::shared_ptr<std::vector<char>> pBytes);
+
+    /**
+     * @brief Returns if the two classes are equal
+     * @return Reference to the class with which we want to compare
+     */
+    bool IsEqual(WatchdogChunk& watchdogChunk);
+
+    /**
+    * @brief Returns the JSON equivalent of this classes representation
+    */
+    std::shared_ptr<nlohmann::json> ToJSON() override;
+
+private:
+    std::string MACAddressToString(const std::vector<uint8_t>& macAddress);
 };
 
 #endif

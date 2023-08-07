@@ -20,3 +20,4 @@
 #include "TimeChunkTests.h"
 #include "WAVChunkTests.h"
 #include "JSONChunkTests.h"
+#include "WatchdogChunkTests.h"
