@@ -28,6 +28,17 @@ The Doctest library has been branched into this organisation. **Note** that this
 - Run the build command
 - One should get an executable test file as well as a `.lib` file
 
+#### Testing and Contributing
+
+##### Automated testing
+
+- For the pre-commit hook to pass you need to have `msbuild.exe` on your path (an example path would be `C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\`).
+- When committing it will run `msbuild` to build the project and then run the test executable.
+- Run the `install-hooks.bat` script once to place the hooks in the right places and then build and testing will happen on commits.
+
+##### Manual testing
+To manually do this you can just run build on the test project and then navigate to `x64\Debug_tests\` and run `ChunkTypesTest.exe`
+
 ### ESP32
 
 - Ensure one has [VSCode](https://code.visualstudio.com/download) downloaded
