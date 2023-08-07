@@ -195,11 +195,6 @@
     <ClCompile Include="source\WatchdogChunk.cpp" />
     <ClCompile Include="source\WAVChunk.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Windows_Sensor_Sim\Windows_Sensor_Sim\components\Nlohmann_JSON\Nlohmann_JSON.vcxproj">
-      <Project>{c1eb2978-8dc7-487e-905e-95cf4ea740c5}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
