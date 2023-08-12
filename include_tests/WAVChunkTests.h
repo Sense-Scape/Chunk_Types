@@ -66,6 +66,19 @@ TEST_CASE("WAVChunk Test") {
         // Checking if setting data works correctly
         CHECK(WAVChunkTestClass.m_sWAVHeader == sWAVHeaderDesrialised);
     }
+
+    auto JSONDocument = nlohmann::json();
+    auto strChunkName = ChunkTypesNamingUtility::toString(ChunkType::WAVChunk);
+    JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(0);
+    JSONDocument[strChunkName]["SourceIndentifier"] = std::vector<uint8_t>();
+    JSONDocument[strChunkName]["WAVHeader"] = "ChunkSize: 0\nSubchunk1Size: 16\nAudioFormat: 1\nNumOfChan: 2\nSamplesPerSec: 0\nBytesPerSec: 0\nBlockAlign: 0\nBitsPerSample: 0\nSubchunk2Size: 8\n";
+    JSONDocument[strChunkName]["ChunkSize"] = "70";
+    JSONDocument[strChunkName]["TimeStamp"] = "0";
+    JSONDocument[strChunkName]["VI16Data"] = "10101010";
+
+    SUBCASE("Checking ToJSON Converter") {
+        CHECK(*(WAVChunkTestClass.ToJSON()) == JSONDocument);
+    }
 }
 
 #endif

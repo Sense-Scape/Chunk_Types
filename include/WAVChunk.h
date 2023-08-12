@@ -6,6 +6,7 @@
 
 /*Custom Includes*/
 #include "BaseChunk.h"
+#include "ChunkToJSONConverter.h"
 
 /**
  * @brief WAV header structure that is 32 bytes large
@@ -40,7 +41,8 @@ typedef struct WAVHeader
  * @brief Class that encapsulated time domain data with a WAV header
  */
 class WAVChunk :
-    public BaseChunk
+    public BaseChunk,
+    public ChunkToJSONConverter
 {
 
 public:
@@ -116,6 +118,11 @@ public:
      * @return Reference to the class with which we want to compare
      */
     bool IsEqual(WAVChunk& wavChunk);
+
+    /**
+    * @brief Returns the JSON equivalent of this classes representation
+    */
+    std::shared_ptr<nlohmann::json> ToJSON() override;
 
 private:
     /**
