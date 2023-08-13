@@ -7,8 +7,6 @@ name: CMake
 
 on: [push]
 
-env:
-
 permissions:
   contents: read
 
