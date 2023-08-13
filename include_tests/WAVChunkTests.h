@@ -71,7 +71,33 @@ TEST_CASE("WAVChunk Test") {
     auto strChunkName = ChunkTypesNamingUtility::toString(ChunkType::WAVChunk);
     JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(0);
     JSONDocument[strChunkName]["SourceIndentifier"] = std::vector<uint8_t>();
-    JSONDocument[strChunkName]["WAVHeader"] = "ChunkSize: 0\nSubchunk1Size: 16\nAudioFormat: 1\nNumOfChan: 2\nSamplesPerSec: 0\nBytesPerSec: 0\nBlockAlign: 0\nBitsPerSample: 0\nSubchunk2Size: 8\n";
+
+    JSONDocument[strChunkName]["WAVHeader"]["RIFF"][0] = 82;
+    JSONDocument[strChunkName]["WAVHeader"]["RIFF"][1] = 73;
+    JSONDocument[strChunkName]["WAVHeader"]["RIFF"][2] = 70;
+    JSONDocument[strChunkName]["WAVHeader"]["RIFF"][3] = 70;
+    JSONDocument[strChunkName]["WAVHeader"]["ChunkSize"] = 0;
+    JSONDocument[strChunkName]["WAVHeader"]["WAVE"][0] = 87;
+    JSONDocument[strChunkName]["WAVHeader"]["WAVE"][1] = 65;
+    JSONDocument[strChunkName]["WAVHeader"]["WAVE"][2] = 86;
+    JSONDocument[strChunkName]["WAVHeader"]["WAVE"][3] = 69;
+    JSONDocument[strChunkName]["WAVHeader"]["fmt"][0] = 102;
+    JSONDocument[strChunkName]["WAVHeader"]["fmt"][1] = 109;
+    JSONDocument[strChunkName]["WAVHeader"]["fmt"][2] = 116;
+    JSONDocument[strChunkName]["WAVHeader"]["fmt"][3] = 32;
+    JSONDocument[strChunkName]["WAVHeader"]["Subchunk1Size"] = 16;
+    JSONDocument[strChunkName]["WAVHeader"]["AudioFormat"] = 1;
+    JSONDocument[strChunkName]["WAVHeader"]["NumOfChan"] = 2;
+    JSONDocument[strChunkName]["WAVHeader"]["SamplesPerSec"] = 0;
+    JSONDocument[strChunkName]["WAVHeader"]["bytesPerSec"] = 0;
+    JSONDocument[strChunkName]["WAVHeader"]["blockAlign"] = 0;
+    JSONDocument[strChunkName]["WAVHeader"]["bitsPerSample"] = 0;
+    JSONDocument[strChunkName]["WAVHeader"]["Subchunk2Size"] = 8;
+    JSONDocument[strChunkName]["WAVHeader"]["Subchunk2ID"][0] = 100;
+    JSONDocument[strChunkName]["WAVHeader"]["Subchunk2ID"][1] = 97;
+    JSONDocument[strChunkName]["WAVHeader"]["Subchunk2ID"][2] = 116;
+    JSONDocument[strChunkName]["WAVHeader"]["Subchunk2ID"][3] = 97;
+
     JSONDocument[strChunkName]["ChunkSize"] = "70";
     JSONDocument[strChunkName]["TimeStamp"] = "0";
     JSONDocument[strChunkName]["VI16Data"] = "10101010";

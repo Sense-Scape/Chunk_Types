@@ -189,7 +189,7 @@ std::shared_ptr<nlohmann::json> WAVChunk::ToJSON()
 	JSONDocument[strChunkName]["SourceIndentifier"] = m_vu8SourceIdentifier;
 
 	// Adding in WAVChunk fields
-	JSONDocument[strChunkName]["WAVHeader"] = GetHeaderString(); // not sure if we want to nest JSON representation here rather?
+	JSONDocument[strChunkName]["WAVHeader"] = *m_sWAVHeader.ToJSON().get();
 	JSONDocument[strChunkName]["ChunkSize"] = std::to_string(GetSize());
 	JSONDocument[strChunkName]["TimeStamp"] = std::to_string(m_i64TimeStamp);
 

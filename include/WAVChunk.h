@@ -35,6 +35,28 @@ typedef struct WAVHeader
         return std::memcmp(this, &sWAVHeader, sizeof(WAVHeader)) == 0;
     }
 
+    std::shared_ptr<nlohmann::json> ToJSON() {
+        auto JSONDocument = nlohmann::json();
+        for (size_t RIFFIndex = 0; RIFFIndex < 4; RIFFIndex++)
+            JSONDocument["RIFF"][RIFFIndex] = RIFF[RIFFIndex];
+        JSONDocument["ChunkSize"] = ChunkSize;
+        for (size_t WAVEIndex = 0; WAVEIndex < 4; WAVEIndex++)
+            JSONDocument["WAVE"][WAVEIndex] = WAVE[WAVEIndex];
+        for (size_t fmtIndex = 0; fmtIndex < 4; fmtIndex++)
+            JSONDocument["fmt"][fmtIndex] = fmt[fmtIndex];
+        JSONDocument["Subchunk1Size"] = Subchunk1Size;
+        JSONDocument["AudioFormat"] = AudioFormat;
+        JSONDocument["NumOfChan"] = NumOfChan;
+        JSONDocument["SamplesPerSec"] = SamplesPerSec;
+        JSONDocument["bytesPerSec"] = bytesPerSec;
+        JSONDocument["blockAlign"] = blockAlign;
+        JSONDocument["bitsPerSample"] = bitsPerSample;
+        for (size_t Subchunk2IDIndex = 0; Subchunk2IDIndex < 4; Subchunk2IDIndex++)
+            JSONDocument["Subchunk2ID"][Subchunk2IDIndex] = Subchunk2ID[Subchunk2IDIndex];
+        JSONDocument["Subchunk2Size"] = Subchunk2Size;
+
+        return std::make_shared<nlohmann::json>(JSONDocument);
+    }
 } WAVHeader;
 
 /**
