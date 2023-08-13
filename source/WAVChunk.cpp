@@ -178,3 +178,27 @@ bool WAVChunk::IsEqual(WAVChunk &wavChunk)
 
 	return bIsEqual;
 }
+
+std::shared_ptr<nlohmann::json> WAVChunk::ToJSON()
+{
+	auto JSONDocument = nlohmann::json();
+	auto strChunkName = ChunkTypesNamingUtility::toString(GetChunkType());
+
+	// Adding in Basechunk fields
+	JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(m_u16SourceIndentifierSize);
+	JSONDocument[strChunkName]["SourceIndentifier"] = m_vu8SourceIdentifier;
+
+	// Adding in WAVChunk fields
+	JSONDocument[strChunkName]["WAVHeader"] = *m_sWAVHeader.ToJSON().get();
+	JSONDocument[strChunkName]["ChunkSize"] = std::to_string(GetSize());
+	JSONDocument[strChunkName]["TimeStamp"] = std::to_string(m_i64TimeStamp);
+
+	std::stringstream stream;
+
+	for (size_t vi16DatumIndex = 0; vi16DatumIndex < m_vi16Data.size(); ++vi16DatumIndex)
+		stream << std::to_string(m_vi16Data[vi16DatumIndex]);
+
+	JSONDocument[strChunkName]["VI16Data"] = stream.str();
+
+	return std::make_shared<nlohmann::json>(JSONDocument);
+}
