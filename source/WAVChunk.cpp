@@ -195,9 +195,9 @@ std::shared_ptr<nlohmann::json> WAVChunk::ToJSON()
 
 	std::stringstream stream;
 
-	for (size_t i = 0; i < m_vi16Data.size(); ++i) {
-		stream << std::to_string(m_vi16Data[i]);
-	}
+	for (size_t vi16DatumIndex = 0; vi16DatumIndex < m_vi16Data.size(); ++vi16DatumIndex)
+		stream << std::to_string(m_vi16Data[vi16DatumIndex]);
+
 	JSONDocument[strChunkName]["VI16Data"] = stream.str();
 
 	return std::make_shared<nlohmann::json>(JSONDocument);
