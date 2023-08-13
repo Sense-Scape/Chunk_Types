@@ -1,6 +1,9 @@
 #ifndef WATCH_DOG_CHUNK
 #define	WATCH_DOG_CHUNK
 
+/*Standard Includes*/
+#include <sstream>
+
 /* Custom Includes */
 #include "BaseChunk.h"
 #include "ChunkToJSONConverter.h"
