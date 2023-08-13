@@ -10,3 +10,5 @@ x64/
 # Other
 build/
 build_ESP32/
+
+.DS_Store
