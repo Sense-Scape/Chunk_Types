@@ -1,5 +1,6 @@
 # Chunk_Types
-[![MSBuild and doctest](https://github.com/Sense-Scape/Chunk_Types/actions/workflows/msbuild.yml/badge.svg)](https://github.com/Sense-Scape/Chunk_Types/actions/workflows/msbuild.yml)
+[![MSBuild](https://github.com/Sense-Scape/Chunk_Types/actions/workflows/msbuild.yml/badge.svg)](https://github.com/Sense-Scape/Chunk_Types/actions/workflows/msbuild.yml)
+[![CMake](https://github.com/Sense-Scape/Chunk_Types/actions/workflows/cmake.yml/badge.svg)](https://github.com/Sense-Scape/Chunk_Types/actions/workflows/cmake.yml)
 
 ## Summary
 
