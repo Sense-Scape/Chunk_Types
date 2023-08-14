@@ -9,9 +9,6 @@ set(INCLUDE_TESTS_DIR "include_tests")
 
 if(DEFINED ENV{ESP_PLATFORM})
     message(STATUS "Building for ESP32")
-    
-    set(SOURCE_DIR "source")
-    set(INCLUDE_DIR "include")
 
     idf_component_register(
         SRCS
