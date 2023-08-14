@@ -11,8 +11,25 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout project and submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Generate
+      run: cmake -B build -S . -D CMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage"
+
+    - name: Build
+      run: cmake --build build
+
+    - name: Test
+      run: ctest --test-dir build --no-tests=error
+  build-windows:
+    runs-on: windows-latest
 
     steps:
     - name: Checkout project and submodules
