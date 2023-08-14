@@ -3,6 +3,7 @@
 
 /*Standard Includes*/
 #include <algorithm>
+#include <sstream>
 
 /*Custom Includes*/
 #include "BaseChunk.h"
