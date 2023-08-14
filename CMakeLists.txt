@@ -7,7 +7,7 @@ set(INCLUDE_DIR "include")
 set(SOURCE_TESTS_DIR "source_tests")
 set(INCLUDE_TESTS_DIR "include_tests")
 
-if(DEFINED ENV{ESP_PLATFORM})
+if(DEFINED ENV{IDF_PATH}) # this is normally only set when running in an esp idf terminal
     message(STATUS "Building for ESP32")
 
     idf_component_register(
