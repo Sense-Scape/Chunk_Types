@@ -2,6 +2,7 @@
 #define Session_MODE_TYPES
 
 #include <utility>
+#include "UDPChunk.h"
 
 /*
 * List of Session mode types.

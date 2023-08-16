@@ -1,5 +1,5 @@
-#ifndef TEXT_CHUNK
-#define	TEXT_CHUNK
+#ifndef JSON_CHUNK
+#define	JSON_CHUNK
 
 /* Standard Includes */
 #include <vector>

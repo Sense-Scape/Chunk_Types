@@ -22,12 +22,12 @@ public:
         case ChunkType::WatchdogChunk:  return std::make_shared<WatchdogChunk>(std::static_pointer_cast<WatchdogChunk>(pBaseChunk));
 
         default:
-            {
-                std::cout << std::string(__FUNCTION__) + ": Unknown chunk type \n";
-                return std::make_shared<BaseChunk>(BaseChunk(pBaseChunk));
-            }
+        {
+            std::cout << std::string(__FUNCTION__) + ": Unknown chunk type \n";
+            return std::make_shared<BaseChunk>(BaseChunk(pBaseChunk));
+        }
         }
     }
-}
+};
 
 #endif
