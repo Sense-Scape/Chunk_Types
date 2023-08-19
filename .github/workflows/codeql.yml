@@ -18,6 +18,15 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
 
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: ChunkTypes.sln
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Debug
+
 jobs:
   analyze:
     name: Analyze
@@ -27,7 +36,9 @@ jobs:
     #   - https://gh.io/using-larger-runners
     # Consider using larger runners for possible analysis time improvements.
     runs-on: windows-latest
+
     timeout-minutes: 360
+
     permissions:
       actions: read
       contents: read
@@ -45,6 +56,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
