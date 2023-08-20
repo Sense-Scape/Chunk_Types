@@ -7,11 +7,11 @@
 /*
 * List of Session mode types.
 * These intends to leverage the idea of the layer OSI model (layer 5)
-* 
+*
 * This defines how data is packaged within the a UDP datagram or TCP data field
-* and informs modules that follows UDP/TCP modules as to how to process the 
+* and informs modules that follows UDP/TCP modules as to how to process the
 * data they have been passed
-* 
+*
 * Data field descriptions are stored as pairs.
 * First - Position of starting starting byte
 * Second - Value of the header parameter
@@ -20,18 +20,18 @@
 
 enum class SessionModeTypes
 {
-	SM_BaseMode,
-	TimeChunkSession		///< Session mode containing Sequence Number, Tx State, Size of data field. Used for teh WAV TX Sesion
+	SessionModeBase,
+	ReliableSessionSessionMode,		///< Session mode containing Sequence Number, Tx State, Size of data field. Used for teh WAV TX Sesion
 };
 
 
 /*
 * Base Session type used as inheritance mechanisim for derived session type
 */
-class SessionModeBase 
+class SessionModeBase
 {
 public:
-	SessionModeTypes m_SessionModeType = SessionModeTypes::SM_BaseMode;
+	SessionModeTypes m_SessionModeType = SessionModeTypes::SessionModeBase;
 
 	SessionModeBase(SessionModeTypes ceSessionType) { m_SessionModeType = ceSessionType; };
 	virtual ~SessionModeBase() {};
@@ -50,12 +50,12 @@ public:
 * unsigned m_uTransmissionSize;
 *
 */
-class TimeChunkSessionMode : public SessionModeBase
+class ReliableSessionSessionMode : public SessionModeBase
 {
 public:
-	std::pair<unsigned,unsigned> m_puSequenceNumber = std::make_pair(0,0);							///< Map of sequence number (byte position and value)
+	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);							///< Map of sequence number (byte position and value)
 	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
-	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5,0);						///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value)
 	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of transmission data size (unused ish)
 	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);
 	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(17, "");							///< Map of transmission data size (byte position and value)
@@ -63,7 +63,7 @@ public:
 	unsigned m_uPreviousSessionNumber = 0;
 	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
 
-	TimeChunkSessionMode() : SessionModeBase(SessionModeTypes::TimeChunkSession) {};
+	ReliableSessionSessionMode() : SessionModeBase(SessionModeTypes::ReliableSessionSessionMode) {};
 
 	/**
 	* @brief converts array of bytes into session states
