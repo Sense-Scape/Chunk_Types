@@ -1,5 +1,5 @@
-#ifndef Session_MODE_TYPES
-#define Session_MODE_TYPES
+#ifndef SESSION_MODE_TYPES
+#define SESSION_MODE_TYPES
 
 #include <utility>
 #include "UDPChunk.h"
@@ -11,17 +11,12 @@
 * This defines how data is packaged within the a UDP datagram or TCP data field
 * and informs modules that follows UDP/TCP modules as to how to process the
 * data they have been passed
-*
-* Data field descriptions are stored as pairs.
-* First - Position of starting starting byte
-* Second - Value of the header parameter
-* Type - The type stored in the pair is the type and therefore number of bytes to read
 */
 
-enum class SessionModeTypes
+enum class SessionModeType
 {
 	SessionModeBase,
-	ReliableSessionSessionMode,		///< Session mode containing Sequence Number, Tx State, Size of data field. Used for teh WAV TX Sesion
+	ReliableSessionSessionMode,
 };
 
 
@@ -31,42 +26,68 @@ enum class SessionModeTypes
 class SessionModeBase
 {
 public:
-	SessionModeTypes m_SessionModeType = SessionModeTypes::SessionModeBase;
 
-	SessionModeBase(SessionModeTypes ceSessionType) { m_SessionModeType = ceSessionType; };
+	/**
+	* @brief SessionModeBase constructor
+	*/
+	SessionModeBase() { };
+
+	/**
+	* @brief SessionModeBase destructor
+	*/
 	virtual ~SessionModeBase() {};
 
+	/**
+	* @brief Converts array of bytes into session states
+	* @param[in] pBaseChunk base chunk of containing UDP char bytes
+	*/
 	virtual void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) {};
+
+	virtual SessionModeType GetSessionType() { return SessionModeType::SessionModeBase; }
+
 };
 
 /*
-* Session Mode 1
+* ReliableSessionSessionMode
 *
 * Ordered data layout where the number is the byte position in the and the type
 * is the type being read.
 *
-* unsigned m_uSequenceNumber;
-* char m_cTransmissionState;
-* unsigned m_uTransmissionSize;
+* Mode Structure
+* | Sequence Number | Transmission State | Transmission Size | Chunk Type | Session Number | Unique Identifer |
 *
+* Counting in order of significance
+* | Sequence Number | Session Number | Transmission State |
+* First check transmission state, increment session
+* Once transmissions state toggles, increment sequence and reset session
 */
 class ReliableSessionSessionMode : public SessionModeBase
 {
 public:
-	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);							///< Map of sequence number (byte position and value)
-	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
-	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value)
-	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of transmission data size (unused ish)
-	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);
-	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(17, "");							///< Map of transmission data size (byte position and value)
-	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
-	unsigned m_uPreviousSessionNumber = 0;
-	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
-
-	ReliableSessionSessionMode() : SessionModeBase(SessionModeTypes::ReliableSessionSessionMode) {};
+	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);	///< Map of sequence number (byte position and value)
+	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);			///< Map of transmission state (byte position and value)
+	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);	///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);		///< Map of contained chunk type (byte position and value)
+	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);	///< Map of session number (byte position and value)
+	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(17, "");		///< Map of transmission data size (byte position and value)
+	unsigned m_uPreviousSequenceNumber = 0;										///< Unsigned previosuly received sequence number
+	unsigned m_uPreviousSessionNumber = 0;										///< Unsigned previosuly received session number
+	unsigned m_uDataStartPosition = 24;											///< Starting position of data bytes
 
 	/**
-	* @brief converts array of bytes into session states
+	* @brief Constructor for the session mode
+	* @param[in] Enumnerated session type corresponding to sessionModeType
+	*/
+	ReliableSessionSessionMode() : SessionModeBase() {};
+
+	/**
+	* @brief get the session mode type of session mode
+	* @return return the enumerated type of the session mode
+	*/
+	SessionModeType GetSessionType() override { return SessionModeType::ReliableSessionSessionMode; }
+
+	/**
+	* @brief Converts array of bytes into session states
 	* @param[in] pBaseChunk base chunk of containing UDP char bytes
 	*/
 	void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) override
@@ -93,3 +114,4 @@ public:
 };
 
 #endif
+
