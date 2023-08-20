@@ -10,6 +10,7 @@
 	This should then be run to check the chunk
 	functionality
 */
+#include "SessionModeTypesTests.h"
 #include "BaseChunkTests.h"
 #include "TimeChunkTests.h"
 #include "WAVChunkTests.h"
