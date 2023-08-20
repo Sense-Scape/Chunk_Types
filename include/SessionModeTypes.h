@@ -64,15 +64,15 @@ public:
 class ReliableSessionSessionMode : public SessionModeBase
 {
 public:
-	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);	///< Map of sequence number (byte position and value)
-	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);			///< Map of transmission state (byte position and value)
-	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);	///< Map of transmission data size (byte position and value)
-	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);		///< Map of contained chunk type (byte position and value)
-	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);	///< Map of session number (byte position and value)
-	std::pair<unsigned, std::string> m_pusMacUID = std::make_pair(17, "");		///< Map of transmission data size (byte position and value)
-	unsigned m_uPreviousSequenceNumber = 0;										///< Unsigned previosuly received sequence number
-	unsigned m_uPreviousSessionNumber = 0;										///< Unsigned previosuly received session number
-	unsigned m_uDataStartPosition = 24;											///< Starting position of data bytes
+	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);						///< Map of sequence number (byte position and value)
+	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
+	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of contained chunk type (byte position and value)
+	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);						//< Map of session number (byte position and value)
+	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({0,0,0,0,0,0}));///< Map of transmission data size (byte position and value)
+	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
+	unsigned m_uPreviousSessionNumber = 0;															///< Unsigned previosuly received session number
+	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
 
 	/**
 	* @brief Constructor for the session mode
@@ -97,21 +97,14 @@ public:
 		// Parse and update processing states
 		m_puSequenceNumber.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puSequenceNumber.first]));
 		m_puTransmissionSize.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puTransmissionSize.first]));
+		m_pu32uChunkType.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_pu32uChunkType.first]));
 		m_pcTransmissionState.second = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pcTransmissionState.first]));
 		m_puSessionNumber.second = *(reinterpret_cast<uint32_t*>(&pUDPChunk->m_vcDataChunk[m_puSessionNumber.first]));
 
-		// If the MAC address has been set, don't parse again
-		if (m_pusMacUID.second == "")
-		{
-			// Parse and convert each byte to base 10 string to uniquely identify process
-			for (unsigned uMACIndex = 0; uMACIndex < 6; uMACIndex++)
-				if (uMACIndex != 5)
-					m_pusMacUID.second += std::to_string(*(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusMacUID.first + uMACIndex]))) + ":";
-				else
-					m_pusMacUID.second += std::to_string(*(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusMacUID.first + uMACIndex])));
-		}
-	};
+		// Check where the chunk came from
+		for (unsigned uMACIndex = 0; uMACIndex < 6; uMACIndex++)
+			m_pusUID.second[uMACIndex] = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusUID.first + uMACIndex]));
+	}
 };
 
 #endif
-
