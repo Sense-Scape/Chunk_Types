@@ -9,13 +9,8 @@
 
 	This should then be run to check the chunk
 	functionality
-
-	TODO: Move RULES it Obsidian
-
-	Rules:
-	> All test cases shall be seperated by two empty lines
-
 */
+#include "SessionModeTypesTests.h"
 #include "BaseChunkTests.h"
 #include "TimeChunkTests.h"
 #include "WAVChunkTests.h"
