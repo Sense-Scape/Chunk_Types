@@ -28,6 +28,37 @@ public:
         }
         }
     }
+
+    static std::shared_ptr<BaseChunk> DeserialiseDerivedChunk(std::shared_ptr<std::vector<char>> pBytes, ChunkType eChunkType)
+    {
+        std::shared_ptr<BaseChunk> pChunk; // Declare the variable once
+
+        switch (eChunkType)
+        {
+        case ChunkType::ChunkBase:
+            pChunk = std::make_shared<BaseChunk>();
+            break;
+        case ChunkType::UDPChunk:
+            pChunk = std::make_shared<UDPChunk>();
+            break;
+        case ChunkType::TimeChunk:
+            pChunk = std::make_shared<TimeChunk>();
+            break;
+        case ChunkType::WAVChunk:
+            pChunk = std::make_shared<WAVChunk>();
+            break;
+        case ChunkType::WatchdogChunk:
+            pChunk = std::make_shared<WatchdogChunk>();
+            break;
+        default:
+            std::cout << std::string(__FUNCTION__) + ": Unknown chunk type \n";
+            pChunk = std::make_shared<BaseChunk>();
+            break;
+        }
+
+        pChunk->Deserialise(pBytes);
+        return pChunk;
+    }
 };
 
 #endif
