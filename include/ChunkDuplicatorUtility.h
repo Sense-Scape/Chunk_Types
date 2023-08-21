@@ -6,6 +6,7 @@
 #include "TimeChunk.h"
 #include "WAVChunk.h"  
 #include "WatchdogChunk.h"
+#include "JSONChunk.h"
 
 class ChunkDuplicatorUtility
 {
@@ -20,6 +21,7 @@ public:
         case ChunkType::TimeChunk: return std::make_shared<TimeChunk>(std::static_pointer_cast<TimeChunk>(pBaseChunk));
         case ChunkType::WAVChunk:  return std::make_shared<WAVChunk>(std::static_pointer_cast<WAVChunk>(pBaseChunk));
         case ChunkType::WatchdogChunk:  return std::make_shared<WatchdogChunk>(std::static_pointer_cast<WatchdogChunk>(pBaseChunk));
+        case ChunkType::JSONChunk:  return std::make_shared<JSONChunk>(std::static_pointer_cast<JSONChunk>(pBaseChunk));
 
         default:
         {
@@ -49,6 +51,9 @@ public:
             break;
         case ChunkType::WatchdogChunk:
             pChunk = std::make_shared<WatchdogChunk>();
+            break;
+        case ChunkType::JSONChunk:
+            pChunk = std::make_shared<JSONChunk>();
             break;
         default:
             std::cout << std::string(__FUNCTION__) + ": Unknown chunk type \n";
