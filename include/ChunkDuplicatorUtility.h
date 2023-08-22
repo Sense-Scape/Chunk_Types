@@ -40,17 +40,11 @@ public:
         case ChunkType::ChunkBase:
             pChunk = std::make_shared<BaseChunk>();
             break;
-        case ChunkType::UDPChunk:
-            pChunk = std::make_shared<UDPChunk>();
-            break;
         case ChunkType::TimeChunk:
             pChunk = std::make_shared<TimeChunk>();
             break;
         case ChunkType::WAVChunk:
             pChunk = std::make_shared<WAVChunk>();
-            break;
-        case ChunkType::WatchdogChunk:
-            pChunk = std::make_shared<WatchdogChunk>();
             break;
         case ChunkType::JSONChunk:
             pChunk = std::make_shared<JSONChunk>();
