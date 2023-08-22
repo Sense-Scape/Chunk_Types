@@ -69,7 +69,7 @@ public:
 	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value)
 	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of contained chunk type (byte position and value)
 	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);						//< Map of session number (byte position and value)
-	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({0,0,0,0,0,0}));///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({ 0,0,0,0,0,0 }));///< Map of transmission data size (byte position and value)
 	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
 	unsigned m_uPreviousSessionNumber = 0;															///< Unsigned previosuly received session number
 	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
@@ -104,6 +104,36 @@ public:
 		// Check where the chunk came from
 		for (unsigned uMACIndex = 0; uMACIndex < 6; uMACIndex++)
 			m_pusUID.second[uMACIndex] = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusUID.first + uMACIndex]));
+	}
+
+	unsigned GetSize()
+	{
+		unsigned uByteSize = 0;
+
+		// Then this class
+		uByteSize += sizeof(m_puSequenceNumber.second);
+		uByteSize += sizeof(m_puTransmissionSize.second);
+		uByteSize += sizeof(m_pu32uChunkType.second);
+		uByteSize += sizeof(m_pcTransmissionState.second);
+		uByteSize += sizeof(m_puSessionNumber.second);
+		uByteSize += sizeof(m_pusUID.second);
+
+		return uByteSize;
+	}
+
+	std::shared_ptr<std::vector<char>> Serialise()
+	{
+		auto pvBytes = std::make_shared<std::vector<char>>();
+		unsigned uSize = GetSize();
+		pvBytes->reserve(uSize);
+		char* pcBytes = pvBytes->data();
+
+
+	}
+
+	void Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
+	{
+
 	}
 };
 
