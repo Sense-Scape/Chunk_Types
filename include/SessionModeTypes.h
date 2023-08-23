@@ -106,6 +106,28 @@ public:
 			m_pusUID.second[uMACIndex] = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusUID.first + uMACIndex]));
 	}
 
+
+	/**
+	* @brief Returns if the two classes are equal
+	* @return Reference to the class with which we want to compare
+	*/
+	bool IsEqual(ReliableSessionSessionMode& reliableSessionSessionMode)
+	{
+		bool bIsEqual = (
+			(m_puSequenceNumber == reliableSessionSessionMode.m_puSequenceNumber) &&
+			(m_pcTransmissionState == reliableSessionSessionMode.m_pcTransmissionState) &&
+			(m_puTransmissionSize == reliableSessionSessionMode.m_puTransmissionSize) &&
+			(m_pu32uChunkType == reliableSessionSessionMode.m_pu32uChunkType) &&
+			(m_puSessionNumber == reliableSessionSessionMode.m_puSessionNumber) &&
+			(m_pusUID == reliableSessionSessionMode.m_pusUID) &&
+			(m_uPreviousSequenceNumber == reliableSessionSessionMode.m_uPreviousSequenceNumber) &&
+			(m_uPreviousSessionNumber == reliableSessionSessionMode.m_uPreviousSessionNumber) &&
+			(m_uDataStartPosition == reliableSessionSessionMode.m_uDataStartPosition)
+			);
+
+		return bIsEqual;
+	}
+
 	/**
 	 * @brief Get the size of object in bytes
 	 * @return Custom size of object in bytes
