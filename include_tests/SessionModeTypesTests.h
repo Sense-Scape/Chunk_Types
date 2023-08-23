@@ -15,58 +15,57 @@ TEST_CASE("Session Mode Types Test") {
     }
 
 
+    // Setting up session mode states
+    unsigned uSequenceNumber = 1;						
+    char cTransmissionState = 1;						
+    unsigned uTransmissionSize = 1;					
+    unsigned u32uChunkType = 1;						
+    uint32_t uSessionNumber = 1;						
+    std::vector<uint8_t> sUID = std::vector<uint8_t>({ 1,2,3,4,5,6 });
+    unsigned uPreviousSequenceNumber = 0;														
+    unsigned uPreviousSessionNumber = 0;														
+
+    // Creating dummy classes
     auto ReliableSessionSessionModeTestClass = ReliableSessionSessionMode();
+    auto ReliableSessionSessionModeTestClassCopy = ReliableSessionSessionMode();
+    unsigned uSessionModeSize = 31;
 
-    
-    uint32_t u32SessionNumber = 1;
-    char cTransmissionState = 0;
-    unsigned uTransmissionSize = 512;
-    unsigned uChunkType = 1;
-    unsigned uSequenceNumber = 1;
-    std::vector<uint8_t> vu8UID = {255, 255, 255, 100, 100, 100};
-    std::vector<char> vcDataChunk;
+    // Setting session states
+    ReliableSessionSessionModeTestClass.m_puSequenceNumber.second = uSequenceNumber;
+    ReliableSessionSessionModeTestClass.m_pcTransmissionState.second = cTransmissionState;
+    ReliableSessionSessionModeTestClass.m_puTransmissionSize.second = uTransmissionSize;
+    ReliableSessionSessionModeTestClass.m_pu32uChunkType.second = u32uChunkType;
+    ReliableSessionSessionModeTestClass.m_pusUID.second = sUID;
+    ReliableSessionSessionModeTestClass.m_uPreviousSequenceNumber = uPreviousSequenceNumber;
+    ReliableSessionSessionModeTestClass.m_uPreviousSessionNumber = uPreviousSessionNumber;
 
-    vcDataChunk.resize(sizeof(u32SessionNumber) + sizeof(cTransmissionState) +
-        sizeof(uTransmissionSize) + sizeof(uChunkType) +
-        sizeof(uSequenceNumber) + vu8UID.size() * sizeof(uint16_t));
+    ReliableSessionSessionModeTestClassCopy.m_puSequenceNumber.second = uSequenceNumber;
+    ReliableSessionSessionModeTestClassCopy.m_pcTransmissionState.second = cTransmissionState;
+    ReliableSessionSessionModeTestClassCopy.m_puTransmissionSize.second = uTransmissionSize;
+    ReliableSessionSessionModeTestClassCopy.m_pu32uChunkType.second = u32uChunkType;
+    ReliableSessionSessionModeTestClassCopy.m_pusUID.second = sUID;
+    ReliableSessionSessionModeTestClassCopy.m_uPreviousSequenceNumber = uPreviousSequenceNumber;
+    ReliableSessionSessionModeTestClassCopy.m_uPreviousSessionNumber = uPreviousSessionNumber;
 
-    char* ptr = vcDataChunk.data();
+    SUBCASE("GetSize Equality test") {
 
-    memcpy(ptr, &u32SessionNumber, sizeof(u32SessionNumber));
-    ptr += sizeof(u32SessionNumber);
+        CHECK(ReliableSessionSessionModeTestClass.GetSize() == uSessionModeSize);
 
-    memcpy(ptr, &cTransmissionState, sizeof(cTransmissionState));
-    ptr += sizeof(cTransmissionState);
+        CHECK(ReliableSessionSessionModeTestClass.IsEqual(ReliableSessionSessionModeTestClassCopy));
 
-    memcpy(ptr, &uTransmissionSize, sizeof(uTransmissionSize));
-    ptr += sizeof(uTransmissionSize);
-
-    memcpy(ptr, &uChunkType, sizeof(uChunkType));
-    ptr += sizeof(uChunkType);
-
-    memcpy(ptr, &uSequenceNumber, sizeof(uSequenceNumber));
-    ptr += sizeof(uSequenceNumber);
-
-    for (const uint8_t& value : vu8UID) {
-        memcpy(ptr, &value, sizeof(value));
-        ptr += sizeof(value);
     }
 
-  
-    auto pUDPChunk = std::make_shared<UDPChunk>(512);
-    pUDPChunk->m_vcDataChunk = vcDataChunk;
-    ReliableSessionSessionModeTestClass.ConvertBytesToStates(pUDPChunk);
+
+    // Attempting serialisation
+    auto pvcBytes = ReliableSessionSessionModeTestClass.Serialise();
+    auto ReliableSessionSessionModeTestSerialisationClass = ReliableSessionSessionMode();
+    ReliableSessionSessionModeTestSerialisationClass.Deserialise(pvcBytes);
 
 
-    SUBCASE("Base Session test") {
-        // And then that its type is JSONchunk
-        CHECK(ReliableSessionSessionModeTestClass.GetSessionType() == SessionModeType::ReliableSessionSessionMode);
+    SUBCASE("Serialisation test") {
 
-        CHECK(ReliableSessionSessionModeTestClass.m_pcTransmissionState.second == cTransmissionState);
-        CHECK(ReliableSessionSessionModeTestClass.m_puTransmissionSize.second == uTransmissionSize);
-        CHECK(ReliableSessionSessionModeTestClass.m_pu32uChunkType.second == uChunkType);
-        CHECK(ReliableSessionSessionModeTestClass.m_puSessionNumber.second == u32SessionNumber);
-        CHECK(ReliableSessionSessionModeTestClass.m_pusUID.second == vu8UID);
+        CHECK(ReliableSessionSessionModeTestClass.IsEqual(ReliableSessionSessionModeTestSerialisationClass));
+
     }
 
 }

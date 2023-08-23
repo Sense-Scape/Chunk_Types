@@ -69,7 +69,7 @@ public:
 	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value)
 	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of contained chunk type (byte position and value)
 	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);						//< Map of session number (byte position and value)
-	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({0,0,0,0,0,0}));///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({ 0,0,0,0,0,0 }));///< Map of transmission data size (byte position and value)
 	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
 	unsigned m_uPreviousSessionNumber = 0;															///< Unsigned previosuly received session number
 	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
@@ -104,6 +104,146 @@ public:
 		// Check where the chunk came from
 		for (unsigned uMACIndex = 0; uMACIndex < 6; uMACIndex++)
 			m_pusUID.second[uMACIndex] = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusUID.first + uMACIndex]));
+	}
+
+
+	/**
+	* @brief Returns if the two classes are equal
+	* @return Reference to the class with which we want to compare
+	*/
+	bool IsEqual(ReliableSessionSessionMode& reliableSessionSessionMode)
+	{
+		bool bIsEqual = (
+			(m_puSequenceNumber == reliableSessionSessionMode.m_puSequenceNumber) &&
+			(m_pcTransmissionState == reliableSessionSessionMode.m_pcTransmissionState) &&
+			(m_puTransmissionSize == reliableSessionSessionMode.m_puTransmissionSize) &&
+			(m_pu32uChunkType == reliableSessionSessionMode.m_pu32uChunkType) &&
+			(m_puSessionNumber == reliableSessionSessionMode.m_puSessionNumber) &&
+			(m_pusUID == reliableSessionSessionMode.m_pusUID) &&
+			(m_uPreviousSequenceNumber == reliableSessionSessionMode.m_uPreviousSequenceNumber) &&
+			(m_uPreviousSessionNumber == reliableSessionSessionMode.m_uPreviousSessionNumber) &&
+			(m_uDataStartPosition == reliableSessionSessionMode.m_uDataStartPosition)
+			);
+
+		return bIsEqual;
+	}
+
+	/**
+	 * @brief Get the size of object in bytes
+	 * @return Custom size of object in bytes
+	 */
+	unsigned GetSize()
+	{
+		unsigned uByteSize = 0;
+
+		// Then this class
+		uByteSize += sizeof(m_puSequenceNumber.second);
+		uByteSize += sizeof(m_pcTransmissionState.second);
+		uByteSize += sizeof(m_puTransmissionSize.second);
+		uByteSize += sizeof(m_pu32uChunkType.second);
+		uByteSize += sizeof(m_puSessionNumber.second);
+		uByteSize += sizeof(m_pusUID.second[0])*6;
+		uByteSize += sizeof(m_uPreviousSequenceNumber);
+		uByteSize += sizeof(m_uPreviousSessionNumber);
+
+		return uByteSize;
+	}
+
+	/**
+	 * @brief Fill a byte array the represents this object
+	 * @return pByteArray Shared pointer to byte vector containing byte data
+	 */
+	std::shared_ptr<std::vector<char>> Serialise()
+	{
+		auto pvBytes = std::make_shared<std::vector<char>>();
+		unsigned uSize = GetSize();
+		pvBytes->reserve(uSize);
+		char* pcBytes = pvBytes->data();
+
+		memcpy(pcBytes, &m_puSequenceNumber.second, sizeof(m_puSequenceNumber.second));
+		pcBytes += sizeof(m_puSequenceNumber.second);
+
+		memcpy(pcBytes, &m_pcTransmissionState.second, sizeof(m_pcTransmissionState.second));
+		pcBytes += sizeof(m_pcTransmissionState.second);
+
+		memcpy(pcBytes, &m_puTransmissionSize.second, sizeof(m_puTransmissionSize.second));
+		pcBytes += sizeof(m_puTransmissionSize.second);
+
+		memcpy(pcBytes, &m_pu32uChunkType.second, sizeof(m_pu32uChunkType.second));
+		pcBytes += sizeof(m_pu32uChunkType.second);
+
+		memcpy(pcBytes, &m_puSessionNumber.second, sizeof(m_puSessionNumber.second));
+		pcBytes += sizeof(m_puSessionNumber.second);
+
+		// Converting vector to bytes
+		for (const auto& u8UIDElement : m_pusUID.second)
+		{
+			unsigned uChunkSizeBytes = sizeof(u8UIDElement);
+			memcpy(pcBytes, &u8UIDElement, uChunkSizeBytes);
+			pcBytes += uChunkSizeBytes;
+		}
+
+		memcpy(pcBytes, &m_uPreviousSequenceNumber, sizeof(m_uPreviousSequenceNumber));
+		pcBytes += sizeof(m_uPreviousSequenceNumber);
+
+		memcpy(pcBytes, &m_uPreviousSessionNumber, sizeof(m_uPreviousSessionNumber));
+		pcBytes += sizeof(m_uPreviousSessionNumber);
+
+		return pvBytes;
+	}
+
+	/**
+	 * @brief Converts byte array to object members
+	 * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
+	 */
+	void Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
+	{
+		char* pcBytes = pvBytes->data();
+
+		// Converting members to bytes
+		memcpy(&m_puSequenceNumber.second, pcBytes, sizeof(m_puSequenceNumber.second));
+		pcBytes += sizeof(m_puSequenceNumber.second);
+
+		memcpy(&m_pcTransmissionState.second, pcBytes, sizeof(m_pcTransmissionState.second));
+		pcBytes += sizeof(m_pcTransmissionState.second);
+
+		memcpy(&m_puTransmissionSize.second, pcBytes, sizeof(m_puTransmissionSize.second));
+		pcBytes += sizeof(m_puTransmissionSize.second);
+
+		memcpy(&m_pu32uChunkType.second, pcBytes, sizeof(m_pu32uChunkType.second));
+		pcBytes += sizeof(m_pu32uChunkType.second);
+
+		memcpy(&m_puSessionNumber.second, pcBytes, sizeof(m_puSessionNumber.second));
+		pcBytes += sizeof(m_puSessionNumber.second);
+
+		auto uSampleSize = sizeof(m_pusUID.second[0]);
+		for (unsigned uUIDIndex = 0; uUIDIndex < 6; uUIDIndex++)
+		{
+			memcpy(&m_pusUID.second[uUIDIndex], pcBytes, uSampleSize);
+			pcBytes += uSampleSize;
+		}
+
+		memcpy(&m_uPreviousSequenceNumber, pcBytes, sizeof(m_uPreviousSequenceNumber));
+		pcBytes += sizeof(m_uPreviousSequenceNumber);
+
+		memcpy(&m_uPreviousSessionNumber, pcBytes, sizeof(m_uPreviousSessionNumber));
+		pcBytes += sizeof(m_uPreviousSessionNumber);
+	}
+
+	/**
+	 * @brief increment session number
+	 */
+	void IncrementSession()
+	{
+		m_puSessionNumber.second++;
+	}
+
+	/**
+	 * @brief increment sequence number
+	 */
+	void IncrementSequence()
+	{
+		m_puSequenceNumber.second++;
 	}
 };
 
