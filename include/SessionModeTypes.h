@@ -229,6 +229,22 @@ public:
 		memcpy(&m_uPreviousSessionNumber, pcBytes, sizeof(m_uPreviousSessionNumber));
 		pcBytes += sizeof(m_uPreviousSessionNumber);
 	}
+
+	/**
+	 * @brief increment session number
+	 */
+	void IncrementSession()
+	{
+		m_puSessionNumber.second++;
+	}
+
+	/**
+	 * @brief increment sequence number
+	 */
+	void IncrementSequence()
+	{
+		m_puSequenceNumber.second++;
+	}
 };
 
 #endif
