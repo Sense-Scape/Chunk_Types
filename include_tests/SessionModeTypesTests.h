@@ -16,6 +16,13 @@ TEST_CASE("Session Mode Types Test") {
 
 
     auto ReliableSessionSessionModeTestClass = ReliableSessionSessionMode();
+    unsigned uSessionModeSize = 31;
+
+
+    SUBCASE("Serialisation test") {
+        // And then that its type is JSONchunk
+        CHECK(ReliableSessionSessionModeTestClass.GetSize() == uSessionModeSize);
+    }
 
 }
 

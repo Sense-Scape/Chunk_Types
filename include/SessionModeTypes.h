@@ -112,11 +112,13 @@ public:
 
 		// Then this class
 		uByteSize += sizeof(m_puSequenceNumber.second);
+		uByteSize += sizeof(m_pcTransmissionState.second);
 		uByteSize += sizeof(m_puTransmissionSize.second);
 		uByteSize += sizeof(m_pu32uChunkType.second);
-		uByteSize += sizeof(m_pcTransmissionState.second);
 		uByteSize += sizeof(m_puSessionNumber.second);
-		uByteSize += sizeof(m_pusUID.second);
+		uByteSize += sizeof(m_pusUID.second[0])*6;
+		uByteSize += sizeof(m_uPreviousSequenceNumber);
+		uByteSize += sizeof(m_uPreviousSessionNumber);
 
 		return uByteSize;
 	}
