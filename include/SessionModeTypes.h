@@ -130,7 +130,36 @@ public:
 		pvBytes->reserve(uSize);
 		char* pcBytes = pvBytes->data();
 
+		memcpy(pcBytes, &m_puSequenceNumber.second, sizeof(m_puSequenceNumber.second));
+		pcBytes += sizeof(m_puSequenceNumber.second);
 
+		memcpy(pcBytes, &m_pcTransmissionState.second, sizeof(m_pcTransmissionState.second));
+		pcBytes += sizeof(m_pcTransmissionState.second);
+
+		memcpy(pcBytes, &m_puTransmissionSize.second, sizeof(m_puTransmissionSize.second));
+		pcBytes += sizeof(m_puTransmissionSize.second);
+
+		memcpy(pcBytes, &m_pu32uChunkType.second, sizeof(m_pu32uChunkType.second));
+		pcBytes += sizeof(m_pu32uChunkType.second);
+
+		memcpy(pcBytes, &m_puSessionNumber.second, sizeof(m_puSessionNumber.second));
+		pcBytes += sizeof(m_puSessionNumber.second);
+
+		// Converting vector to bytes
+		for (const auto& u8UIDElement : m_pusUID.second)
+		{
+			unsigned uChunkSizeBytes = sizeof(u8UIDElement);
+			memcpy(pcBytes, &u8UIDElement, uChunkSizeBytes);
+			pcBytes += uChunkSizeBytes;
+		}
+
+		memcpy(pcBytes, &m_uPreviousSequenceNumber, sizeof(m_uPreviousSequenceNumber));
+		pcBytes += sizeof(m_uPreviousSequenceNumber);
+
+		memcpy(pcBytes, &m_uPreviousSessionNumber, sizeof(m_uPreviousSessionNumber));
+		pcBytes += sizeof(m_uPreviousSessionNumber);
+
+		return pvBytes;
 	}
 
 	void Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
