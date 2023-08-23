@@ -106,6 +106,10 @@ public:
 			m_pusUID.second[uMACIndex] = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusUID.first + uMACIndex]));
 	}
 
+	/**
+	 * @brief Get the size of object in bytes
+	 * @return Custom size of object in bytes
+	 */
 	unsigned GetSize()
 	{
 		unsigned uByteSize = 0;
@@ -123,6 +127,10 @@ public:
 		return uByteSize;
 	}
 
+	/**
+	 * @brief Fill a byte array the represents this object
+	 * @return pByteArray Shared pointer to byte vector containing byte data
+	 */
 	std::shared_ptr<std::vector<char>> Serialise()
 	{
 		auto pvBytes = std::make_shared<std::vector<char>>();
@@ -162,6 +170,10 @@ public:
 		return pvBytes;
 	}
 
+	/**
+	 * @brief Converts byte array to object members
+	 * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
+	 */
 	void Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 	{
 		char* pcBytes = pvBytes->data();
