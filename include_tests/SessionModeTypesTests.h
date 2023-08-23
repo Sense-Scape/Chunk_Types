@@ -15,6 +15,7 @@ TEST_CASE("Session Mode Types Test") {
     }
 
 
+    // Setting up session mode states
     unsigned uSequenceNumber = 1;						
     char cTransmissionState = 1;						
     unsigned uTransmissionSize = 1;					
@@ -24,11 +25,12 @@ TEST_CASE("Session Mode Types Test") {
     unsigned uPreviousSequenceNumber = 0;														
     unsigned uPreviousSessionNumber = 0;														
 
-    
+    // Creating dummy classes
     auto ReliableSessionSessionModeTestClass = ReliableSessionSessionMode();
     auto ReliableSessionSessionModeTestClassCopy = ReliableSessionSessionMode();
     unsigned uSessionModeSize = 31;
 
+    // Setting session states
     ReliableSessionSessionModeTestClass.m_puSequenceNumber.second = uSequenceNumber;
     ReliableSessionSessionModeTestClass.m_pcTransmissionState.second = cTransmissionState;
     ReliableSessionSessionModeTestClass.m_puTransmissionSize.second = uTransmissionSize;
@@ -54,6 +56,7 @@ TEST_CASE("Session Mode Types Test") {
     }
 
 
+    // Attempting serialisation
     auto pvcBytes = ReliableSessionSessionModeTestClass.Serialise();
     auto ReliableSessionSessionModeTestSerialisationClass = ReliableSessionSessionMode();
     ReliableSessionSessionModeTestSerialisationClass.Deserialise(pvcBytes);
