@@ -15,9 +15,6 @@ TEST_CASE("Session Mode Types Test") {
     }
 
 
-    
-
-
     unsigned uSequenceNumber = 1;						
     char cTransmissionState = 1;						
     unsigned uTransmissionSize = 1;					
@@ -48,11 +45,24 @@ TEST_CASE("Session Mode Types Test") {
     ReliableSessionSessionModeTestClassCopy.m_uPreviousSequenceNumber = uPreviousSequenceNumber;
     ReliableSessionSessionModeTestClassCopy.m_uPreviousSessionNumber = uPreviousSessionNumber;
 
-    SUBCASE("Checking GetSize Equality test") {
+    SUBCASE("GetSize Equality test") {
 
         CHECK(ReliableSessionSessionModeTestClass.GetSize() == uSessionModeSize);
 
         CHECK(ReliableSessionSessionModeTestClass.IsEqual(ReliableSessionSessionModeTestClassCopy));
+
+    }
+
+
+    auto pvcBytes = ReliableSessionSessionModeTestClass.Serialise();
+    auto ReliableSessionSessionModeTestSerialisationClass = ReliableSessionSessionMode();
+    ReliableSessionSessionModeTestSerialisationClass.Deserialise(pvcBytes);
+
+
+    SUBCASE("Serialisation test") {
+
+        CHECK(ReliableSessionSessionModeTestClass.IsEqual(ReliableSessionSessionModeTestSerialisationClass));
+
     }
 
 }
