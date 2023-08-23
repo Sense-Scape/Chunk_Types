@@ -164,7 +164,36 @@ public:
 
 	void Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 	{
+		char* pcBytes = pvBytes->data();
 
+		// Converting members to bytes
+		memcpy(&m_puSequenceNumber.second, pcBytes, sizeof(m_puSequenceNumber.second));
+		pcBytes += sizeof(m_puSequenceNumber.second);
+
+		memcpy(&m_pcTransmissionState.second, pcBytes, sizeof(m_pcTransmissionState.second));
+		pcBytes += sizeof(m_pcTransmissionState.second);
+
+		memcpy(&m_puTransmissionSize.second, pcBytes, sizeof(m_puTransmissionSize.second));
+		pcBytes += sizeof(m_puTransmissionSize.second);
+
+		memcpy(&m_pu32uChunkType.second, pcBytes, sizeof(m_pu32uChunkType.second));
+		pcBytes += sizeof(m_pu32uChunkType.second);
+
+		memcpy(&m_puSessionNumber.second, pcBytes, sizeof(m_puSessionNumber.second));
+		pcBytes += sizeof(m_puSessionNumber.second);
+
+		auto uSampleSize = sizeof(m_pusUID.second[0]);
+		for (unsigned uUIDIndex = 0; uUIDIndex < 6; uUIDIndex++)
+		{
+			memcpy(&m_pusUID.second[uUIDIndex], pcBytes, uSampleSize);
+			pcBytes += uSampleSize;
+		}
+
+		memcpy(&m_uPreviousSequenceNumber, pcBytes, sizeof(m_uPreviousSequenceNumber));
+		pcBytes += sizeof(m_uPreviousSequenceNumber);
+
+		memcpy(&m_uPreviousSessionNumber, pcBytes, sizeof(m_uPreviousSessionNumber));
+		pcBytes += sizeof(m_uPreviousSessionNumber);
 	}
 };
 
