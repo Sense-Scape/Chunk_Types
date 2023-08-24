@@ -68,6 +68,56 @@ TEST_CASE("Session Mode Types Test") {
 
     }
 
+
+    auto ReliableSessionSessionModeTestIncrement= ReliableSessionSessionMode();
+    
+
+    SUBCASE("Incrementing sequence and session number tests") {
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSessionNumber.second == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSessionNumber == 0);
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 0);
+
+        ReliableSessionSessionModeTestIncrement.IncrementSequence();
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 1);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 0);
+
+        ReliableSessionSessionModeTestIncrement.IncrementSequence();
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 2);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 1);
+
+        ReliableSessionSessionModeTestIncrement.IncrementSession();
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSessionNumber.second == 1);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSessionNumber == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 0);
+
+        ReliableSessionSessionModeTestIncrement.IncrementSequence();
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSessionNumber.second == 1);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSessionNumber == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 1);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 0);
+
+        ReliableSessionSessionModeTestIncrement.IncrementSequence();
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSessionNumber.second == 1);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSessionNumber == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 2);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 1);
+
+        ReliableSessionSessionModeTestIncrement.IncrementSession();
+
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSessionNumber.second == 2);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSessionNumber == 1);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_puSequenceNumber.second == 0);
+        CHECK(ReliableSessionSessionModeTestIncrement.m_uPreviousSequenceNumber == 0);
+    }
 }
 
 #endif

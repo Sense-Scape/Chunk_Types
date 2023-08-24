@@ -66,10 +66,10 @@ class ReliableSessionSessionMode : public SessionModeBase
 public:
 	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);						///< Map of sequence number (byte position and value)
 	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
-	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value, 0 - Transmitting; 1 - finished)
 	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of contained chunk type (byte position and value)
 	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);						//< Map of session number (byte position and value)
-	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({ 0,0,0,0,0,0 }));///< Map of transmission data size (byte position and value)
+	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({ 0,0,0,0,0,0 }));///< Map of unique unique identifier
 	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
 	unsigned m_uPreviousSessionNumber = 0;															///< Unsigned previosuly received session number
 	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
@@ -142,7 +142,7 @@ public:
 		uByteSize += sizeof(m_puTransmissionSize.second);
 		uByteSize += sizeof(m_pu32uChunkType.second);
 		uByteSize += sizeof(m_puSessionNumber.second);
-		uByteSize += sizeof(m_pusUID.second[0])*6;
+		uByteSize += sizeof(m_pusUID.second[0]) * 6;
 		uByteSize += sizeof(m_uPreviousSequenceNumber);
 		uByteSize += sizeof(m_uPreviousSessionNumber);
 
@@ -235,14 +235,23 @@ public:
 	 */
 	void IncrementSession()
 	{
+		m_uPreviousSessionNumber = m_puSessionNumber.second;
 		m_puSessionNumber.second++;
+
+		// Then reset current sequence states
+		m_puSequenceNumber.second = 0;
+		m_uPreviousSequenceNumber = 0;
+
+		// And reset transmission state
+		m_pcTransmissionState.second = 0;
 	}
 
 	/**
-	 * @brief increment sequence number
+	 * @brief increment session number
 	 */
 	void IncrementSequence()
 	{
+		m_uPreviousSequenceNumber = m_puSequenceNumber.second;
 		m_puSequenceNumber.second++;
 	}
 };
