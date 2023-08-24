@@ -72,7 +72,6 @@ TEST_CASE("Session Mode Types Test") {
     auto ReliableSessionSessionModeTestIncrement= ReliableSessionSessionMode();
     
 
-
     SUBCASE("Incrementing sequence and session number tests") {
 
         CHECK(ReliableSessionSessionModeTestIncrement.m_puSessionNumber.second == 0);
