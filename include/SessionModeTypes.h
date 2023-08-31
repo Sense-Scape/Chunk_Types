@@ -64,47 +64,45 @@ public:
 class ReliableSessionSessionMode : public SessionModeBase
 {
 public:
-	std::pair<unsigned, unsigned> m_puSequenceNumber = std::make_pair(0, 0);						///< Map of sequence number (byte position and value)
-	std::pair<char, char> m_pcTransmissionState = std::make_pair(4, 0);								///< Map of transmission state (byte position and value)
-	std::pair<unsigned, unsigned> m_puTransmissionSize = std::make_pair(5, 0);						///< Map of transmission data size (byte position and value, 0 - Transmitting; 1 - finished)
-	std::pair<unsigned, unsigned> m_pu32uChunkType = std::make_pair(9, 0);							///< Map of contained chunk type (byte position and value)
-	std::pair<unsigned, uint32_t> m_puSessionNumber = std::make_pair(13, 0);						//< Map of session number (byte position and value)
-	std::pair<unsigned, std::vector<uint8_t>> m_pusUID = std::make_pair(17, std::vector<uint8_t>({ 0,0,0,0,0,0 }));///< Map of unique unique identifier
-	unsigned m_uPreviousSequenceNumber = 0;															///< Unsigned previosuly received sequence number
-	unsigned m_uPreviousSessionNumber = 0;															///< Unsigned previosuly received session number
-	unsigned m_uDataStartPosition = 24;																///< Starting position of data bytes
+	char m_cTransmissionState;		///< Map of transmission state (byte position and value)
+	uint32_t m_uSessionNumber;		///< Map of session number (byte position and value)
+	uint32_t m_uSequenceNumber;		///< Map of sequence number (byte position and value)
+	uint32_t m_u32uChunkType;		///< Map of contained chunk type (byte position and value)
+	std::vector<uint8_t> m_usUID = std::vector<uint8_t>({ 0,0,0,0,0,0 });///< Map of unique unique identifier
+	uint32_t m_uTransmissionSize;	///< Map of transmission data size (byte position and value, 0 - Transmitting; 1 - finished)
 
 	/**
 	* @brief Constructor for the session mode
 	* @param[in] Enumnerated session type corresponding to sessionModeType
 	*/
-	ReliableSessionSessionMode() : SessionModeBase() {};
+	ReliableSessionSessionMode() : SessionModeBase(),
+		m_cTransmissionState(),
+		m_uSessionNumber(),
+		m_uSequenceNumber(),
+		m_u32uChunkType(),
+		m_uTransmissionSize()
+	{
+	};
+
+
+	/**
+	* @brief Copy constructor
+	*/
+	ReliableSessionSessionMode(ReliableSessionSessionMode& reliableSessionSessionMode)
+	{
+		m_cTransmissionState = reliableSessionSessionMode.m_cTransmissionState;
+		m_uSessionNumber = reliableSessionSessionMode.m_uSessionNumber;
+		m_uSequenceNumber = reliableSessionSessionMode.m_uSequenceNumber;
+		m_u32uChunkType = reliableSessionSessionMode.m_u32uChunkType;
+		m_usUID = reliableSessionSessionMode.m_usUID;
+		m_uTransmissionSize = reliableSessionSessionMode.m_uTransmissionSize;
+	}
 
 	/**
 	* @brief get the session mode type of session mode
 	* @return return the enumerated type of the session mode
 	*/
 	SessionModeType GetSessionType() override { return SessionModeType::ReliableSessionSessionMode; }
-
-	/**
-	* @brief Converts array of bytes into session states
-	* @param[in] pBaseChunk base chunk of containing UDP char bytes
-	*/
-	void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) override
-	{
-		auto pUDPChunk = std::static_pointer_cast<UDPChunk>(pBaseChunk);
-
-		// Parse and update processing states
-		m_puSequenceNumber.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puSequenceNumber.first]));
-		m_puTransmissionSize.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_puTransmissionSize.first]));
-		m_pu32uChunkType.second = *(reinterpret_cast<unsigned*>(&pUDPChunk->m_vcDataChunk[m_pu32uChunkType.first]));
-		m_pcTransmissionState.second = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pcTransmissionState.first]));
-		m_puSessionNumber.second = *(reinterpret_cast<uint32_t*>(&pUDPChunk->m_vcDataChunk[m_puSessionNumber.first]));
-
-		// Check where the chunk came from
-		for (unsigned uMACIndex = 0; uMACIndex < 6; uMACIndex++)
-			m_pusUID.second[uMACIndex] = *(reinterpret_cast<uint8_t*>(&pUDPChunk->m_vcDataChunk[m_pusUID.first + uMACIndex]));
-	}
 
 
 	/**
@@ -114,15 +112,12 @@ public:
 	bool IsEqual(ReliableSessionSessionMode& reliableSessionSessionMode)
 	{
 		bool bIsEqual = (
-			(m_puSequenceNumber == reliableSessionSessionMode.m_puSequenceNumber) &&
-			(m_pcTransmissionState == reliableSessionSessionMode.m_pcTransmissionState) &&
-			(m_puTransmissionSize == reliableSessionSessionMode.m_puTransmissionSize) &&
-			(m_pu32uChunkType == reliableSessionSessionMode.m_pu32uChunkType) &&
-			(m_puSessionNumber == reliableSessionSessionMode.m_puSessionNumber) &&
-			(m_pusUID == reliableSessionSessionMode.m_pusUID) &&
-			(m_uPreviousSequenceNumber == reliableSessionSessionMode.m_uPreviousSequenceNumber) &&
-			(m_uPreviousSessionNumber == reliableSessionSessionMode.m_uPreviousSessionNumber) &&
-			(m_uDataStartPosition == reliableSessionSessionMode.m_uDataStartPosition)
+			(m_cTransmissionState == reliableSessionSessionMode.m_cTransmissionState) &&
+			(m_uSessionNumber == reliableSessionSessionMode.m_uSessionNumber) &&
+			(m_uSequenceNumber == reliableSessionSessionMode.m_uSequenceNumber) &&
+			(m_u32uChunkType == reliableSessionSessionMode.m_u32uChunkType) &&
+			(m_usUID == reliableSessionSessionMode.m_usUID) &&
+			(m_uTransmissionSize == reliableSessionSessionMode.m_uTransmissionSize)
 			);
 
 		return bIsEqual;
@@ -137,14 +132,12 @@ public:
 		unsigned uByteSize = 0;
 
 		// Then this class
-		uByteSize += sizeof(m_puSequenceNumber.second);
-		uByteSize += sizeof(m_pcTransmissionState.second);
-		uByteSize += sizeof(m_puTransmissionSize.second);
-		uByteSize += sizeof(m_pu32uChunkType.second);
-		uByteSize += sizeof(m_puSessionNumber.second);
-		uByteSize += sizeof(m_pusUID.second[0]) * 6;
-		uByteSize += sizeof(m_uPreviousSequenceNumber);
-		uByteSize += sizeof(m_uPreviousSessionNumber);
+		uByteSize += sizeof(m_cTransmissionState);
+		uByteSize += sizeof(m_uSessionNumber);
+		uByteSize += sizeof(m_uSequenceNumber);
+		uByteSize += sizeof(m_u32uChunkType);
+		uByteSize += sizeof(m_usUID[0]) * 6;
+		uByteSize += sizeof(m_uTransmissionSize);
 
 		return uByteSize;
 	}
@@ -157,37 +150,32 @@ public:
 	{
 		auto pvBytes = std::make_shared<std::vector<char>>();
 		unsigned uSize = GetSize();
-		pvBytes->reserve(uSize);
+		pvBytes->resize(uSize);
 		char* pcBytes = pvBytes->data();
 
-		memcpy(pcBytes, &m_puSequenceNumber.second, sizeof(m_puSequenceNumber.second));
-		pcBytes += sizeof(m_puSequenceNumber.second);
+		memcpy(pcBytes, &m_cTransmissionState, sizeof(m_cTransmissionState));
+		pcBytes += sizeof(m_cTransmissionState);
 
-		memcpy(pcBytes, &m_pcTransmissionState.second, sizeof(m_pcTransmissionState.second));
-		pcBytes += sizeof(m_pcTransmissionState.second);
+		memcpy(pcBytes, &m_uSessionNumber, sizeof(m_uSessionNumber));
+		pcBytes += sizeof(m_uSessionNumber);
 
-		memcpy(pcBytes, &m_puTransmissionSize.second, sizeof(m_puTransmissionSize.second));
-		pcBytes += sizeof(m_puTransmissionSize.second);
+		memcpy(pcBytes, &m_uSequenceNumber, sizeof(m_uSequenceNumber));
+		pcBytes += sizeof(m_uSequenceNumber);
 
-		memcpy(pcBytes, &m_pu32uChunkType.second, sizeof(m_pu32uChunkType.second));
-		pcBytes += sizeof(m_pu32uChunkType.second);
-
-		memcpy(pcBytes, &m_puSessionNumber.second, sizeof(m_puSessionNumber.second));
-		pcBytes += sizeof(m_puSessionNumber.second);
+		memcpy(pcBytes, &m_u32uChunkType, sizeof(m_u32uChunkType));
+		pcBytes += sizeof(m_u32uChunkType);
 
 		// Converting vector to bytes
-		for (const auto& u8UIDElement : m_pusUID.second)
+		for (const auto& u8UIDElement : m_usUID)
 		{
 			unsigned uChunkSizeBytes = sizeof(u8UIDElement);
 			memcpy(pcBytes, &u8UIDElement, uChunkSizeBytes);
 			pcBytes += uChunkSizeBytes;
 		}
 
-		memcpy(pcBytes, &m_uPreviousSequenceNumber, sizeof(m_uPreviousSequenceNumber));
-		pcBytes += sizeof(m_uPreviousSequenceNumber);
 
-		memcpy(pcBytes, &m_uPreviousSessionNumber, sizeof(m_uPreviousSessionNumber));
-		pcBytes += sizeof(m_uPreviousSessionNumber);
+		memcpy(pcBytes, &m_uTransmissionSize, sizeof(m_uTransmissionSize));
+		pcBytes += sizeof(m_uTransmissionSize);
 
 		return pvBytes;
 	}
@@ -201,33 +189,27 @@ public:
 		char* pcBytes = pvBytes->data();
 
 		// Converting members to bytes
-		memcpy(&m_puSequenceNumber.second, pcBytes, sizeof(m_puSequenceNumber.second));
-		pcBytes += sizeof(m_puSequenceNumber.second);
+		memcpy(&m_cTransmissionState, pcBytes, sizeof(m_cTransmissionState));
+		pcBytes += sizeof(m_cTransmissionState);
 
-		memcpy(&m_pcTransmissionState.second, pcBytes, sizeof(m_pcTransmissionState.second));
-		pcBytes += sizeof(m_pcTransmissionState.second);
+		memcpy(&m_uSessionNumber, pcBytes, sizeof(m_uSessionNumber));
+		pcBytes += sizeof(m_uSessionNumber);
 
-		memcpy(&m_puTransmissionSize.second, pcBytes, sizeof(m_puTransmissionSize.second));
-		pcBytes += sizeof(m_puTransmissionSize.second);
+		memcpy(&m_uSequenceNumber, pcBytes, sizeof(m_uSequenceNumber));
+		pcBytes += sizeof(m_uSequenceNumber);
 
-		memcpy(&m_pu32uChunkType.second, pcBytes, sizeof(m_pu32uChunkType.second));
-		pcBytes += sizeof(m_pu32uChunkType.second);
+		memcpy(&m_u32uChunkType, pcBytes, sizeof(m_u32uChunkType));
+		pcBytes += sizeof(m_u32uChunkType);
 
-		memcpy(&m_puSessionNumber.second, pcBytes, sizeof(m_puSessionNumber.second));
-		pcBytes += sizeof(m_puSessionNumber.second);
-
-		auto uSampleSize = sizeof(m_pusUID.second[0]);
+		auto uSampleSize = sizeof(m_usUID[0]);
 		for (unsigned uUIDIndex = 0; uUIDIndex < 6; uUIDIndex++)
 		{
-			memcpy(&m_pusUID.second[uUIDIndex], pcBytes, uSampleSize);
+			memcpy(&m_usUID[uUIDIndex], pcBytes, uSampleSize);
 			pcBytes += uSampleSize;
 		}
 
-		memcpy(&m_uPreviousSequenceNumber, pcBytes, sizeof(m_uPreviousSequenceNumber));
-		pcBytes += sizeof(m_uPreviousSequenceNumber);
-
-		memcpy(&m_uPreviousSessionNumber, pcBytes, sizeof(m_uPreviousSessionNumber));
-		pcBytes += sizeof(m_uPreviousSessionNumber);
+		memcpy(&m_uTransmissionSize, pcBytes, sizeof(m_uTransmissionSize));
+		pcBytes += sizeof(m_uTransmissionSize);
 	}
 
 	/**
@@ -235,15 +217,11 @@ public:
 	 */
 	void IncrementSession()
 	{
-		m_uPreviousSessionNumber = m_puSessionNumber.second;
-		m_puSessionNumber.second++;
-
-		// Then reset current sequence states
-		m_puSequenceNumber.second = 0;
-		m_uPreviousSequenceNumber = 0;
+		m_uSessionNumber++;
+		m_uSequenceNumber = 0;
 
 		// And reset transmission state
-		m_pcTransmissionState.second = 0;
+		m_cTransmissionState = 0;
 	}
 
 	/**
@@ -251,8 +229,7 @@ public:
 	 */
 	void IncrementSequence()
 	{
-		m_uPreviousSequenceNumber = m_puSequenceNumber.second;
-		m_puSequenceNumber.second++;
+		m_uSequenceNumber++;
 	}
 };
 
