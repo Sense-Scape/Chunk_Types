@@ -33,30 +33,33 @@ public:
 
     static std::shared_ptr<BaseChunk> DeserialiseDerivedChunk(std::shared_ptr<std::vector<char>> pBytes, ChunkType eChunkType)
     {
-        std::shared_ptr<BaseChunk> pChunk; // Declare the variable once
-
-        switch (eChunkType)
-        {
-        case ChunkType::ChunkBase:
-            pChunk = std::make_shared<BaseChunk>();
-            break;
-        case ChunkType::TimeChunk:
-            pChunk = std::make_shared<TimeChunk>();
-            break;
-        case ChunkType::WAVChunk:
-            pChunk = std::make_shared<WAVChunk>();
-            break;
-        case ChunkType::JSONChunk:
-            pChunk = std::make_shared<JSONChunk>();
-            break;
-        default:
+        if (eChunkType == ChunkType::ChunkBase) {
+            auto pChunk = std::make_shared<BaseChunk>();
+            pChunk->Deserialise(pBytes);
+            return pChunk;
+        }
+        else if (eChunkType == ChunkType::TimeChunk) {
+            auto pChunk = std::make_shared<TimeChunk>();
+            pChunk->Deserialise(pBytes);
+            return pChunk;
+        }
+        else if (eChunkType == ChunkType::WAVChunk) {
+            auto pChunk = std::make_shared<WAVChunk>();
+            pChunk->Deserialise(pBytes);
+            return pChunk;
+        }
+        else if (eChunkType == ChunkType::JSONChunk) {
+            auto pChunk = std::make_shared<JSONChunk>();
+            pChunk->Deserialise(pBytes);
+            return pChunk;
+        }
+        else {
             std::cout << std::string(__FUNCTION__) + ": Unknown chunk type \n";
-            pChunk = std::make_shared<BaseChunk>();
-            break;
+            auto pChunk = std::make_shared<BaseChunk>();
+            pChunk->Deserialise(pBytes);
+            return pChunk;
         }
 
-        pChunk->Deserialise(pBytes);
-        return pChunk;
     }
 };
 
