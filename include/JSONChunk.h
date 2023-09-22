@@ -52,7 +52,7 @@ public:
 
     /**
      * @brief Converts byte array to object members
-     * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
+     * @param pvBytes Shared pointer to byte array that shall be used to construct memeber variables
      */
     void Deserialise(std::shared_ptr<std::vector<char>> pBytes);
 
