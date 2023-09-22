@@ -21,7 +21,6 @@ public:
 
     /**
      * @brief Construct a new Time Chunk object
-     * @param[in] uChunkLength bytes to store in UDP Chunk
      */
     JSONChunk();
     JSONChunk(std::shared_ptr<JSONChunk> pJSONChunk);
