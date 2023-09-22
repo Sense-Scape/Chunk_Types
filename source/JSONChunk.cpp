@@ -9,7 +9,7 @@ JSONChunk::JSONChunk() : BaseChunk(),
 JSONChunk::JSONChunk(std::shared_ptr<JSONChunk> pJSONChunk) : BaseChunk(pJSONChunk)
 {
 	m_JSONDocument = pJSONChunk->m_JSONDocument;
-    m_JSONDocumentSize_bytes = pJSONChunk->m_JSONDocument;
+    m_JSONDocumentSize_bytes = pJSONChunk->m_JSONDocumentSize_bytes;
 }
 
 std::shared_ptr<std::vector<char>> JSONChunk::Serialise()
