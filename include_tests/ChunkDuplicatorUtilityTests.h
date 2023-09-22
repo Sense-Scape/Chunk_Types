@@ -11,12 +11,17 @@ TEST_CASE("Chunk Duplicator Utility Test") {
 	pJSONChunk->m_JSONDocument["test"] = "confirmed";
 	auto pcJSONBytes = pJSONChunk->Serialise();
 
-	// Try Duplicate it using the duplicator utility
-	auto pJSONDuplicatedChunk = ChunkDuplicatorUtility::DeserialiseDerivedChunk(pcJSONBytes, ChunkType::JSONChunk);
-	pJSONDuplicatedChunk = std::static_pointer_cast<JSONChunk>(pJSONDuplicatedChunk);
+	// Try Duplicate it using the duplicator deserialisation utility
+	auto pJSONDeserialisedDerivedChunk = ChunkDuplicatorUtility::DeserialiseDerivedChunk(pcJSONBytes, ChunkType::JSONChunk);
+	pJSONDeserialisedDerivedChunk = std::static_pointer_cast<JSONChunk>(pJSONDeserialisedDerivedChunk);
 
-	SUBCASE("Chunk Duplicator test") {
-		CHECK(pJSONDuplicatedChunk == pJSONChunk);
+	// Try Duplicate it using the duplicator utility
+	auto pJSONDuplicatedDerivedChunk = ChunkDuplicatorUtility::DuplicateDerivedChunk(pJSONChunk);
+	pJSONDuplicatedDerivedChunk = std::static_pointer_cast<JSONChunk>(pJSONDuplicatedDerivedChunk);
+
+	SUBCASE("Testing duplication and deserialisation of JSON chunk") {
+		CHECK(pJSONDeserialisedDerivedChunk->IsEqual(*pJSONChunk));
+		CHECK(pJSONDuplicatedDerivedChunk->IsEqual(*pJSONChunk));
 	}
 }
 
