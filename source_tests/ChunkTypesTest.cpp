@@ -16,3 +16,4 @@
 #include "WAVChunkTests.h"
 #include "JSONChunkTests.h"
 #include "WatchdogChunkTests.h"
+#include "FFTChunkTests.h"
