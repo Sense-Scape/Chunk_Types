@@ -17,3 +17,4 @@
 #include "JSONChunkTests.h"
 #include "WatchdogChunkTests.h"
 #include "FFTChunkTests.h"
+#include "ChunkDuplicatorUtilityTests.h"

@@ -11,7 +11,8 @@
 #include "json.hpp"
 
 /**
- * @brief UDP Data Chunk used to store UDP datagram data to pass between modules
+ * @brief Chunk that is intended to store JSON representation of other chunks.
+ *          May also store generic JSON documents
  */
 class JSONChunk : public BaseChunk
 {
@@ -20,7 +21,6 @@ public:
 
     /**
      * @brief Construct a new Time Chunk object
-     * @param[in] uChunkLength bytes to store in UDP Chunk
      */
     JSONChunk();
     JSONChunk(std::shared_ptr<JSONChunk> pJSONChunk);
@@ -46,20 +46,20 @@ public:
 
     /**
      * @brief Fill a byte array the represents this object
-     * @param[in] pByteArray Shared pointer to byte vector containing byte data
+     * @return Shared pointer to byte vector containing byte data
      */
     std::shared_ptr<std::vector<char>> Serialise() override;
 
     /**
      * @brief Converts byte array to object members
-     * @param[in] pvBytes Shared pointer to byte array that shall be used to construct memeber variables
+     * @param pvBytes Shared pointer to byte array that shall be used to construct memeber variables
      */
     void Deserialise(std::shared_ptr<std::vector<char>> pBytes);
 
 protected:
     /**
      * @brief Fill a byte array the represents this object
-     * @param[in] pByteArray Shared pointer to byte vector containing byte data
+     * @return Shared pointer to byte vector containing byte data on parent class
      */
     std::shared_ptr<std::vector<char>> GetInternalSerialisation();
 
@@ -68,7 +68,7 @@ private:
 
     /**
      * @brief Get the size of object in bytes
-     * @return Size of object in bytes
+     * @return Size of object parent object in bytes
      */
     unsigned GetInternalSize();
 };
