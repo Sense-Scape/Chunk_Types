@@ -186,9 +186,11 @@
     <ClInclude Include="include/WatchdogChunk.h" />
     <ClInclude Include="include\ChunkDuplicatorUtility.h" />
     <ClInclude Include="include\ChunkToJSONConverter.h" />
+    <ClInclude Include="include\FFTChunk.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BaseChunk.cpp" />
+    <ClCompile Include="source\FFTChunk.cpp" />
     <ClCompile Include="source\JSONChunk.cpp" />
     <ClCompile Include="source\TimeChunk.cpp" />
     <ClCompile Include="source\UDPChunk.cpp" />

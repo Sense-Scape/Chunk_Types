@@ -17,6 +17,7 @@ if(DEFINED ENV{IDF_PATH}) # this is normally only set when running in an esp idf
             ${SOURCE_DIR}/UDPChunk.cpp
             ${SOURCE_DIR}/WAVChunk.cpp
             ${SOURCE_DIR}/WatchdogChunk.cpp
+	    ${SOURCE_DIR}/FFTChunk.cpp
         INCLUDE_DIRS
             ${INCLUDE_DIR}
     )
@@ -35,6 +36,7 @@ else()
         ${SOURCE_DIR}/UDPChunk.cpp
         ${SOURCE_DIR}/WAVChunk.cpp
         ${SOURCE_DIR}/WatchdogChunk.cpp
+	${SOURCE_DIR}/FFTChunk.cpp
     )
 
     # Test executable

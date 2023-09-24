@@ -27,6 +27,8 @@ public:
             case ChunkType::TimeChunk: return "TimeChunk";
             case ChunkType::WAVChunk:  return "WAVChunk";
             case ChunkType::WatchdogChunk: return "WatchdogChunk";
+            case ChunkType::FFTChunk: return "FFTChunk";
+
 
             default: return "Unknown Chunk";
         }
@@ -41,6 +43,7 @@ public:
         case ChunkType::TimeChunk: return 3;
         case ChunkType::WAVChunk:  return 4;
         case ChunkType::WatchdogChunk: return 5;
+        case ChunkType::FFTChunk: return 6;
 
         default: return 0; // error
         }
@@ -55,6 +58,7 @@ public:
         case 3: return ChunkType::TimeChunk;
         case 4: return ChunkType::WAVChunk;
         case 5: return ChunkType::WatchdogChunk;
+        case 6: return ChunkType::FFTChunk;
 
         default: return ChunkType::ChunkBase; // error
         }
