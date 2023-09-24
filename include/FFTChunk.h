@@ -48,6 +48,7 @@ public:
      */
     FFTChunk(const FFTChunk& FFTChunk);
     FFTChunk(std::shared_ptr<FFTChunk> pFFTChunk);
+    ~FFTChunk() { };
 
     /**
      * @brief Get the Chunk Type object
