@@ -34,11 +34,9 @@ public:
      * @param[in] dChunkSize The number of samples contained in each ADC channel chunk
      * @param[in] dSampleRate The sample rate used to generate all data within the chunk
      * @param[in] llTimeStamp The time the chunk was created
-     * @param[in] uBits Bits of ADC used to produce chunk
-     * @param[in] uNumBytes Number of bytes in single sample
      * @param[in] uNumChannels Number of audio channels in chunk
      */
-    FFTChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
+    FFTChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uNumChannels);
 
     /**
      * @brief Construct a new Time Chunk object
