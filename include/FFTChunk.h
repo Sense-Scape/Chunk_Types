@@ -21,10 +21,8 @@ public:
     double m_dChunkSize;                                            ///< Number of samples contained in a single chunk
     double m_dSampleRate;                                           ///< Sample rate used to obtain data in chunk
     uint64_t m_i64TimeStamp;                                        ///< Timestamp of when chunk was taken
-    unsigned m_uBits;                                               ///< Bits of ADC used to produce chunk
-    unsigned m_uNumBytes;                                           ///< Number of bytes in single sample
     unsigned m_uNumChannels;                                        ///< Number of audio channels in chunk
-    std::vector<std::vector<int16_t>> m_vvi16FFTChunks;            ///< Vector of vectors corresponding to channel samples
+    std::vector<std::vector<std::complex<float>>> m_vvcfFFTChunks; ///< Vector of vectors corresponding to channel samples
 
     /**
      * @brief Construct a new Base Chunk object
@@ -103,6 +101,12 @@ private:
      * @brief Fills all channels with zeroed data
      */
     void InitialiseChannels();
+
+    /**
+    * @brief Converts a member channel of complex data to string <I,Q>
+    * @param uChannelIndex the channel which shall be converted
+    */
+    std::string ConvertComplexChannelDataToString(uint16_t uChannelIndex);
 };
 
 #endif
