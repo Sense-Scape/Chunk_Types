@@ -185,7 +185,7 @@ std::string FFTChunk::ConvertComplexChannelDataToString(uint16_t uChannelIndex)
 
     // Add each elemement in channel to the string
     for (const auto& cfChannelSample : m_vvcfFFTChunks[uChannelIndex])
-        oss << cfChannelSample << ' ';
+        oss << cfChannelSample.real() << ' ' << cfChannelSample.imag() << ' ';
 
     oss << '\n';
     return oss.str();
