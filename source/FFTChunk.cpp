@@ -11,7 +11,7 @@ FFTChunk::FFTChunk() :
     InitialiseChannels();
 }
 
-FFTChunk::FFTChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels) :
+FFTChunk::FFTChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uNumChannels) :
     BaseChunk(),
     m_dChunkSize(dChunkSize),
     m_dSampleRate(dSampleRate),
@@ -184,10 +184,17 @@ std::string FFTChunk::ConvertComplexChannelDataToString(uint16_t uChannelIndex)
     std::ostringstream oss;
 
     // Add each elemement in channel to the string
-    for (const auto& cfChannelSample : m_vvcfFFTChunks[uChannelIndex])
-        oss << cfChannelSample.real() << ' ' << cfChannelSample.imag() << ' ';
+    for (size_t i = 0; i < m_vvcfFFTChunks[uChannelIndex].size(); ++i) {
 
-    oss << '\n';
+        // Add the sample
+        const auto& cfChannelSample = m_vvcfFFTChunks[uChannelIndex][i];
+        oss << cfChannelSample.real() << ' ' << cfChannelSample.imag();
+
+        // Check if it's not the last iteration before adding space
+        if (i != m_vvcfFFTChunks[uChannelIndex].size() - 1)
+            oss << ' ';
+    }
+
     return oss.str();
 }
 
