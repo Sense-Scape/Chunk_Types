@@ -7,26 +7,27 @@
 TEST_CASE("FFTChunk Test") {
 
     // Constructor Parameters
-    double dChunkSize = 512;
+    double dChunkSize = 2;
     double dSampleRate = 44100;
     uint64_t i64TimeStamp = 100000;
-    unsigned uBits = 16;
-    unsigned uNumBytes = 2;
     unsigned uNumChannels = 2;
 
-    std::vector<int16_t> vu16ChannelOne;
+    std::vector<std::complex<float>> vu16ChannelOne;
     vu16ChannelOne.assign(dChunkSize, 1);
-    std::vector<int16_t> vu16ChannelTwo;
+    auto strChannelOne = "1 0 1 0";
+    std::vector<std::complex<float>> vu16ChannelTwo;
     vu16ChannelTwo.assign(dChunkSize, 2);
+    auto strChannelTwo = "2 0 2 0";
+
     // All the above sum to bytes below - size of class
     BaseChunk baseChunk;
     // Size of header info, size of channels and size of base class
-    unsigned uClassSize_bytes = 36 + dChunkSize * uNumChannels * uNumBytes + baseChunk.GetSize();
+    unsigned uClassSize_bytes = 28 + dChunkSize * uNumChannels * sizeof(std::complex<float>) + baseChunk.GetSize();
 
     // Lets just start by creating a FFTChunk
-    FFTChunk FFTChunkTestClass(dChunkSize, dSampleRate, i64TimeStamp, uBits, uNumBytes, uNumChannels);
-    FFTChunkTestClass.m_vvi16FFTChunks[0] = vu16ChannelOne;
-    FFTChunkTestClass.m_vvi16FFTChunks[1] = vu16ChannelTwo;
+    FFTChunk FFTChunkTestClass(dChunkSize, dSampleRate, i64TimeStamp, uNumChannels);
+    FFTChunkTestClass.m_vvcfFFTChunks[0] = vu16ChannelOne;
+    FFTChunkTestClass.m_vvcfFFTChunks[1] = vu16ChannelTwo;
 
     FFTChunk FFTChunkTestClassCopy_0;
 
@@ -64,13 +65,12 @@ TEST_CASE("FFTChunk Test") {
     JSONDocument[strChunkName]["ChunkSize"] = std::to_string(dChunkSize);
     JSONDocument[strChunkName]["SampleRate"] = std::to_string(dSampleRate);
     JSONDocument[strChunkName]["TimeStamp"] = std::to_string(i64TimeStamp);
-    JSONDocument[strChunkName]["uBits"] = std::to_string(uBits);
-    JSONDocument[strChunkName]["NumBytes"] = std::to_string(uNumBytes);
     JSONDocument[strChunkName]["NumChannels"] = std::to_string(uNumChannels);
-    JSONDocument[strChunkName]["Channels"][std::to_string(0)] = vu16ChannelOne;
-    JSONDocument[strChunkName]["Channels"][std::to_string(1)] = vu16ChannelTwo;
+    JSONDocument[strChunkName]["Channels"][std::to_string(0)] = strChannelOne;
+    JSONDocument[strChunkName]["Channels"][std::to_string(1)] = strChannelTwo;
 
     SUBCASE("Checking ToJSON Converter") {
+        std::cout << *FFTChunkTestClass.ToJSON() << std::endl << JSONDocument << std::endl;
         CHECK(*(FFTChunkTestClass.ToJSON()) == JSONDocument);
     }
 }
