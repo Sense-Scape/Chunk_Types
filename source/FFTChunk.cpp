@@ -175,7 +175,7 @@ std::shared_ptr<std::vector<float>> FFTChunk::GetChannelPower(unsigned uChannelI
     auto pPowerData = std::make_shared<std::vector<float>>();
 
     for (unsigned uSampleIndex = 0; uSampleIndex < m_dChunkSize; uSampleIndex++)
-        pPowerData->emplace_back(std::sqrt(std::abs(m_vvcfFFTChunks[uChannelIndex][uSampleIndex])));
+        pPowerData->emplace_back(std::abs(m_vvcfFFTChunks[uChannelIndex][uSampleIndex]));
 
     return pPowerData;
 }
