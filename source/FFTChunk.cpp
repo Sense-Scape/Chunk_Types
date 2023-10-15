@@ -170,6 +170,15 @@ bool FFTChunk::IsEqual(FFTChunk& FFTChunk)
     return bIsEqual;
 }
 
+std::shared_ptr<std::vector<float>> FFTChunk::GetChannelPower(unsigned uChannelIndex)
+{
+    auto pPowerData = std::make_shared<std::vector<float>>();
+
+    for (unsigned uSampleIndex = 0; uSampleIndex < m_dChunkSize; uSampleIndex++)
+        pPowerData->emplace_back(std::sqrt(std::abs(m_vvcfFFTChunks[uChannelIndex][uSampleIndex])));
+
+    return pPowerData;
+}
 
 void FFTChunk::InitialiseChannels()
 {
@@ -192,7 +201,7 @@ std::string FFTChunk::ConvertComplexChannelDataToString(uint16_t uChannelIndex)
 
         // Check if it's not the last iteration before adding space
         if (i != m_vvcfFFTChunks[uChannelIndex].size() - 1)
-            oss << ' ';
+            oss << ',';
     }
 
     return oss.str();
