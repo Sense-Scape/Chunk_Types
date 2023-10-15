@@ -10,14 +10,17 @@ TEST_CASE("FFTChunk Test") {
     double dChunkSize = 2;
     double dSampleRate = 44100;
     uint64_t i64TimeStamp = 100000;
-    unsigned uNumChannels = 2;
+    unsigned uNumChannels = 3;
 
     std::vector<std::complex<float>> vu16ChannelOne;
     vu16ChannelOne.assign(dChunkSize, 1);
-    auto strChannelOne = "1 0 1 0";
+    auto strChannelOne = "1 0,1 0";
     std::vector<std::complex<float>> vu16ChannelTwo;
     vu16ChannelTwo.assign(dChunkSize, 2);
-    auto strChannelTwo = "2 0 2 0";
+    auto strChannelTwo = "2 0,2 0";
+    std::vector<std::complex<float>> vu16ChannelThree;
+    vu16ChannelThree.assign(dChunkSize, std::complex<float>(2,2));
+    auto strChannelThree = "2 2,2 2";
 
     // All the above sum to bytes below - size of class
     BaseChunk baseChunk;
@@ -28,6 +31,7 @@ TEST_CASE("FFTChunk Test") {
     FFTChunk FFTChunkTestClass(dChunkSize, dSampleRate, i64TimeStamp, uNumChannels);
     FFTChunkTestClass.m_vvcfFFTChunks[0] = vu16ChannelOne;
     FFTChunkTestClass.m_vvcfFFTChunks[1] = vu16ChannelTwo;
+    FFTChunkTestClass.m_vvcfFFTChunks[2] = vu16ChannelThree;
 
     FFTChunk FFTChunkTestClassCopy_0;
 
@@ -43,6 +47,18 @@ TEST_CASE("FFTChunk Test") {
         CHECK(FFTChunkTestClass.GetSize() == uClassSize_bytes);
         // We can also check serialisation and deserialsaation
         CHECK(FFTChunkTestClass.IsEqual(FFTChunkTestClassCopy_0));
+    }
+
+
+    auto pvfChannelOnePower = FFTChunkTestClass.GetChannelPower(0);
+    auto pvfChannelTwoPower = FFTChunkTestClass.GetChannelPower(1);
+    auto pvfChannelThreePower = FFTChunkTestClass.GetChannelPower(2);
+
+
+    SUBCASE("Checking Power Conversion") {
+        CHECK((*pvfChannelOnePower)[0] - 1  <= 0.00001f);
+        CHECK((*pvfChannelTwoPower)[0] - 2 <= 0.00001f);
+        CHECK((*pvfChannelThreePower)[0] - std::sqrt(2*2 + 2*2) <= 0.00001f);
     }
 
 
@@ -68,11 +84,14 @@ TEST_CASE("FFTChunk Test") {
     JSONDocument[strChunkName]["NumChannels"] = std::to_string(uNumChannels);
     JSONDocument[strChunkName]["Channels"][std::to_string(0)] = strChannelOne;
     JSONDocument[strChunkName]["Channels"][std::to_string(1)] = strChannelTwo;
+    JSONDocument[strChunkName]["Channels"][std::to_string(2)] = strChannelThree;
 
     SUBCASE("Checking ToJSON Converter") {
         std::cout << *FFTChunkTestClass.ToJSON() << std::endl << JSONDocument << std::endl;
         CHECK(*(FFTChunkTestClass.ToJSON()) == JSONDocument);
     }
+
+
 }
 
 #endif
