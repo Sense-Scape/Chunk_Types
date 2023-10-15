@@ -76,6 +76,13 @@ public:
     bool IsEqual(FFTChunk& FFTChunk);
 
     /**
+    * @brief Calculates power array for a given FFT channel
+    * @param[in] Channel index for which calcualtion should take place
+    * @return shared pointer to vector containing power data
+    */
+    std::shared_ptr<std::vector<float>> GetChannelPower(unsigned uChannelIndex);
+
+    /**
     * @brief Returns the JSON equivalent of this classes representation
     */
     std::shared_ptr<nlohmann::json> ToJSON() override;
