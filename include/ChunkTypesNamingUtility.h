@@ -28,7 +28,7 @@ public:
             case ChunkType::WAVChunk:  return "WAVChunk";
             case ChunkType::WatchdogChunk: return "WatchdogChunk";
             case ChunkType::FFTChunk: return "FFTChunk";
-            case ChunkType::JSONChunk: return "JSONChunk"
+            case ChunkType::JSONChunk: return "JSONChunk";
 
             default: return "Unknown Chunk";
         }
