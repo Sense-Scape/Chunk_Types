@@ -87,7 +87,6 @@ TEST_CASE("FFTChunk Test") {
     JSONDocument[strChunkName]["Channels"][std::to_string(2)] = strChannelThree;
 
     SUBCASE("Checking ToJSON Converter") {
-        std::cout << *FFTChunkTestClass.ToJSON() << std::endl << JSONDocument << std::endl;
         CHECK(*(FFTChunkTestClass.ToJSON()) == JSONDocument);
     }
 
