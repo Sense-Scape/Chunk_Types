@@ -6,7 +6,7 @@ FFTMagnitudeChunk::FFTMagnitudeChunk() :
     m_dSampleRate(0),
     m_i64TimeStamp(0),
     m_uNumChannels(0),
-    m_vvcfFFTMagnitudeChunks()
+    m_vvfFFTMagnitudeChunks()
 {
     InitialiseChannels();
 }
@@ -17,7 +17,7 @@ FFTMagnitudeChunk::FFTMagnitudeChunk(double dChunkSize, double dSampleRate, uint
     m_dSampleRate(dSampleRate),
     m_i64TimeStamp(i64TimeStamp),
     m_uNumChannels(uNumChannels),
-    m_vvcfFFTMagnitudeChunks()
+    m_vvfFFTMagnitudeChunks()
 {
     InitialiseChannels();
 }
@@ -30,7 +30,7 @@ FFTMagnitudeChunk::FFTMagnitudeChunk(std::shared_ptr<FFTMagnitudeChunk> pFFTMagn
     m_dSampleRate = pFFTMagnitudeChunk->m_dSampleRate;
     m_i64TimeStamp = pFFTMagnitudeChunk->m_i64TimeStamp;
     m_uNumChannels = pFFTMagnitudeChunk->m_uNumChannels;
-    m_vvcfFFTMagnitudeChunks = pFFTMagnitudeChunk->m_vvcfFFTMagnitudeChunks;
+    m_vvfFFTMagnitudeChunks = pFFTMagnitudeChunk->m_vvfFFTMagnitudeChunks;
 }
 
 FFTMagnitudeChunk::FFTMagnitudeChunk(const FFTMagnitudeChunk& FFTMagnitudeChunk) :
@@ -41,7 +41,7 @@ FFTMagnitudeChunk::FFTMagnitudeChunk(const FFTMagnitudeChunk& FFTMagnitudeChunk)
     m_dSampleRate = FFTMagnitudeChunk.m_dSampleRate;
     m_i64TimeStamp = FFTMagnitudeChunk.m_i64TimeStamp;
     m_uNumChannels = FFTMagnitudeChunk.m_uNumChannels;
-    m_vvcfFFTMagnitudeChunks = FFTMagnitudeChunk.m_vvcfFFTMagnitudeChunks;
+    m_vvfFFTMagnitudeChunks = FFTMagnitudeChunk.m_vvfFFTMagnitudeChunks;
 }
 
 unsigned FFTMagnitudeChunk::GetSize()
@@ -65,7 +65,7 @@ unsigned FFTMagnitudeChunk::GetInternalSize()
     uByteSize += sizeof(m_uNumChannels);
 
     // Iterate over all elements of m_vvi16FFTMagnitudeChunks and infer type using auto
-    for (const auto& vfFFTMagnitudeChunk : m_vvcfFFTMagnitudeChunks)
+    for (const auto& vfFFTMagnitudeChunk : m_vvfFFTMagnitudeChunks)
         uByteSize += sizeof(vfFFTMagnitudeChunk[0]) * vfFFTMagnitudeChunk.size();
 
     return uByteSize;
@@ -103,7 +103,7 @@ std::shared_ptr<std::vector<char>> FFTMagnitudeChunk::GetInternalSerialisation()
     pcBytes += sizeof(m_uNumChannels);
 
     // Converting vector to bytes
-    for (const auto& vi16FFTMagnitudeChunk : m_vvcfFFTMagnitudeChunks)
+    for (const auto& vi16FFTMagnitudeChunk : m_vvfFFTMagnitudeChunks)
     {
         unsigned uChunkSizeBytes = sizeof(vi16FFTMagnitudeChunk[0]) * vi16FFTMagnitudeChunk.size();
         memcpy(pcBytes, &vi16FFTMagnitudeChunk[0], uChunkSizeBytes);
@@ -138,11 +138,11 @@ void FFTMagnitudeChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
     InitialiseChannels();
 
     // Filling data vector
-    unsigned uSampleSize = sizeof(m_vvcfFFTMagnitudeChunks[0][0]);
+    unsigned uSampleSize = sizeof(m_vvfFFTMagnitudeChunks[0][0]);
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; ++uChannelIndex) {
         for (unsigned uSampleIndex = 0; uSampleIndex < m_dChunkSize; uSampleIndex++)
         {
-            memcpy(&m_vvcfFFTMagnitudeChunks[uChannelIndex][uSampleIndex], pcBytes, uSampleSize);
+            memcpy(&m_vvfFFTMagnitudeChunks[uChannelIndex][uSampleIndex], pcBytes, uSampleSize);
             pcBytes += uSampleSize;
         }
     }
@@ -161,7 +161,7 @@ bool FFTMagnitudeChunk::IsEqual(FFTMagnitudeChunk& FFTMagnitudeChunk)
         (m_dSampleRate == FFTMagnitudeChunk.m_dSampleRate) &&
         (m_i64TimeStamp == FFTMagnitudeChunk.m_i64TimeStamp) &&
         (m_uNumChannels == FFTMagnitudeChunk.m_uNumChannels) &&
-        (m_vvcfFFTMagnitudeChunks == FFTMagnitudeChunk.m_vvcfFFTMagnitudeChunks)
+        (m_vvfFFTMagnitudeChunks == FFTMagnitudeChunk.m_vvfFFTMagnitudeChunks)
         );
 
     // Now we check base and derived classes are equal
@@ -172,10 +172,10 @@ bool FFTMagnitudeChunk::IsEqual(FFTMagnitudeChunk& FFTMagnitudeChunk)
 
 void FFTMagnitudeChunk::InitialiseChannels()
 {
-    m_vvcfFFTMagnitudeChunks.resize(m_uNumChannels);
+    m_vvfFFTMagnitudeChunks.resize(m_uNumChannels);
 
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; ++uChannelIndex)
-        m_vvcfFFTMagnitudeChunks[uChannelIndex].resize(m_dChunkSize);
+        m_vvfFFTMagnitudeChunks[uChannelIndex].resize(m_dChunkSize);
 }
 
 std::shared_ptr<nlohmann::json> FFTMagnitudeChunk::ToJSON()
@@ -194,7 +194,7 @@ std::shared_ptr<nlohmann::json> FFTMagnitudeChunk::ToJSON()
     JSONDocument[strChunkName]["NumChannels"] = std::to_string(m_uNumChannels);
 
     for (unsigned uChannelIndex = 0; uChannelIndex < m_uNumChannels; uChannelIndex++)
-        JSONDocument[strChunkName]["Channels"][std::to_string(uChannelIndex)] = ConvertComplexChannelDataToString(uChannelIndex);
+        JSONDocument[strChunkName]["Channels"][std::to_string(uChannelIndex)] = m_vvfFFTMagnitudeChunks[uChannelIndex];
 
     return std::make_shared<nlohmann::json>(JSONDocument);
 }
