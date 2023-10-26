@@ -11,8 +11,7 @@
 #include "ChunkToJSONConverter.h"
 
 /**
- * @brief Time Data Chunk used to store all samples data from the
- *          The active ADCs and their respective channels
+ * @brief FFT Chunk that stores just the magnitude of an FFT
  */
 class FFTMagnitudeChunk : public BaseChunk,
     public ChunkToJSONConverter
