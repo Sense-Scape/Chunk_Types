@@ -29,6 +29,7 @@ public:
             case ChunkType::WatchdogChunk: return "WatchdogChunk";
             case ChunkType::FFTChunk: return "FFTChunk";
             case ChunkType::JSONChunk: return "JSONChunk";
+            case ChunkType::FFTMagnitudeChunk: return "FFTMagnitudeChunk";
 
             default: return "Unknown Chunk";
         }
@@ -45,6 +46,7 @@ public:
         case ChunkType::WatchdogChunk: return 5;
         case ChunkType::FFTChunk: return 6;
         case ChunkType::JSONChunk: return 7;
+        case ChunkType::FFTMagnitudeChunk: return 8;
 
         default: return 0; // error
         }
@@ -61,6 +63,7 @@ public:
         case 5: return ChunkType::WatchdogChunk;
         case 6: return ChunkType::FFTChunk;
         case 7: return ChunkType::JSONChunk;
+        case 8: return ChunkType::FFTMagnitudeChunk;
 
         default: return ChunkType::ChunkBase; // error
         }
