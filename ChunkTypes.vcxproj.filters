@@ -51,6 +51,9 @@
     <ClInclude Include="include\FFTChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\FFTMagnitudeChunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BaseChunk.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\FFTChunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FFTMagnitudeChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
