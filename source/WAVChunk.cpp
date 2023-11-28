@@ -185,8 +185,8 @@ std::shared_ptr<nlohmann::json> WAVChunk::ToJSON()
 	auto strChunkName = ChunkTypesNamingUtility::toString(GetChunkType());
 
 	// Adding in Basechunk fields
-	JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(m_u16SourceIndentifierSize);
-	JSONDocument[strChunkName]["SourceIndentifier"] = m_vu8SourceIdentifier;
+	JSONDocument[strChunkName]["SourceIdentifierSize"] = std::to_string(m_u16SourceIdentifierSize);
+	JSONDocument[strChunkName]["SourceIdentifier"] = m_vu8SourceIdentifier;
 
 	// Adding in WAVChunk fields
 	JSONDocument[strChunkName]["WAVHeader"] = *m_sWAVHeader.ToJSON().get();

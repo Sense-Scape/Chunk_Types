@@ -209,8 +209,8 @@ std::shared_ptr<nlohmann::json> TimeChunk::ToJSON()
     auto strChunkName = ChunkTypesNamingUtility::toString(GetChunkType());
 
     // Adding in Basechunk fields
-    JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(m_u16SourceIndentifierSize);
-    JSONDocument[strChunkName]["SourceIndentifier"] = m_vu8SourceIdentifier;
+    JSONDocument[strChunkName]["SourceIdentifierSize"] = std::to_string(m_u16SourceIdentifierSize);
+    JSONDocument[strChunkName]["SourceIdentifier"] = m_vu8SourceIdentifier;
 
     // Adding in Timechunk fields
     JSONDocument[strChunkName]["ChunkSize"] = std::to_string(m_dChunkSize);

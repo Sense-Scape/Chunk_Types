@@ -1,14 +1,14 @@
 #include "BaseChunk.h"
 
 BaseChunk::BaseChunk(std::vector<uint8_t> vu8SourceIdentifier) :
-	m_u16SourceIndentifierSize(vu8SourceIdentifier.size()),
+	m_u16SourceIdentifierSize(vu8SourceIdentifier.size()),
 	m_vu8SourceIdentifier(vu8SourceIdentifier)
 {
 
 }
 
 BaseChunk::BaseChunk() :
-	m_u16SourceIndentifierSize(0),
+	m_u16SourceIdentifierSize(0),
 	m_vu8SourceIdentifier()
 {
 
@@ -16,13 +16,13 @@ BaseChunk::BaseChunk() :
 
 BaseChunk::BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk)
 {
-	m_u16SourceIndentifierSize = pBaseChunk->m_u16SourceIndentifierSize;
+	m_u16SourceIdentifierSize = pBaseChunk->m_u16SourceIdentifierSize;
 	m_vu8SourceIdentifier = pBaseChunk->m_vu8SourceIdentifier;
 }
 
 BaseChunk::BaseChunk(const BaseChunk& baseChunk)
 {
-	m_u16SourceIndentifierSize = baseChunk.m_u16SourceIndentifierSize;
+	m_u16SourceIdentifierSize = baseChunk.m_u16SourceIdentifierSize;
 	m_vu8SourceIdentifier = baseChunk.m_vu8SourceIdentifier;
 }
 
@@ -35,9 +35,9 @@ unsigned BaseChunk::GetInternalSize()
 {
 	unsigned uByteSize = 0;
 
-	uByteSize += sizeof(m_u16SourceIndentifierSize);
+	uByteSize += sizeof(m_u16SourceIdentifierSize);
 
-	for (size_t stIndex = 0; stIndex < m_u16SourceIndentifierSize; stIndex++)
+	for (size_t stIndex = 0; stIndex < m_u16SourceIdentifierSize; stIndex++)
 		uByteSize += sizeof(m_vu8SourceIdentifier[stIndex]);
 
 	return uByteSize;
@@ -55,8 +55,8 @@ std::shared_ptr<std::vector<char>> BaseChunk::GetInternalSerialisation()
 	char* pcBytes = pvBytes->data();
 
 	// Converting members to bytes
-	memcpy(pcBytes, &m_u16SourceIndentifierSize, sizeof(m_u16SourceIndentifierSize));
-	pcBytes += sizeof(m_u16SourceIndentifierSize);
+	memcpy(pcBytes, &m_u16SourceIdentifierSize, sizeof(m_u16SourceIdentifierSize));
+	pcBytes += sizeof(m_u16SourceIdentifierSize);
 
 	// Converting vector to bytes
 	if (m_vu8SourceIdentifier.size())
@@ -73,18 +73,18 @@ void BaseChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 	char* pcBytes = pvBytes->data();
 
 	// Converting members to bytes
-	memcpy(&m_u16SourceIndentifierSize, pcBytes, sizeof(m_u16SourceIndentifierSize));
-	pcBytes += sizeof(m_u16SourceIndentifierSize);
+	memcpy(&m_u16SourceIdentifierSize, pcBytes, sizeof(m_u16SourceIdentifierSize));
+	pcBytes += sizeof(m_u16SourceIdentifierSize);
 
 	// Lets get the meta data for the array
-	m_vu8SourceIdentifier.resize(m_u16SourceIndentifierSize);
+	m_vu8SourceIdentifier.resize(m_u16SourceIdentifierSize);
 	unsigned uSampleSize = sizeof(m_vu8SourceIdentifier[0]);
 
 	// If there is data in the vector
 	if (m_vu8SourceIdentifier.size())
 	{
 		// Then lets now fill the vector
-		for (unsigned uSampleIndex = 0; uSampleIndex < m_u16SourceIndentifierSize; uSampleIndex++)
+		for (unsigned uSampleIndex = 0; uSampleIndex < m_u16SourceIdentifierSize; uSampleIndex++)
 		{
 			memcpy(&m_vu8SourceIdentifier[uSampleIndex], pcBytes, uSampleSize);
 			pcBytes += uSampleSize;
@@ -95,7 +95,7 @@ void BaseChunk::Deserialise(std::shared_ptr<std::vector<char>> pvBytes)
 void BaseChunk::SetSourceIdentifier(std::vector<uint8_t> vu8SourceIdentifier)
 {
 	m_vu8SourceIdentifier = vu8SourceIdentifier;
-	m_u16SourceIndentifierSize = vu8SourceIdentifier.size();
+	m_u16SourceIdentifierSize = vu8SourceIdentifier.size();
 }
 
 std::vector<uint8_t> BaseChunk::GetSourceIdentifier()
@@ -106,7 +106,7 @@ std::vector<uint8_t> BaseChunk::GetSourceIdentifier()
 bool BaseChunk::IsEqual(BaseChunk& baseChunk)
 {
 	bool bIsEqual = (
-		(m_u16SourceIndentifierSize == baseChunk.m_u16SourceIndentifierSize) &&
+		(m_u16SourceIdentifierSize == baseChunk.m_u16SourceIdentifierSize) &&
 		(m_vu8SourceIdentifier == baseChunk.m_vu8SourceIdentifier)
 		);
 
