@@ -57,8 +57,8 @@ TEST_CASE("FFTMagnitudeChunk Test") {
 
     auto JSONDocument = nlohmann::json();
     auto strChunkName = ChunkTypesNamingUtility::toString(ChunkType::FFTMagnitudeChunk);
-    JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(0);
-    JSONDocument[strChunkName]["SourceIndentifier"] = std::vector<uint8_t>();
+    JSONDocument[strChunkName]["SourceIdentifierSize"] = std::to_string(0);
+    JSONDocument[strChunkName]["SourceIdentifier"] = std::vector<uint8_t>();
     JSONDocument[strChunkName]["ChunkSize"] = std::to_string(dChunkSize);
     JSONDocument[strChunkName]["SampleRate"] = std::to_string(dSampleRate);
     JSONDocument[strChunkName]["TimeStamp"] = std::to_string(i64TimeStamp);

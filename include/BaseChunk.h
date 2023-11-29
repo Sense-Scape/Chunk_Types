@@ -77,7 +77,7 @@ public:
 
 protected:
 
-    uint16_t m_u16SourceIndentifierSize;        ///< Size of unique identifier
+    uint16_t m_u16SourceIdentifierSize;        ///< Size of unique identifier
     std::vector<uint8_t> m_vu8SourceIdentifier; ///< Source identifier of the chunk
 
     /**

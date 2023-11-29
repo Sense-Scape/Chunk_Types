@@ -69,8 +69,8 @@ TEST_CASE("WAVChunk Test") {
 
     auto JSONDocument = nlohmann::json();
     auto strChunkName = ChunkTypesNamingUtility::toString(ChunkType::WAVChunk);
-    JSONDocument[strChunkName]["SourceIndentifierSize"] = std::to_string(0);
-    JSONDocument[strChunkName]["SourceIndentifier"] = std::vector<uint8_t>();
+    JSONDocument[strChunkName]["SourceIdentifierSize"] = std::to_string(0);
+    JSONDocument[strChunkName]["SourceIdentifier"] = std::vector<uint8_t>();
 
     JSONDocument[strChunkName]["WAVHeader"]["RIFF"][0] = 82;
     JSONDocument[strChunkName]["WAVHeader"]["RIFF"][1] = 73;
