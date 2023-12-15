@@ -26,7 +26,7 @@ else()
     message(STATUS "Building for Unix")
     
     # Set C++ standard
-    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_STANDARD 20)
 
     # Main executable
     add_library(ChunkTypesLib
