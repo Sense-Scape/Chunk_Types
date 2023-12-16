@@ -29,8 +29,6 @@ else()
     set(CMAKE_CXX_STANDARD 20)
 
     # Main executable
-    message("---------------------------------------------")
-    message(${SOURCE_DIR})
     file(GLOB SOURCES "${SOURCE_DIR}/*.cpp")
     add_library(ChunkTypesLib
         ${SOURCES}
