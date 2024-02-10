@@ -11,7 +11,7 @@
 #include "ChunkToJSONConverter.h"
 
 /**
- * @brief FFT Chunk that stores just the magnitude of an FFT
+ * @brief FFT Chunk that stores the magnitude of an FFT
  */
 class FFTMagnitudeChunk : public BaseChunk,
     public ChunkToJSONConverter
@@ -38,10 +38,15 @@ public:
     FFTMagnitudeChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uNumChannels);
 
     /**
-     * @brief Construct a new Time Chunk object
-     * @param[in] FFTMagnitudeChunk pointer to time chunk
+     * @brief Copy constructor of a FFT magnitude chunk
+     * @param[in] FFTMagnitudeChunk Reference to FFTMagnitudeChunk
      */
     FFTMagnitudeChunk(const FFTMagnitudeChunk& FFTMagnitudeChunk);
+
+    /**
+     * @brief Copy constructor of a FFT magnitude chunk
+     * @param[in] pFFTMagnitudeChunk Shared pointer to FFTMagnitudeChunk
+     */
     FFTMagnitudeChunk(std::shared_ptr<FFTMagnitudeChunk> pFFTMagnitudeChunk);
 
     /**
@@ -70,16 +75,19 @@ public:
 
     /**
     * @brief Returns if the two classes are equal
-    * @return Reference to the class with which we want to compare
+    * @param[in] Reference to the class with which we want to compare
+    * @return Bool whether the chunk is equal or not
     */
     bool IsEqual(FFTMagnitudeChunk& FFTMagnitudeChunk);
 
     /**
-    * @brief Returns the JSON equivalent of this classes representation
+    * @brief converts class representation to a JSON document
+    * @return Shared pointer to json object representation of class
     */
     std::shared_ptr<nlohmann::json> ToJSON() override;
 
 protected:
+
     /**
      * @brief Fill a byte array the represents this object
      * @param[in] pByteArray Shared pointer to byte vector containing byte data
