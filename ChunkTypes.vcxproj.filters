@@ -27,7 +27,7 @@
     <ClInclude Include="include/TimeChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include/SessionModeTypes.h">
+    <ClInclude Include="include\SessionController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include/WAVChunk.h">

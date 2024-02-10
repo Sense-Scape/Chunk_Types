@@ -169,7 +169,7 @@
     <ClInclude Include="include_tests\ChunkDuplicatorUtilityTests.h" />
     <ClInclude Include="include_tests\FFTChunkMagnitudeTests.h" />
     <ClInclude Include="include_tests\FFTChunkTests.h" />
-    <ClInclude Include="include_tests\SessionModeTypesTests.h" />
+    <ClInclude Include="include_tests\SessionControllerTests.h" />
     <ClInclude Include="include_tests\TimeChunkTests.h" />
     <ClInclude Include="include_tests\WatchdogChunkTests.h" />
     <ClInclude Include="include_tests\WAVChunkTests.h" />

@@ -183,7 +183,7 @@
     <ClInclude Include="include/ChunkTypes.h" />
     <ClInclude Include="include\ChunkTypesNamingUtility.h" />
     <ClInclude Include="include/TimeChunk.h" />
-    <ClInclude Include="include/SessionModeTypes.h" />
+    <ClInclude Include="include\SessionController.h" />
     <ClInclude Include="include\ByteChunk.h" />
     <ClInclude Include="include/WAVChunk.h" />
     <ClInclude Include="include/JSONChunk.h" />
