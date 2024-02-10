@@ -23,7 +23,7 @@ public:
         switch (eChunkType)
         {
             case ChunkType::ChunkBase: return "ChunkBase";
-            case ChunkType::UDPChunk:  return "UDPChunk";
+            case ChunkType::ByteChunk:  return "ByteChunk";
             case ChunkType::TimeChunk: return "TimeChunk";
             case ChunkType::WAVChunk:  return "WAVChunk";
             case ChunkType::WatchdogChunk: return "WatchdogChunk";
@@ -40,7 +40,7 @@ public:
         switch (eChunkType)
         {
         case ChunkType::ChunkBase: return 1;
-        case ChunkType::UDPChunk:  return 2;
+        case ChunkType::ByteChunk:  return 2;
         case ChunkType::TimeChunk: return 3;
         case ChunkType::WAVChunk:  return 4;
         case ChunkType::WatchdogChunk: return 5;
@@ -57,7 +57,7 @@ public:
         switch (u32ChunkType)
         {
         case 1: return ChunkType::ChunkBase;
-        case 2: return ChunkType::UDPChunk;
+        case 2: return ChunkType::ByteChunk;
         case 3: return ChunkType::TimeChunk;
         case 4: return ChunkType::WAVChunk;
         case 5: return ChunkType::WatchdogChunk;

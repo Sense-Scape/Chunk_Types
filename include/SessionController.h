@@ -1,68 +1,15 @@
-#ifndef SESSION_MODE_TYPES
-#define SESSION_MODE_TYPES
+#ifndef SESSION_CONTROLLER
+#define SESSION_CONTROLLER
 
 #include <utility>
-#include "UDPChunk.h"
-
-/*
-* List of Session mode types.
-* These intends to leverage the idea of the layer OSI model (layer 5)
-*
-* This defines how data is packaged within the a UDP datagram or TCP data field
-* and informs modules that follows UDP/TCP modules as to how to process the
-* data they have been passed
-*/
-
-enum class SessionModeType
-{
-	SessionModeBase,
-	ReliableSessionSessionMode,
-};
-
+#include "ByteChunk.h"
 
 /*
 * Base Session type used as inheritance mechanisim for derived session type
 */
-class SessionModeBase
+class SessionController
 {
-public:
 
-	/**
-	* @brief SessionModeBase constructor
-	*/
-	SessionModeBase() { };
-
-	/**
-	* @brief SessionModeBase destructor
-	*/
-	virtual ~SessionModeBase() {};
-
-	/**
-	* @brief Converts array of bytes into session states
-	* @param[in] pBaseChunk base chunk of containing UDP char bytes
-	*/
-	virtual void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) {};
-
-	virtual SessionModeType GetSessionType() { return SessionModeType::SessionModeBase; }
-
-};
-
-/*
-* ReliableSessionSessionMode
-*
-* Ordered data layout where the number is the byte position in the and the type
-* is the type being read.
-*
-* Mode Structure
-* | Sequence Number | Transmission State | Transmission Size | Chunk Type | Session Number | Unique Identifer |
-*
-* Counting in order of significance
-* | Sequence Number | Session Number | Transmission State |
-* First check transmission state, increment session
-* Once transmissions state toggles, increment sequence and reset session
-*/
-class ReliableSessionSessionMode : public SessionModeBase
-{
 public:
 	char m_cTransmissionState;		///< Map of transmission state (byte position and value)
 	uint32_t m_uSessionNumber;		///< Map of session number (byte position and value)
@@ -75,7 +22,7 @@ public:
 	* @brief Constructor for the session mode
 	* @param[in] Enumnerated session type corresponding to sessionModeType
 	*/
-	ReliableSessionSessionMode() : SessionModeBase(),
+	SessionController() :
 		m_cTransmissionState(),
 		m_uSessionNumber(),
 		m_uSequenceNumber(),
@@ -88,7 +35,7 @@ public:
 	/**
 	* @brief Copy constructor
 	*/
-	ReliableSessionSessionMode(ReliableSessionSessionMode& reliableSessionSessionMode)
+	SessionController(SessionController& reliableSessionSessionMode)
 	{
 		m_cTransmissionState = reliableSessionSessionMode.m_cTransmissionState;
 		m_uSessionNumber = reliableSessionSessionMode.m_uSessionNumber;
@@ -99,17 +46,10 @@ public:
 	}
 
 	/**
-	* @brief get the session mode type of session mode
-	* @return return the enumerated type of the session mode
-	*/
-	SessionModeType GetSessionType() override { return SessionModeType::ReliableSessionSessionMode; }
-
-
-	/**
 	* @brief Returns if the two classes are equal
 	* @return Reference to the class with which we want to compare
 	*/
-	bool IsEqual(ReliableSessionSessionMode& reliableSessionSessionMode)
+	bool IsEqual(SessionController& reliableSessionSessionMode)
 	{
 		bool bIsEqual = (
 			(m_cTransmissionState == reliableSessionSessionMode.m_cTransmissionState) &&
@@ -231,6 +171,7 @@ public:
 	{
 		m_uSequenceNumber++;
 	}
+
 };
 
 #endif

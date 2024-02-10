@@ -2,7 +2,7 @@
 #define SESSION_MODE_TYPES_TESTS
 
 #include "doctest.h"
-#include "SessionModeTypes.h"
+#include "SessionController.h"
 
 TEST_CASE("Session Mode Types Test") {
 

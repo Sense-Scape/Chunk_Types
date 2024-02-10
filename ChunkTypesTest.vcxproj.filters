@@ -27,7 +27,7 @@
     <ClInclude Include="include\JSONChunkTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include_tests\SessionModeTypesTests.h">
+    <ClInclude Include="include_tests\SessionControllerTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include_tests\ChunkDuplicatorUtilityTests.h">

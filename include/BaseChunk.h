@@ -17,21 +17,30 @@
 class BaseChunk
 {
 public:
+    
     /**
-     * @brief Default constructor for a new Base Chunk object
+     * @brief Copy constructor for a new Base Chunk object
+    */
+    BaseChunk();
+    virtual ~BaseChunk() {};
+
+    /**
+     * @brief Constructor for a new Base Chunk object
      * @param[in] vu8SourceIdentifier vector that stores the source identifier
      */
     BaseChunk(std::vector<uint8_t> vu8SourceIdentifier);
-    BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk);
-    BaseChunk();
 
     /**
-     * @brief Construct a new Base Chunk object
+     * @brief Copy constructor for a new Base Chunk object
+     * @param[in] pBaseChunk shared pointer to chunk
+     */
+    BaseChunk(std::shared_ptr<BaseChunk> pBaseChunk);
+
+    /**
+     * @brief Copy constructor a new Base Chunk object
      * @param[in] baseChunk Reference to another BaseChunk
      */
     BaseChunk(const BaseChunk& baseChunk);
-
-    virtual ~BaseChunk() {};
 
     /**
      * @brief Get the Type object
@@ -71,13 +80,14 @@ public:
 
     /**
      * @brief Returns if the two classes are equal
-     * @return Reference to the class with which we want to compare
+     * @param[in] Reference to the class with which we want to compare
+     * @return bool Whether the class is equal or not
      */
     bool IsEqual(BaseChunk& baseChunk);
 
 protected:
 
-    uint16_t m_u16SourceIdentifierSize;        ///< Size of unique identifier
+    uint16_t m_u16SourceIdentifierSize;         ///< Size of unique identifier
     std::vector<uint8_t> m_vu8SourceIdentifier; ///< Source identifier of the chunk
 
     /**
@@ -85,11 +95,12 @@ protected:
      * @return pvBytes Shared pointer to byte array that shall be filled
      */
     std::shared_ptr<std::vector<char>> GetInternalSerialisation();
+
 private:
 
     /**
      * @brief Get the size of object in bytes
-     * @return Size of object in bytes
+     * @return Size of base object in bytes
      */
     unsigned GetInternalSize();
 };

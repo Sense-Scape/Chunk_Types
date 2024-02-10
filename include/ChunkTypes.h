@@ -19,7 +19,7 @@
 enum class ChunkType
 {
     ChunkBase,
-    UDPChunk,
+    ByteChunk,
     TimeChunk,
     WAVChunk,
     WatchdogChunk,
