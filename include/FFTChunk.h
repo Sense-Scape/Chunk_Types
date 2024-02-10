@@ -11,21 +11,21 @@
 #include "ChunkToJSONConverter.h"
 
 /**
- * @brief Time Data Chunk used to store all samples data from the
- *          The active ADCs and their respective channels
+ * @brief Frequency Data Chunk used to store complex channel FFT data
  */
 class FFTChunk : public BaseChunk,
     public ChunkToJSONConverter
 {
 public:
+
     double m_dChunkSize;                                            ///< Number of samples contained in a single chunk
     double m_dSampleRate;                                           ///< Sample rate used to obtain data in chunk
     uint64_t m_i64TimeStamp;                                        ///< Timestamp of when chunk was taken
     unsigned m_uNumChannels;                                        ///< Number of audio channels in chunk
-    std::vector<std::vector<std::complex<float>>> m_vvcfFFTChunks; ///< Vector of vectors corresponding to channel samples
+    std::vector<std::vector<std::complex<float>>> m_vvcfFFTChunks;  ///< Vector of vectors corresponding to channel samples
 
     /**
-     * @brief Construct a new Base Chunk object
+     * @brief Construct a new empty FFtChunk object
      */
     FFTChunk();
 
@@ -33,16 +33,21 @@ public:
      * @brief Construct a new Base Chunk object
      * @param[in] dChunkSize The number of samples contained in each ADC channel chunk
      * @param[in] dSampleRate The sample rate used to generate all data within the chunk
-     * @param[in] llTimeStamp The time the chunk was created
+     * @param[in] i64TimeStamp The time the chunk was created
      * @param[in] uNumChannels Number of audio channels in chunk
      */
     FFTChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uNumChannels);
 
     /**
-     * @brief Construct a new Time Chunk object
-     * @param[in] FFTChunk pointer to time chunk
+     * @brief Copy constrtuctor for the FFT chunk
+     * @param[in] FFTChunk reference
      */
     FFTChunk(const FFTChunk& FFTChunk);
+
+    /**
+     * @brief Copy constrtuctor for the FFT chunk
+     * @param[in] Shared pointer to FFT chunk
+     */
     FFTChunk(std::shared_ptr<FFTChunk> pFFTChunk);
 
     /**
@@ -71,13 +76,14 @@ public:
 
     /**
     * @brief Returns if the two classes are equal
-    * @return Reference to the class with which we want to compare
+    * @param[in] FFTChunk Reference to the class with which we want to compare
+    * @return whether the classes are equal or not
     */
     bool IsEqual(FFTChunk& FFTChunk);
 
     /**
     * @brief Calculates power array for a given FFT channel
-    * @param[in] Channel index for which calcualtion should take place
+    * @param[in] uChannelIndex for which calcualtion should take place
     * @return shared pointer to vector containing power data
     */
     std::shared_ptr<std::vector<float>> GetChannelPower(unsigned uChannelIndex);
@@ -88,6 +94,7 @@ public:
     std::shared_ptr<nlohmann::json> ToJSON() override;
 
 protected:
+
     /**
      * @brief Fill a byte array the represents this object
      * @param[in] pByteArray Shared pointer to byte vector containing byte data
@@ -110,6 +117,7 @@ private:
     /**
     * @brief Converts a member channel of complex data to string <I,Q>
     * @param uChannelIndex the channel which shall be converted
+    * @return A string a comma delimited complex data
     */
     std::string ConvertComplexChannelDataToString(uint16_t uChannelIndex);
 };
