@@ -30,9 +30,6 @@
     <ClInclude Include="include/SessionModeTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include/UDPChunk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include/WAVChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,15 +51,15 @@
     <ClInclude Include="include\FFTMagnitudeChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ByteChunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BaseChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\TimeChunk.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UDPChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\WatchdogChunk.cpp">
@@ -78,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\FFTMagnitudeChunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ByteChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

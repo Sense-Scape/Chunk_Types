@@ -2,14 +2,14 @@
 #define SESSION_MODE_TYPES
 
 #include <utility>
-#include "UDPChunk.h"
+#include "ByteChunk.h"
 
 /*
 * List of Session mode types.
 * These intends to leverage the idea of the layer OSI model (layer 5)
 *
-* This defines how data is packaged within the a UDP datagram or TCP data field
-* and informs modules that follows UDP/TCP modules as to how to process the
+* This defines how data is packaged within the a Byte datagram or TCP data field
+* and informs modules that follows Byte/TCP modules as to how to process the
 * data they have been passed
 */
 
@@ -39,7 +39,7 @@ public:
 
 	/**
 	* @brief Converts array of bytes into session states
-	* @param[in] pBaseChunk base chunk of containing UDP char bytes
+	* @param[in] pBaseChunk base chunk of containing Byte char bytes
 	*/
 	virtual void ConvertBytesToStates(std::shared_ptr<BaseChunk> pBaseChunk) {};
 

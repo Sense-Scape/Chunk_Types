@@ -9,7 +9,7 @@
 #include "ChunkToJSONConverter.h"
 
 /**
- * @brief UDP Data Chunk used to store UDP datagram data to pass between modules
+ * @brief Byte Data Chunk used to store Byte datagram data to pass between modules
  */
 class WatchdogChunk :   public BaseChunk,
                         public ChunkToJSONConverter
