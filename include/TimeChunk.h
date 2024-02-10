@@ -11,8 +11,7 @@
 #include "ChunkToJSONConverter.h"
 
 /**
- * @brief Time Data Chunk used to store all samples data from the
- *          The active ADCs and their respective channels
+ * @brief Chunk used to store multichannel time data
  */
 class TimeChunk : public BaseChunk,
                   public ChunkToJSONConverter
@@ -27,7 +26,7 @@ public:
     std::vector<std::vector<int16_t>> m_vvi16TimeChunks;            ///< Vector of vectors corresponding to channel samples
 
     /**
-     * @brief Construct a new Base Chunk object
+     * @brief Empty construct a new Base Chunk object
      */
     TimeChunk();
 
@@ -35,7 +34,7 @@ public:
      * @brief Construct a new Base Chunk object
      * @param[in] dChunkSize The number of samples contained in each ADC channel chunk
      * @param[in] dSampleRate The sample rate used to generate all data within the chunk
-     * @param[in] llTimeStamp The time the chunk was created
+     * @param[in] i64TimeStamp The time the chunk was created
      * @param[in] uBits Bits of ADC used to produce chunk
      * @param[in] uNumBytes Number of bytes in single sample
      * @param[in] uNumChannels Number of audio channels in chunk
@@ -43,10 +42,15 @@ public:
     TimeChunk(double dChunkSize, double dSampleRate, uint64_t i64TimeStamp, unsigned uBits, unsigned uNumBytes, unsigned uNumChannels);
 
     /**
-     * @brief Construct a new Time Chunk object
-     * @param[in] timeChunk pointer to time chunk
+     * @brief Copy constructor of a time chunk
+     * @param[in] timeChunk reference
      */
     TimeChunk(const TimeChunk& timeChunk);
+    
+    /**
+     * @brief Copy constructor of a time chunk
+     * @param[in] timeChunk shared pointer
+     */
     TimeChunk(std::shared_ptr<TimeChunk> pTimeChunk);
 
     /**
