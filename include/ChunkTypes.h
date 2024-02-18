@@ -16,6 +16,8 @@
 * the processing chain. 
 */
 
+#define CHUNK_VERSION 1.0
+
 enum class ChunkType
 {
     ChunkBase,
