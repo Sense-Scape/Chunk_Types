@@ -92,6 +92,12 @@ public:
      */
     bool IsEqual(BaseChunk& baseChunk);
 
+    /**
+     * @brief returnt the chunk verion
+     * @return float of the chunk version
+     */
+    float GetChunkVersion() { return CHUNK_VERSION; };
+
 protected:
 
     uint16_t m_u16SourceIdentifierSize;         ///< Size of unique identifier
