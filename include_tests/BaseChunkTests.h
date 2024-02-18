@@ -42,6 +42,10 @@ TEST_CASE("BaseChunk Test") {
         CHECK(BaseChunkTestClass.IsEqual(BaseChunkTestClassCopy_0));
     }
 
+    SUBCASE("Checking Other functionality") {
+        /// Lets check if we can convert the source identifier to something easily readable
+        CHECK(BaseChunkTestClass.GetSourceIdentifierAsString() == "255:255:255");
+    }
 
     // We can also go ahead and check if the copy constructor works
     BaseChunk BaseChunkTestClassCopy_1(BaseChunkTestClass);
