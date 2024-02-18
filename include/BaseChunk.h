@@ -7,6 +7,7 @@
 #include <vector>
 #include <cstring> // for memcpy
 #include <iostream>
+#include <sstream>
 
 /* Custom Includes */
 #include "ChunkTypes.h"
@@ -77,6 +78,12 @@ public:
      * @return Vector of uint8_t of the source identifer
      */
     std::vector<uint8_t> GetSourceIdentifier();
+
+    /**
+     * @brief Returns the source identifer of class
+     * @return string of uint8_t of the source identifer
+     */
+    std::string GetSourceIdentifierAsString();
 
     /**
      * @brief Returns if the two classes are equal

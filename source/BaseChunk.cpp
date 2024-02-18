@@ -103,6 +103,26 @@ std::vector<uint8_t> BaseChunk::GetSourceIdentifier()
 	return m_vu8SourceIdentifier;
 }
 
+std::string BaseChunk::GetSourceIdentifierAsString()
+{
+	if (!m_u16SourceIdentifierSize)
+		return "";
+	
+	std::ostringstream oss;
+	for (size_t i = 0; i < m_vu8SourceIdentifier.size(); ++i) {
+
+		// Convert each uint to a string and append it to the stringstream
+		oss << std::to_string(m_vu8SourceIdentifier[i]);
+
+		// If it's not the last element, add a colon
+		if (i != m_vu8SourceIdentifier.size() - 1)
+			oss << ":";
+	}
+
+	// Convert the stringstream to a string and return
+	return oss.str();
+}
+
 bool BaseChunk::IsEqual(BaseChunk& baseChunk)
 {
 	bool bIsEqual = (
